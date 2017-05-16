@@ -80,6 +80,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -198,14 +200,47 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Data_Access_Layer\ProjectDBInitializer.cs" />
+    <Compile Include="Data_Access_Layer\IdentityDBInitializer.cs" />
+    <Compile Include="Data_Access_Layer\ProjectDBContext.cs" />
+    <Compile Include="Exceptions\CannotEditStatusException.cs" />
+    <Compile Include="Exceptions\ClientAdditionConflictException.cs" />
+    <Compile Include="Exceptions\EditQMInfoPermissionException.cs" />
+    <Compile Include="Exceptions\EditStatusPermissionException.cs" />
+    <Compile Include="Exceptions\ExcedesAllowedCostException.cs" />
+    <Compile Include="Exceptions\ExcedesAllowedHoursException.cs" />
+    <Compile Include="Exceptions\FailedToCreateClientOrIntervention.cs" />
+    <Compile Include="Exceptions\FailedToCreateRecordException.cs" />
+    <Compile Include="Exceptions\FailedToUpdateClientListOrInterventionList.cs" />
+    <Compile Include="Exceptions\FailedToUpdateRecordException.cs" />
+    <Compile Include="Exceptions\FaliedToRetriveRecordException.cs" />
+    <Compile Include="Exceptions\InterventionAdditionConflictExpection.cs" />
+    <Compile Include="Exceptions\InvalidConditionLimitException.cs" />
+    <Compile Include="Exceptions\InvalidConditionUpdateException.cs" />
+    <Compile Include="Exceptions\InvalidEmailFormatException.cs" />
+    <Compile Include="Exceptions\InvalidPasswordFormatException.cs" />
+    <Compile Include="Exceptions\LostClientInformationException.cs" />
+    <Compile Include="Exceptions\QualityManagementAdditionConflict.cs" />
+    <Compile Include="Exceptions\ValueIsNullException.cs" />
+    <Compile Include="Exceptions\ValueNotSelectedException.cs" />
+    <Compile Include="Exceptions\WrongCurrentPassword.cs" />
+    <Compile Include="Exceptions\WrongInputEmailException.cs" />
+    <Compile Include="Exceptions\WrongInputPasswordException.cs" />
+    <Compile Include="Exceptions\WrongUserInputException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Database_Models\Client.cs" />
+    <Compile Include="Models\Database_Models\User.cs" />
+    <Compile Include="Models\Districts.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Roles.cs" />
+    <Compile Include="Models\Status.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utils\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

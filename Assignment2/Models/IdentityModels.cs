@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Assignment2.Data_Access_Layer;
 
 namespace Assignment2.Models
 {
@@ -23,6 +24,7 @@ namespace Assignment2.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+            Database.SetInitializer(new IdentityDBInitializer());
         }
 
         public static ApplicationDbContext Create()
