@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Assignment2.Models.Database_Models
 {
@@ -9,5 +10,6 @@ namespace Assignment2.Models.Database_Models
         public string ClientName { get; set; }
         public string ClientLocation { get; set; }
         public int ClientDistrict { get; set; }
+        public virtual ICollection<Intervention> Interventions { get; set; }
     }
 }

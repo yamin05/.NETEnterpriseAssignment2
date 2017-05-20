@@ -1,16 +1,28 @@
-﻿using Assignment2.Models.Database_Models;
-using System.Data.Entity;
+﻿using Assignment2.Models;
+using System.Threading.Tasks;
 
 namespace Assignment2.Data_Access_Layer
 {
-    public class ProjectDBContext : DbContext
+    public class ProjectDBContext
     {
-        public ProjectDBContext() : base("name=Assignment2Database")
+        private ApplicationDbContext identityDBContext { get; set; }
+        private CustomDBContext customDBContext { get; set; }
+
+        public ProjectDBContext()
         {
-            Database.SetInitializer(new ProjectDBInitializer());
+            identityDBContext = new ApplicationDbContext();
+            customDBContext = new CustomDBContext();
         }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Client> Clients { get; set; }
+        public void Seed()
+        {
+            if (!identityDBContext.Database.Exists() && !customDBContext.Database.Exists())
+            {
+                var initializeIdentity = Task.Factory.StartNew(() => identityDBContext.Database.Initialize(true));
+                initializeIdentity.Wait();
+                var initializeCustom = Task.Factory.StartNew(() => customDBContext.Database.Initialize(true));
+                initializeCustom.Wait();
+            }
+        }
     }
 }

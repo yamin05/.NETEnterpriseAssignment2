@@ -4,30 +4,58 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Threading.Tasks;
 
 namespace Assignment2.Data_Access_Layer
 {
-    public class ProjectDBInitializer : DropCreateDatabaseAlways<ProjectDBContext>
+    public class CustomDBInitializer : CreateDatabaseIfNotExists<CustomDBContext>
 
     //TODO: Change the inherited class to IfModelChange before submition
 
     {
-        protected override void Seed(ProjectDBContext context)
+        protected override void Seed(CustomDBContext context)
         {
-            CreateUser(context);
+            CreateUser(context).Wait();
         }
 
-        private async void CreateUser(ProjectDBContext context)
+        private async Task CreateUser(CustomDBContext context)
         {
             var userStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
             var userManager = new UserManager<ApplicationUser>(userStore);
             User user;
             IList<User> users = new List<User>();
+            InterventionType interventionType;
+            IList<InterventionType> interventionTypes = new List<InterventionType>();
 
-            var findAccountant = await userManager. FindByEmailAsync("accountant@enet.com");
+            var count = await context.InterventionTypes.CountAsync();
+            if (count == 0)
+            {
+                interventionType = new InterventionType();
+                interventionType.InterventionTypeName = "Supply and Install Portable Toilet";
+                interventionType.InterventionTypeHours = 10;
+                interventionType.InterventionTypeCost = 200;
+                interventionTypes.Add(interventionType);
+                interventionType = new InterventionType();
+                interventionType.InterventionTypeName = "Hepatitis Avoidance Training";
+                interventionType.InterventionTypeHours = 15;
+                interventionType.InterventionTypeCost = 300;
+                interventionTypes.Add(interventionType);
+                interventionType = new InterventionType();
+                interventionType.InterventionTypeName = "Supply and Install Storm-proof Home Kit";
+                interventionType.InterventionTypeHours = 50;
+                interventionType.InterventionTypeCost = 500;
+                interventionTypes.Add(interventionType);
+            }
+
+            var findAccountant = await userManager.FindByEmailAsync("accountant@enet.com");
             if (!Utils.getInstance.isNullOrEmpty(findAccountant))
             {
-
+                user = new User();
+                user.UserId = findAccountant.Id;
+                user.MaximumHours = 1000;
+                user.MaximumCost = 50000;
+                user.District = Districts.URBAN_INDONESIA;
+                users.Add(user);
             }
             var findManager = await userManager.FindByEmailAsync("manager1@enet.com");
             if (!Utils.getInstance.isNullOrEmpty(findManager))
@@ -213,6 +241,10 @@ namespace Assignment2.Data_Access_Layer
             foreach (var Users in users)
             {
                 context.Users.Add(Users);
+            }
+            foreach (var InterventionType in interventionTypes)
+            {
+                context.InterventionTypes.Add(InterventionType);
             }
             base.Seed(context);
         }

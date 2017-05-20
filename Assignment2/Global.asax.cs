@@ -1,5 +1,4 @@
 ﻿using Assignment2.Data_Access_Layer;
-using Assignment2.Models;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -19,16 +18,8 @@ namespace Assignment2
 
         private void InitializeDB()
         {
-            var identity = new ApplicationDbContext();
-            if (!identity.Database.Exists())
-            {
-                await Task.Run() => identity.Database.Initialize(true);
-            }
-            var projectdb = new ProjectDBContext();
-            if (!projectdb.Database.Exists())
-            {
-                projectdb.Database.Initialize(true);
-            }
+            var databases = new ProjectDBContext();
+            databases.Seed();
         }
     }
 }

@@ -59,7 +59,7 @@ namespace Assignment2
 
         public string getHomePageURL(Roles role)
         {
-            return role.ToString() + "/" + role.ToString() + "Home.aspx";
+            return role + "/" + role + "Home.aspx";
         }
 
         public string getHomePageURL()
@@ -70,7 +70,7 @@ namespace Assignment2
 
         public string GetCurrentUserRole()
         {
-            var userStore = new UserStore<ApplicationUser>();
+            var userStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
             var userManager = new UserManager<ApplicationUser>(userStore);
             var roles = userManager.GetRoles(GetCurrentUserId());
             return roles.FirstOrDefault();

@@ -200,8 +200,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Data_Access_Layer\ProjectDBInitializer.cs" />
+    <Compile Include="Data_Access_Layer\CustomDBInitializer.cs" />
     <Compile Include="Data_Access_Layer\IdentityDBInitializer.cs" />
+    <Compile Include="Data_Access_Layer\CustomDBContext.cs" />
     <Compile Include="Data_Access_Layer\ProjectDBContext.cs" />
     <Compile Include="Exceptions\CannotEditStatusException.cs" />
     <Compile Include="Exceptions\ClientAdditionConflictException.cs" />
@@ -232,6 +233,8 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Database_Models\Client.cs" />
+    <Compile Include="Models\Database_Models\Intervention.cs" />
+    <Compile Include="Models\Database_Models\InterventionType.cs" />
     <Compile Include="Models\Database_Models\User.cs" />
     <Compile Include="Models\Districts.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -305,6 +308,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Site Engineer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
