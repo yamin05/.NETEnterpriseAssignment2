@@ -59,13 +59,13 @@ namespace Assignment2
 
         public string getHomePageURL(Roles role)
         {
-            return role + "/" + role + "Home.aspx";
+            return "~/" + role + "Index";
         }
 
         public string getHomePageURL()
         {
-            var role = GetCurrentUserRole();
-            return "~/Views/" + role + "/" + role + "Home.aspx";
+            var role = ReplaceUnderscore(GetCurrentUserRole());
+            return "~/" + role + "/Index";
         }
 
         public string GetCurrentUserRole()
@@ -81,9 +81,9 @@ namespace Assignment2
             return HttpContext.Current.User.Identity.GetUserId();
         }
 
-        public string GetDistrictName(string district)
+        public string ReplaceUnderscore(string str)
         {
-            return district.Replace("_", " ");
+            return str.Replace("_", "");
         }
     }
 }

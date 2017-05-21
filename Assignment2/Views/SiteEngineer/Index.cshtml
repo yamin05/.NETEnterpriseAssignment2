@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "Site Engineer Home Page";
+}
+<p>
+    <br />
+    <h2>@ViewBag.Title</h2>
+</p>
+@using (Html.BeginForm("Index", "SiteEngineer", FormMethod.Post, new { id = "submitForm" }))
+{
+    <p>
+        <button id="ButtonCreateNewClient" name="Button" value="Create New Client">Create New Client</button>
+    </p>
+    <p>
+        <button id="ButtonViewClient" name="Button" value="View All Clients Created By You">View All Clients Created By You</button>
+    </p>
+    <p>
+        <button id="ButtonViewAllClientsInSameDistrict" name="Button" value="View All Clients In Same District">View All Clients In Same District</button>
+    </p>
+    <hr />
+    <p>
+        <button id="ButtonCreateIntervention" name="Button" value="Create New Intervention">Create New Intervention</button>
+    </p>
+    <p>
+        <button ID="ButtonViewInterventions" name="Button" value="View All Interventions Created By You">View All Interventions Created By You</button>
+    </p>
+
+    <hr />
+
+    <p>
+        <button ID="ButtonChangePassword" name="Button" value="Change Password" Width="400px">Change Password</button>
+    </p>
+    <p>
+        &nbsp;
+    </p>
+}
