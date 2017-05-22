@@ -76,7 +76,14 @@ namespace Assignment2.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("LoginRoute");
+                    if (!Utils.getInstance.isNullOrEmpty(returnUrl))
+                    {
+                        return RedirectToLocal(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("LoginRoute");
+                    }
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

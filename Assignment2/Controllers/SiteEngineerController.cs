@@ -1,7 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using Assignment2.Models;
+using System.Web.Mvc;
 
 namespace Assignment2.Controllers
 {
+    [Authorize(Roles = Roles.SITE_ENGINEER)]
     public class SiteEngineerController : Controller
     {
         // GET: SiteEngineer
@@ -16,7 +18,8 @@ namespace Assignment2.Controllers
             if (Button.Equals("Create New Client"))
             {
                 return RedirectToAction("Login", "Account");                    //need to change all the redirect function, action and controller here
-            } else if (Button.Equals("View All Clients Created By You"))
+            }
+            else if (Button.Equals("View All Clients Created By You"))
             {
                 return RedirectToAction("Login", "Account");
             }
