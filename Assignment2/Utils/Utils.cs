@@ -59,13 +59,13 @@ namespace Assignment2
 
         public string getHomePageURL(Roles role)
         {
-            return "~/" + role + "Index";
+            return "~/" + role;
         }
 
         public string getHomePageURL()
         {
             var role = ReplaceUnderscore(GetCurrentUserRole());
-            return "~/" + role + "/Index";
+            return "~/" + role;
         }
 
         public string GetCurrentUserRole()
