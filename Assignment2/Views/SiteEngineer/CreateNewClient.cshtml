@@ -1,0 +1,51 @@
+﻿@using Assignment2.Models
+@using Assignment2
+@model CreateNewClientViewModel
+@{
+    ViewBag.Title = "CreateNewClient";
+}
+
+<h2>@ViewBag.Title</h2>
+<div class="row">
+    <div class="col-md-8">
+        <section id="createNewClientForm">
+            @using (Html.BeginForm("CreateNewClient", "SiteEngineer", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @*@Html.AntiForgeryToken()
+                <h4>Use an account to log in.</h4>
+                <hr />*@
+                @Html.ValidationMessage("success", new { @class = "text-success" })
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.clientName, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.clientName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.clientName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.clientLocation, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.clientLocation, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.clientLocation, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.clientDistrict, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.clientDistrict, new { @class = "form-control", @readonly = "readonly"})
+                        @Html.ValidationMessageFor(m => m.clientDistrict, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create New Client" class="btn btn-default" />
+                    </div>
+                </div>
+            }
+        </section>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

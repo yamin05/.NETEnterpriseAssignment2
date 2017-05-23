@@ -4,7 +4,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
-using WebApplication1.Exceptions;
+using WebApplication2.Exceptions;
 
 namespace Assignment2
 {
@@ -64,7 +64,7 @@ namespace Assignment2
 
         public string getHomePageURL()
         {
-            var role = ReplaceUnderscore(GetCurrentUserRole());
+            var role = RemoveUnderscore(GetCurrentUserRole());
             return "~/" + role;
         }
 
@@ -81,9 +81,33 @@ namespace Assignment2
             return HttpContext.Current.User.Identity.GetUserId();
         }
 
-        public string ReplaceUnderscore(string str)
+        public string RemoveUnderscore(string str)
         {
             return str.Replace("_", "");
+        }
+
+        //public object convertToObject(object type, string str)
+        //{
+        //    var prop = type.GetType().GetProperty(str);
+        //    if (this.isNullOrEmpty(prop))
+        //    {
+        //        var field = type.GetType().GetField(str);
+        //        if (this.isNullOrEmpty(field))
+        //        {
+        //            return null;
+        //        } else
+        //        {
+        //            return field.GetValue(type);
+        //        }
+        //    } else
+        //    {
+        //        return prop.GetValue(type);
+        //    }
+        //}
+
+        public string ReplaceSpaceWithUnderscore(string str)
+        {
+            return str.Replace(" ", "_");
         }
     }
 }

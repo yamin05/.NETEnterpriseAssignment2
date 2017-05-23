@@ -1,4 +1,6 @@
-﻿using Assignment2.Models;
+﻿using Assignment2.Helpers;
+using Assignment2.Models;
+using System;
 using System.Web.Mvc;
 
 namespace Assignment2.Controllers
@@ -17,7 +19,7 @@ namespace Assignment2.Controllers
         {
             if (Button.Equals("Create New Client"))
             {
-                return RedirectToAction("Login", "Account");                    //need to change all the redirect function, action and controller here
+                return RedirectToAction("CreateNewClient");                    //need to change all the redirect function, action and controller here
             }
             else if (Button.Equals("View All Clients Created By You"))
             {
@@ -40,6 +42,30 @@ namespace Assignment2.Controllers
                 return RedirectToAction("Login", "Account");
             }
             return View();
+        }
+
+        public ActionResult CreateNewClient()
+        {
+            var createClientHelper = new CreateClientHelper();
+            var viewModel = new CreateNewClientViewModel();
+            viewModel.clientDistrict = createClientHelper.GetDistrictForSiteManager();
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult CreateNewClient(CreateNewClientViewModel viewModel)
+        {
+            var createClientHelper = new CreateClientHelper();
+            try
+            {
+                createClientHelper.CreateClient(viewModel.clientName, viewModel.clientLocation, viewModel.clientDistrict);
+                ModelState.AddModelError("success", "Client Created Successfully");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex);
+            } 
+            return View(viewModel);
         }
     }
 }

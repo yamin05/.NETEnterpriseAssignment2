@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebApplication1.Exceptions
+namespace WebApplication2.Exceptions
 {
     public class InvalidEmailFormatException : Exception
     {
