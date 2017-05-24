@@ -1,0 +1,66 @@
+﻿@using Assignment2.Models
+@using Assignment2
+@model IEnumerable<ListInterventionViewModel>
+
+@{
+    ViewBag.Title = "List of Intervention to approve or cancel in your district";
+}
+
+<h2>List of Intervention to approve or cancel in your district</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientDistrict)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InterventionId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InterventionTypeName)
+        </th>  
+        <th>
+            @Html.DisplayNameFor(model => model.InterventionCost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InterventionHours)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </th>
+        <th></th>
+    </tr>
+
+        @foreach (var item in Model)
+        {
+           
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ClientName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ClientDistrict)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InterventionId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InterventionTypeName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InterventionCost)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InterventionHours)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreateDate)
+                </th>
+                <th></th>
+            </tr>
+    }
+
+</table>
