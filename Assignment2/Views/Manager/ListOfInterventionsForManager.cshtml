@@ -8,35 +8,9 @@
 
 <h2>List of Intervention to approve or cancel in your district</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ClientName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ClientDistrict)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.InterventionId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.InterventionTypeName)
-        </th>  
-        <th>
-            @Html.DisplayNameFor(model => model.InterventionCost)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.InterventionHours)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreateDate)
-        </th>
-        <th></th>
-    </tr>
-
-        @foreach (var item in Model)
-        {
-           
+    @if (Model.Any())
+    {   <hr />
+        <table class="table">
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.ClientName)
@@ -61,6 +35,46 @@
                 </th>
                 <th></th>
             </tr>
+            }
+
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ClientName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ClientDistrict)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.InterventionId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.InterventionTypeName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.InterventionCost)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.InterventionHours)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreateDate)
+                    </th>
+                    <th></th>
+                </tr>
+
+            }
+        </table>
     }
 
-</table>
+
+    else
+        {
+           <hr/>
+          <div> <h3>You have no interventions to approve or cancel</h3> </div>
+        }
+
+            
+
