@@ -18,9 +18,9 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                @if (User.IsInRole("Site_Engineer"))
+                @if (User.IsInRole(Assignment2.Models.Roles.SITE_ENGINEER))
                 {
-                @Html.ActionLink("Your Clients", "Index", "Clients", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Your Clients", "ViewAllClients", "SiteEngineer", new { }, new { @class = "navbar-brand" })
                 }
             </div>
             <div class="navbar-collapse collapse">
