@@ -1,6 +1,7 @@
 ﻿using Assignment2.Helpers;
 using Assignment2.Models;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Assignment2.Controllers
@@ -8,6 +9,7 @@ namespace Assignment2.Controllers
     [Authorize(Roles = Roles.SITE_ENGINEER)]
     public class SiteEngineerController : Controller
     {
+        private SiteEngineerHelper siteEngineerHelper = new SiteEngineerHelper();
         // GET: SiteEngineer
         public ActionResult Index()
         {
@@ -23,7 +25,7 @@ namespace Assignment2.Controllers
             }
             else if (Button.Equals("View All Clients In Same District"))
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("ViewAllClients");
             }
             else if (Button.Equals("Create New Intervention"))
             {
@@ -42,16 +44,22 @@ namespace Assignment2.Controllers
 
         public ActionResult CreateNewClient()
         {
-            var createClientHelper = new CreateClientHelper();
             var viewModel = new CreateNewClientViewModel();
-            viewModel.clientDistrict = createClientHelper.GetDistrictForSiteManager();
+            viewModel.clientDistrict = siteEngineerHelper.GetDistrictForSiteManager();
             return View(viewModel);
+        }
+
+        public ActionResult ViewAllClients()
+        {
+            IList<GetAllClientsViewModel> viewModels= new List<GetAllClientsViewModel>();
+            viewModels = siteEngineerHelper.GetAllClientsForUser();
+            return View(viewModels);
         }
 
         [HttpPost]
         public ActionResult CreateNewClient(CreateNewClientViewModel viewModel)
         {
-            var createClientHelper = new CreateClientHelper();
+            var createClientHelper = new SiteEngineerHelper();
             try
             {
                 createClientHelper.CreateClient(viewModel.clientName, viewModel.clientLocation, viewModel.clientDistrict);

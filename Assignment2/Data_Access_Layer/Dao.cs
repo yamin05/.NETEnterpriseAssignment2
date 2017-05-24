@@ -20,6 +20,17 @@ namespace Assignment2.Data_Access_Layer
             }
         }
 
+        public IList<Client> GetAllClientsForUser(string userId)
+        {
+            using (context = new CustomDBContext())
+            {
+                var clients = context.Clients
+                           .Where(c => c.CreatedByUserId.Equals(userId))
+                           .Select(c => c);
+                return clients.ToList();
+            }
+        }
+
         public Client GetClient()
         {
             using (context = new CustomDBContext())
