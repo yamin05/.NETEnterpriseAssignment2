@@ -18,6 +18,10 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @if (User.IsInRole("Site_Engineer"))
+                {
+                @Html.ActionLink("Your Clients", "Index", "Clients", new { area = "" }, new { @class = "navbar-brand" })
+                }
             </div>
             <div class="navbar-collapse collapse">
                 @Html.Partial("_LoginPartial")

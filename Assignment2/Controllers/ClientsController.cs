@@ -11,11 +11,11 @@ using Assignment2.Models.Database_Models;
 
 namespace Assignment2.Controllers
 {
+    [Authorize (Roles = "Site_Engineer")]
     public class ClientsController : Controller
     {
         private CustomDBContext db = new CustomDBContext();
 
-        // GET: Clients
         public ActionResult Index()
         {
 
@@ -24,7 +24,6 @@ namespace Assignment2.Controllers
             return View(clients.ToList());
         }
 
-        // GET: Clients/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -39,16 +38,13 @@ namespace Assignment2.Controllers
             return View(client);
         }
 
-        // GET: Clients/Create
         public ActionResult Create()
         {
             ViewBag.CreatedByUserId = new SelectList(db.Users, "UserId", "District");
             return View();
         }
 
-        // POST: Clients/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ClientId,ClientName,ClientLocation,ClientDistrict,CreatedByUserId,CreateDate")] Client client)
@@ -64,7 +60,6 @@ namespace Assignment2.Controllers
             return View(client);
         }
 
-        // GET: Clients/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -80,9 +75,7 @@ namespace Assignment2.Controllers
             return View(client);
         }
 
-        // POST: Clients/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+ 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ClientId,ClientName,ClientLocation,ClientDistrict,CreatedByUserId,CreateDate")] Client client)
@@ -97,7 +90,6 @@ namespace Assignment2.Controllers
             return View(client);
         }
 
-        // GET: Clients/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -112,7 +104,6 @@ namespace Assignment2.Controllers
             return View(client);
         }
 
-        // POST: Clients/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
