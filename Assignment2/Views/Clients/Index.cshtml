@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Assignment2.Models.Database_Models.Client>
+
+@{
+    ViewBag.Title = "Clients";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientLocation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClientName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClientLocation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ClientId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ClientId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ClientId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -198,6 +198,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SiteEngineerController.cs" />
@@ -235,6 +236,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CreateClientHelper.cs" />
+    <Compile Include="Migrations\ENET\201705230314047_InitialCreate.cs" />
+    <Compile Include="Migrations\ENET\201705230314047_InitialCreate.Designer.cs">
+      <DependentUpon>201705230314047_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ENET\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Database_Models\Client.cs" />
     <Compile Include="Models\Database_Models\Intervention.cs" />
@@ -251,8 +257,17 @@
     <Compile Include="Utils\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-Assignment2-20170505045859.mdf" />
+    <Content Include="App_Data\aspnet-Assignment2-20170505045859_log.ldf">
+      <DependentUpon>aspnet-Assignment2-20170505045859.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\Assignment2Database.mdf" />
+    <Content Include="App_Data\Assignment2Database_log.ldf">
+      <DependentUpon>Assignment2Database.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Docs\Migrations.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -310,9 +325,11 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\SiteEngineer\Index.cshtml" />
     <Content Include="Views\SiteEngineer\CreateNewClient.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Content Include="Views\Clients\Create.cshtml" />
+    <Content Include="Views\Clients\Delete.cshtml" />
+    <Content Include="Views\Clients\Details.cshtml" />
+    <Content Include="Views\Clients\Edit.cshtml" />
+    <Content Include="Views\Clients\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -321,6 +338,11 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\ENET\201705230314047_InitialCreate.resx">
+      <DependentUpon>201705230314047_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

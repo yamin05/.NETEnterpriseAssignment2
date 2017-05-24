@@ -21,10 +21,6 @@ namespace Assignment2.Controllers
             {
                 return RedirectToAction("CreateNewClient");                    //need to change all the redirect function, action and controller here
             }
-            else if (Button.Equals("View All Clients Created By You"))
-            {
-                return RedirectToAction("Login", "Account");
-            }
             else if (Button.Equals("View All Clients In Same District"))
             {
                 return RedirectToAction("Login", "Account");
