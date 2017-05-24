@@ -17,4 +17,19 @@ namespace Assignment2.Models
         [Display(Name = "Client District")]
         public string clientDistrict { get; set; }
     }
+
+    public class GetAllClientsViewModel
+    {
+        [Display(Name = "Client ID")]
+        public int clientID { get; set; }
+
+        [Display(Name = "Client Name")]
+        public string clientName { get; set; }
+
+        [Display(Name = "Client Location")]
+        public string clientLocation { get; set; }
+
+        [Display(Name = "Client District")]
+        public string clientDistrict { get; set; }
+    }
 }

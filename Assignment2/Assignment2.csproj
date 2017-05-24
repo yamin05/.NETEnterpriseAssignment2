@@ -237,7 +237,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\CreateClientHelper.cs" />
+    <Compile Include="Helpers\SiteEngineerHelper.cs" />
     <Compile Include="Helpers\ListInterventionHelper.cs" />
     <Compile Include="Migrations\ENET\201705230314047_InitialCreate.cs" />
     <Compile Include="Migrations\ENET\201705230314047_InitialCreate.Designer.cs">
@@ -256,7 +256,7 @@
     <Compile Include="Models\Database_Models\User.cs" />
     <Compile Include="Models\Districts.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ListInterventionViewModel.cs" />
+    <Compile Include="Models\ManagerViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Roles.cs" />
     <Compile Include="Models\SiteEngineerViewModels.cs" />
@@ -336,6 +336,7 @@
     <Content Include="Views\SiteEngineer\CreateNewClient.cshtml" />
     <Content Include="Views\Manager\Index.cshtml" />
     <Content Include="Views\Manager\ListOfInterventionsForManager.cshtml" />
+    <Content Include="Views\SiteEngineer\ViewAllClients.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Clients\Create.cshtml" />
