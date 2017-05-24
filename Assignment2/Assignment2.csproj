@@ -244,6 +244,11 @@
       <DependentUpon>201705230314047_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ENET\Configuration.cs" />
+    <Compile Include="Migrations\Identity\201705230313564_InitialCreate.cs" />
+    <Compile Include="Migrations\Identity\201705230313564_InitialCreate.Designer.cs">
+      <DependentUpon>201705230313564_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Identity\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Database_Models\Client.cs" />
     <Compile Include="Models\Database_Models\Intervention.cs" />
@@ -351,6 +356,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\ENET\201705230314047_InitialCreate.resx">
       <DependentUpon>201705230314047_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Identity\201705230313564_InitialCreate.resx">
+      <DependentUpon>201705230313564_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

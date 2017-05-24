@@ -1,5 +1,5 @@
 ﻿@using Assignment2.Models
-@model GetAllClientsViewModel
+@model IEnumerable<GetAllClientsViewModel>
 @{
     ViewBag.Title = "View All Clients";
 }
@@ -24,23 +24,21 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ClientName)
+                @Html.DisplayFor(modelItem => item.clientName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ClientLocation)
+                @Html.DisplayFor(modelItem => item.clientLocation)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CreateDate)
+                @Html.DisplayFor(modelItem => item.clientDistrict)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ClientId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ClientId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ClientId })
+                @Html.ActionLink("View Associated Interventions", "ViewAssociatedInterventions", new { id = item.clientID })
             </td>
         </tr>
     }
 
 </table>
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New Client", "CreateNewClient")
 </p>
