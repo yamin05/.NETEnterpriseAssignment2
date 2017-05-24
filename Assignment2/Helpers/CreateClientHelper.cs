@@ -34,7 +34,7 @@ namespace Assignment2.Helpers
             try
             {
                 dao.AddClient(client.CreatedBy, client);
-            } catch (Exception ex)
+            } catch (Exception)
             {
                 throw new FailedToCreateRecordException();
             }
