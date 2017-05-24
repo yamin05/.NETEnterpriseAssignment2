@@ -18,8 +18,9 @@ namespace Assignment2.Controllers
         // GET: Clients
         public ActionResult Index()
         {
-            
-            var clients = db.Clients.Include(c => c.CreatedBy);
+
+            var currentUserId = Utils.getInstance.GetCurrentUserId();
+            var clients = db.Clients.Include(c => c.CreatedBy).Where(c => c.CreatedBy.UserId == currentUserId);
             return View(clients.ToList());
         }
 
