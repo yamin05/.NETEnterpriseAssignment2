@@ -25,7 +25,7 @@ namespace Assignment2.Helpers
                 dao.GetClient();
                 return district;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw new FaliedToRetriveRecordException();
             }
@@ -49,27 +49,32 @@ namespace Assignment2.Helpers
             }
         }
 
-        public IList<GetAllClientsViewModel> GetAllClientsForUser()
-        {
-            IList<GetAllClientsViewModel> viewModels = new List<GetAllClientsViewModel>();
-            try
-            {
-                var clients = dao.GetAllClientsForUser(Utils.getInstance.GetCurrentUserId());
-                foreach (var client in clients)
-                {
-                    var viewModel = new GetAllClientsViewModel();
-                    viewModel.clientID = client.ClientId;
-                    viewModel.clientName = client.ClientName;
-                    viewModel.clientLocation = client.ClientLocation;
-                    viewModel.clientDistrict = client.ClientDistrict;
-                    viewModels.Add(viewModel);
-                }
-                return viewModels;
-            }
-            catch (Exception)
-            {
-                throw new FaliedToRetriveRecordException();
-            }
-        }
+
+
+     /** No Need for following code for retriving Clients from DB !!
+      
+        //public IList<GetAllClientsViewModel> GetAllClientsForUser()
+        //{
+        //    IList<GetAllClientsViewModel> viewModels = new List<GetAllClientsViewModel>();
+        //    try
+        //    {
+        //        var clients = dao.GetAllClientsForUser(Utils.getInstance.GetCurrentUserId());
+        //        foreach (var client in clients)
+        //        {
+        //            var viewModel = new GetAllClientsViewModel();
+        //            viewModel.clientID = client.ClientId;
+        //            viewModel.clientName = client.ClientName;
+        //            viewModel.clientLocation = client.ClientLocation;
+        //            viewModel.clientDistrict = client.ClientDistrict;
+        //            viewModels.Add(viewModel);
+        //        }
+        //        return viewModels;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw new FaliedToRetriveRecordException();
+        //    }
+        //}
+    **/
     }
 }

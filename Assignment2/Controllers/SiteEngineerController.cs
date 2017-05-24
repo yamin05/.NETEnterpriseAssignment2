@@ -21,7 +21,7 @@ namespace Assignment2.Controllers
         {
             if (Button.Equals("Create New Client"))
             {
-                return RedirectToAction("CreateNewClient");                    //need to change all the redirect function, action and controller here for every buttons
+                return RedirectToAction("Create", "Clients");                    //need to change all the redirect function, action and controller here for every buttons
             }
             else if (Button.Equals("View All Clients In Same District"))
             {
@@ -42,34 +42,41 @@ namespace Assignment2.Controllers
             return View();
         }
 
-        public ActionResult CreateNewClient()
-        {
-            var viewModel = new CreateNewClientViewModel();
-            viewModel.clientDistrict = siteEngineerHelper.GetDistrictForSiteManager();
-            return View(viewModel);
-        }
 
-        public ActionResult ViewAllClients()
-        {
-            IList<GetAllClientsViewModel> viewModels= new List<GetAllClientsViewModel>();
-            viewModels = siteEngineerHelper.GetAllClientsForUser();
-            return View(viewModels);
-        }
 
-        [HttpPost]
-        public ActionResult CreateNewClient(CreateNewClientViewModel viewModel)
-        {
-            var createClientHelper = new SiteEngineerHelper();
-            try
-            {
-                createClientHelper.CreateClient(viewModel.clientName, viewModel.clientLocation, viewModel.clientDistrict);
-                ModelState.AddModelError("success", "Client Created Successfully");
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError(string.Empty, ex);
-            } 
-            return View(viewModel);
-        }
+    /** Saperated Clients Controller - No need for following Code!!!
+
+        //public ActionResult CreateNewClient()
+        //{
+        //    var viewModel = new CreateNewClientViewModel();
+        //    viewModel.clientDistrict = siteEngineerHelper.GetDistrictForSiteManager();
+        //    return View(viewModel);
+        //}
+
+        //public ActionResult ViewAllClients()
+        //{
+        //    IList<GetAllClientsViewModel> viewModels= new List<GetAllClientsViewModel>();
+        //    viewModels = siteEngineerHelper.GetAllClientsForUser();
+        //    return View(viewModels);
+        //}
+
+        //[HttpPost]
+        //public ActionResult CreateNewClient(CreateNewClientViewModel viewModel)
+        //{
+        //    var createClientHelper = new SiteEngineerHelper();
+        //    try
+        //    {
+        //        createClientHelper.CreateClient(viewModel.clientName, viewModel.clientLocation, viewModel.clientDistrict);
+        //        ModelState.AddModelError("success", "Client Created Successfully");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ModelState.AddModelError(string.Empty, ex);
+        //    } 
+        //    return View(viewModel);
+        //}
+
+    **/
+
     }
 }
