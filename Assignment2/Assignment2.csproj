@@ -337,6 +337,7 @@
     <Content Include="Views\Manager\Index.cshtml" />
     <Content Include="Views\Manager\ListOfInterventionsForManager.cshtml" />
     <Content Include="Views\SiteEngineer\ViewAllClients.cshtml" />
+    <Content Include="Views\Manager\EditIntervention.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Clients\Create.cshtml" />

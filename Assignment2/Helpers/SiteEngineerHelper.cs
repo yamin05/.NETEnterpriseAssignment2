@@ -25,7 +25,7 @@ namespace Assignment2.Helpers
                 dao.GetClient();
                 return district;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw new FaliedToRetriveRecordException();
             }

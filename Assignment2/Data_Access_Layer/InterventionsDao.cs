@@ -19,7 +19,7 @@ namespace Assignment2.Data_Access_Layer
             }
         }
 
-        public Intervention GetIntervention(string InterventionId)
+        public Intervention GetIntervention(int? InterventionId)
         {
             using (context = new CustomDBContext())
             {

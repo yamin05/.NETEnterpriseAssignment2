@@ -23,6 +23,10 @@
                 {
                 @Html.ActionLink("Your Clients", "ViewAllClients", "SiteEngineer", new { }, new { @class = "navbar-brand" })
                 }
+                @if (User.IsInRole(Assignment2.Models.Roles.MANAGER))
+                {
+                    @Html.ActionLink("Approve Or Cancel Interventions ", "ListOfInterventionsForManager", "Manager", new { }, new { @class = "navbar-brand" })
+                }
             </div>
             <div class="navbar-collapse collapse">
                 @Html.Partial("_LoginPartial")

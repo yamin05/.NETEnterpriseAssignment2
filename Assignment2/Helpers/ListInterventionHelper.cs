@@ -18,6 +18,13 @@ namespace Assignment2.Helpers
 
         }
 
+        public Intervention GetIntervention(int? userid)
+        {
+            Intervention Inter = new Intervention();
+            Inter = InterventionDao.GetIntervention(userid);
+            return Inter;
+        }
+
         public IList<Intervention> ListofProposedIntervention()
         {
             IList<Intervention> ProposedInterList = new List<Intervention>();
@@ -77,6 +84,8 @@ namespace Assignment2.Helpers
             }
 
         }
+
+
 
     }
 }   

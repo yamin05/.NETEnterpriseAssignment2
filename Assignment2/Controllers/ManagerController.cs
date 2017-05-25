@@ -4,6 +4,7 @@ using System;
 using System.Web.Mvc;
 using Assignment2.Models.Database_Models;
 using System.Collections.Generic;
+using System.Net;
 
 namespace Assignment2.Controllers
 {
@@ -53,6 +54,27 @@ namespace Assignment2.Controllers
                 ModelState.AddModelError(string.Empty, ex);
             }
             return View(viewModel);
+        }
+        public ActionResult EditIntervention(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var intervention = new ListInterventionHelper();
+            var inter = intervention.GetIntervention(id);
+            if (inter == null)
+            {
+                return HttpNotFound();
+            }
+            return View(inter);
+        }
+
+
+        [HttpPost]
+        public ActionResult EditIntervention([Bind(Include = "ClientDistrict,ClientName,InterventionTypeName,InterventionHours,CreateDate,Intervention")] ListInterventionViewModel InterList)
+        {
+            return View(InterList);
         }
     }
 }
