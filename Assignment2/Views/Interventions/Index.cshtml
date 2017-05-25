@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Assignment2.Models.Database_Models.Intervention>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ApprovedBy.District)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy.District)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InterTypeId.InterventionTypeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InterventionCost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InterventionHours)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Condition)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifyDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApprovedBy.District)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy.District)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InterTypeId.InterventionTypeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InterventionCost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InterventionHours)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Condition)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifyDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.InterventionId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.InterventionId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.InterventionId })
+        </td>
+    </tr>
+}
+
+</table>

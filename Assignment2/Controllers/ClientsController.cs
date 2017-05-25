@@ -8,6 +8,9 @@ using System.Web;
 using System.Web.Mvc;
 using Assignment2.Data_Access_Layer;
 using Assignment2.Models.Database_Models;
+using Assignment2.Models;
+using Assignment2.Helpers;
+
 
 namespace Assignment2.Controllers
 {
@@ -15,104 +18,42 @@ namespace Assignment2.Controllers
     public class ClientsController : Controller
     {
         private CustomDBContext db = new CustomDBContext();
+        private SiteEngineerHelper siteEngineerHelper = new SiteEngineerHelper();
+        private Dao d = new Dao();
 
         public ActionResult Index()
         {
 
-            var currentUserId = Utils.getInstance.GetCurrentUserId();
-            var clients = db.Clients.Include(c => c.CreatedBy).Where(c => c.CreatedBy.UserId == currentUserId);
+            var clients = d.GetAllClientsForUser();
             return View(clients.ToList());
         }
 
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Client client = db.Clients.Find(id);
-            if (client == null)
-            {
-                return HttpNotFound();
-            }
-            return View(client);
-        }
 
         public ActionResult Create()
         {
-            ViewBag.CreatedByUserId = new SelectList(db.Users, "UserId", "District");
-            return View();
+            var viewModel = new CreateNewClientViewModel();
+            viewModel.clientDistrict = siteEngineerHelper.GetDistrictForSiteManager();
+            return View(viewModel);
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ClientId,ClientName,ClientLocation,ClientDistrict,CreatedByUserId,CreateDate")] Client client)
+        public ActionResult Create(CreateNewClientViewModel viewModel)
         {
-            if (ModelState.IsValid)
+            var createClientHelper = new SiteEngineerHelper();
+            try
             {
-                db.Clients.Add(client);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                createClientHelper.CreateClient(viewModel.clientName, viewModel.clientLocation, viewModel.clientDistrict);
+                ModelState.AddModelError("success", "Client Created Successfully");
             }
-
-            ViewBag.CreatedByUserId = new SelectList(db.Users, "UserId", "District", client.CreatedByUserId);
-            return View(client);
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex);
+            }
+            return View(viewModel);
         }
 
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Client client = db.Clients.Find(id);
-            if (client == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.CreatedByUserId = new SelectList(db.Users, "UserId", "District", client.CreatedByUserId);
-            return View(client);
-        }
-
- 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ClientId,ClientName,ClientLocation,ClientDistrict,CreatedByUserId,CreateDate")] Client client)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(client).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.CreatedByUserId = new SelectList(db.Users, "UserId", "District", client.CreatedByUserId);
-            return View(client);
-        }
-
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Client client = db.Clients.Find(id);
-            if (client == null)
-            {
-                return HttpNotFound();
-            }
-            return View(client);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Client client = db.Clients.Find(id);
-            db.Clients.Remove(client);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
         protected override void Dispose(bool disposing)
         {

@@ -1,21 +1,44 @@
 ﻿using Assignment2.Data_Access_Layer;
 using Assignment2.Models.Database_Models;
+using Assignment2.Models;
 using System;
 using System.Collections.Generic;
 using WebApplication2.Exceptions;
-using Assignment2.Models;
-using Microsoft.AspNet.Identity;
 using System.Web;
+using Microsoft.AspNet.Identity;
 
 namespace Assignment2.Helpers
 {
-    public class ListInterventionHelper
+    public class InterventionHelper
     {
         InterventionsDao InterventionDao = new InterventionsDao();
-        Dao UDao = new Dao();
-        public ListInterventionHelper()
+        private Dao UDao;
+        private InterventionsDao interventionDao;
+        public InterventionHelper()
         {
+            UDao = new Dao();
+            interventionDao = new InterventionsDao();
+        }
 
+        public void CreateIntervention(Client clientId, int interventionTypeId, decimal interventionCost, decimal interventionHours)
+        {
+            var intervention = new Intervention();
+            intervention.ClientId = clientId;
+            intervention.InterventionTypeId = interventionTypeId;
+            intervention.InterventionCost = interventionCost;
+            intervention.InterventionHours = interventionHours;
+            intervention.CreatedByUserId = Utils.getInstance.GetCurrentUserId();
+            intervention.CreateDate = DateTime.Now;
+
+
+            try
+            {
+                interventionDao.AddIntervention(intervention);
+            }
+            catch (Exception)
+            {
+                throw new FailedToCreateRecordException();
+            }
         }
 
         public Intervention GetIntervention(int? userid)

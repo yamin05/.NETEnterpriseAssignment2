@@ -20,12 +20,14 @@ namespace Assignment2.Data_Access_Layer
             }
         }
 
-        public IList<Client> GetAllClientsForUser(string userId)
+        public IList<Client> GetAllClientsForUser()
         {
             using (context = new CustomDBContext())
             {
+                var currentUserId = Utils.getInstance.GetCurrentUserId();
+
                 var clients = context.Clients
-                           .Where(c => c.CreatedByUserId.Equals(userId))
+                           .Where(c => c.CreatedByUserId.Equals(currentUserId))
                            .Select(c => c);
                 return clients.ToList();
             }
@@ -42,6 +44,7 @@ namespace Assignment2.Data_Access_Layer
                 return client;
             }
         }
+
 
         public User GetUser(string userID)
         {

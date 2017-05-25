@@ -43,7 +43,7 @@ namespace Assignment2.Controllers
         [HttpPost]
         public ActionResult ListOfInterventionsForManager(IList<ListInterventionViewModel> viewModel)
         {
-            var ApproveOrCancelIntervention = new ListInterventionHelper();
+            var ApproveOrCancelIntervention = new InterventionHelper();
             try
             {
                 viewModel = ApproveOrCancelIntervention.ListOfProposedInterventions();

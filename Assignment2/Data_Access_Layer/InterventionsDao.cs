@@ -51,7 +51,7 @@ namespace Assignment2.Data_Access_Layer
             {
                 var intervention =
                 from inter in context.Interventions
-                where inter.Status == Status.PROPOSED
+                where inter.Status == Status.PROPOSED && inter.InterventionId == interventionId     //Added &&
                 select inter;
                 foreach (Intervention inter in intervention)
                 {
