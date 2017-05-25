@@ -200,6 +200,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InterventionsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Controllers\SiteEngineerController.cs" />
@@ -238,7 +239,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\SiteEngineerHelper.cs" />
-    <Compile Include="Helpers\ListInterventionHelper.cs" />
+    <Compile Include="Helpers\InterventionHelper.cs" />
     <Compile Include="Migrations\ENET\201705230314047_InitialCreate.cs" />
     <Compile Include="Migrations\ENET\201705230314047_InitialCreate.Designer.cs">
       <DependentUpon>201705230314047_InitialCreate.cs</DependentUpon>
@@ -256,6 +257,7 @@
     <Compile Include="Models\Database_Models\User.cs" />
     <Compile Include="Models\Districts.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\InterventionViewModels.cs" />
     <Compile Include="Models\ManagerViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Roles.cs" />
@@ -337,6 +339,11 @@
     <Content Include="Views\Manager\Index.cshtml" />
     <Content Include="Views\Manager\ListOfInterventionsForManager.cshtml" />
     <Content Include="Views\SiteEngineer\ViewAllClients.cshtml" />
+    <Content Include="Views\Interventions\Create.cshtml" />
+    <Content Include="Views\Interventions\Delete.cshtml" />
+    <Content Include="Views\Interventions\Details.cshtml" />
+    <Content Include="Views\Interventions\Edit.cshtml" />
+    <Content Include="Views\Interventions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Clients\Create.cshtml" />

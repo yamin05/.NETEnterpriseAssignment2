@@ -19,11 +19,8 @@ namespace Assignment2.Controllers
         [HttpPost]
         public ActionResult Index(string Button)
         {
-            if (Button.Equals("Create New Client"))
-            {
-                return RedirectToAction("Create", "Clients");                    //need to change all the redirect function, action and controller here for every buttons
-            }
-            else if (Button.Equals("View All Clients In Same District"))
+           
+            if (Button.Equals("View All Clients In Same District"))
             {
                 return RedirectToAction("ViewAllClients");
             }
@@ -44,7 +41,7 @@ namespace Assignment2.Controllers
 
 
 
-    /** Saperated Clients Controller - No need for following Code!!!
+    /** Separated Clients Controller - No need for following Code!!!
 
         //public ActionResult CreateNewClient()
         //{
