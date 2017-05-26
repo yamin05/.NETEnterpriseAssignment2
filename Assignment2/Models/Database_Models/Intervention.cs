@@ -9,22 +9,24 @@ namespace Assignment2.Models.Database_Models
     {
         [Key]
         public int InterventionId { get; set; }
-        [ForeignKey("CreatedBy")]
         public string CreatedByUserId { get; set; }
-        [ForeignKey("ApprovedBy")]
         public string ApprovedByUserId { get; set; }
-        [ForeignKey("InterTypeId")]
         public int InterventionTypeId { get; set; }
-        public Client ClientId { get; set; }
+        public int ClientId { get; set; }
         public decimal InterventionCost { get; set; }
         public decimal InterventionHours { get; set; }
         public DateTime CreateDate { get; set; }
         public int Status { get; set; }
         public int? Condition { get; set; }
         public DateTime? ModifyDate { get; set; }
+        [ForeignKey("CreatedByUserId")]
         public virtual User CreatedBy { get; set; }
+        [ForeignKey("ApprovedByUserId")]
         public virtual User ApprovedBy { get; set; }
+        [ForeignKey("ClientId")]
+        public virtual Client Client { get; set; }
         public virtual ICollection<User> UpdatedBy { get; set; }
+        [ForeignKey("InterventionTypeId")]
         public virtual InterventionType InterTypeId { get; set; }
     }
 }

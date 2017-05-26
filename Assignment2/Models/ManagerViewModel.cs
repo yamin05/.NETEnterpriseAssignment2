@@ -19,7 +19,7 @@ namespace Assignment2.Models
             public decimal InterventionHours { get; set; }
             [Display(Name = "Create Date")]
             public DateTime CreateDate { get; set; }
-            public int Status { get; set; }
+            public string Status { get; set; }
             [Display(Name = "Intervention Id")]
             public int InterventionId { get; set; }
 

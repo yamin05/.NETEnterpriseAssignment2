@@ -4,10 +4,10 @@ using Assignment2.Models.Database_Models;
 using Assignment2.Models;
 using WebApplication2.Exceptions;
 using System.Collections.Generic;
+using System.Data.Entity;
+using Assignment2.Data_Access_Layer;
 
-namespace Assignment2.Data_Access_Layer
-{
-    public class InterventionsDao
+public class InterventionsDao
     {
         private CustomDBContext context;
         public void AddIntervention(Intervention intervention)
@@ -38,7 +38,11 @@ namespace Assignment2.Data_Access_Layer
             {
                 IList<Intervention> intervention = (context.Interventions
                                     .Where(i => i.Status.Equals(status))
-                                    .Select(i => i)).ToList();
+                                    .Select(i => i))
+                                    .Include(i=> i.Client)
+                                    .Include(i=>i.InterTypeId)
+                                    .ToList();
+                                    
                                    
                 return intervention;
 
@@ -51,11 +55,11 @@ namespace Assignment2.Data_Access_Layer
             {
                 var intervention =
                 from inter in context.Interventions
-                where inter.Status == Status.PROPOSED && inter.InterventionId == interventionId     //Added &&
+                where inter.Status == (int)Status.PROPOSED && inter.InterventionId == interventionId     //Added &&
                 select inter;
                 foreach (Intervention inter in intervention)
                 {
-                    inter.Status = Status.APPROVED;
+                    inter.Status = (int)Status.APPROVED;
                 }
                 try
                 {
@@ -71,4 +75,3 @@ namespace Assignment2.Data_Access_Layer
 
         
     }
-}

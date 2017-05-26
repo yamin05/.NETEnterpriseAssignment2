@@ -240,16 +240,6 @@
     </Compile>
     <Compile Include="Helpers\SiteEngineerHelper.cs" />
     <Compile Include="Helpers\InterventionHelper.cs" />
-    <Compile Include="Migrations\ENET\201705230314047_InitialCreate.cs" />
-    <Compile Include="Migrations\ENET\201705230314047_InitialCreate.Designer.cs">
-      <DependentUpon>201705230314047_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\ENET\Configuration.cs" />
-    <Compile Include="Migrations\Identity\201705230313564_InitialCreate.cs" />
-    <Compile Include="Migrations\Identity\201705230313564_InitialCreate.Designer.cs">
-      <DependentUpon>201705230313564_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Identity\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Database_Models\Client.cs" />
     <Compile Include="Models\Database_Models\Intervention.cs" />
@@ -356,14 +346,6 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\ENET\201705230314047_InitialCreate.resx">
-      <DependentUpon>201705230314047_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Identity\201705230313564_InitialCreate.resx">
-      <DependentUpon>201705230313564_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

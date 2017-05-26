@@ -1,10 +1,10 @@
 ﻿namespace Assignment2.Models
 {
-    public class Status
+    public enum Status
     {
-        public const int PROPOSED = 0;
-        public const int APPROVED = 1;
-        public const int CANCELLED = 2;
-        public const int COMPLETED = 3;
+       PROPOSED = 0,
+        APPROVED = 1,
+         CANCELLED = 2,
+         COMPLETED = 3
     }
 }

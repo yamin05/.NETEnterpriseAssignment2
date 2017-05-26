@@ -9,7 +9,7 @@
 <h2>List of Intervention to approve or cancel in your district</h2>
 
     @if (Model.Any())
-    {   <hr />
+    { 
         <table class="table">
             <tr>
                 <th>
@@ -39,32 +39,35 @@
                 </th>
                 <th></th>
             </tr>
-            }
+            
 
             @foreach (var item in Model)
             {
 
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.ClientName)
+                        @Html.DisplayFor(modelItem => item.ClientName)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.ClientDistrict)
+                        @Html.DisplayFor(modelItem => item.ClientDistrict)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.InterventionId)
+                        @Html.DisplayFor(modelItem => item.InterventionId)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.InterventionTypeName)
+                        @Html.DisplayFor(modelItem => item.InterventionTypeName)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.InterventionCost)
+                        @Html.DisplayFor(modelItem => item.InterventionCost)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.InterventionHours)
+                        @Html.DisplayFor(modelItem => item.InterventionHours)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.CreateDate)
+                        @Html.DisplayFor(modelItem => item.CreateDate)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(modelItem => item.Status)
                     </th>
                     <th>
                         @Html.ActionLink("Approve Or Cancel Intervention", "EditIntervention", new { id = item.InterventionId })   

@@ -20,7 +20,7 @@ namespace Assignment2.Helpers
             interventionDao = new InterventionsDao();
         }
 
-        public void CreateIntervention(Client clientId, int interventionTypeId, decimal interventionCost, decimal interventionHours)
+        public void CreateIntervention(int clientId, int interventionTypeId, decimal interventionCost, decimal interventionHours)
         {
             var intervention = new Intervention();
             intervention.ClientId = clientId;
@@ -51,7 +51,7 @@ namespace Assignment2.Helpers
         public IList<Intervention> ListofProposedIntervention()
         {
             IList<Intervention> ProposedInterList = new List<Intervention>();
-            ProposedInterList = InterventionDao.GetInterventionsByStatus(Status.PROPOSED);
+            ProposedInterList = InterventionDao.GetInterventionsByStatus((int)Status.PROPOSED);
             return ProposedInterList;
         }
 
@@ -61,7 +61,7 @@ namespace Assignment2.Helpers
             for (int i = 0; i <= InterList.Count - 1; i++)
             {
                 {
-                    if (manager.MaximumHours >= InterList[i].InterventionHours && manager.MaximumCost >= InterList[i].InterventionCost && manager.District == InterList[i].ClientId.ClientDistrict)
+                    if (manager.MaximumHours >= InterList[i].InterventionHours && manager.MaximumCost >= InterList[i].InterventionCost && manager.District == InterList[i].Client.ClientDistrict)
                     {
                         ProposedList.Add(InterList[i]);
 
@@ -77,12 +77,12 @@ namespace Assignment2.Helpers
             User manager = UDao.GetUser(userId.ToString());
             return manager;
         }
-        public IList<ListInterventionViewModel> ListOfProposedInterventions()
+        public IList<ListInterventionViewModel> ListOfProposedInterventionsForManager()
         {
             try
             {
                 IList<Intervention> interlist = new List<Intervention>();
-                
+                interlist = ListofProposedIntervention();
                 var ManageruserId = HttpContext.Current.User.Identity.GetUserId();
                 IList<Intervention> proposedinterlist = new List<Intervention>();
                 IList<ListInterventionViewModel> ViewList=new List<ListInterventionViewModel>();
@@ -91,13 +91,15 @@ namespace Assignment2.Helpers
                 foreach(var inter in proposedinterlist)
                 {
                     ListInterventionViewModel ViewIntervention = new ListInterventionViewModel();
-                    ViewIntervention.ClientDistrict = inter.ClientId.ClientDistrict;
-                    ViewIntervention.ClientName = inter.ClientId.ClientName;
+                    ViewIntervention.ClientDistrict = inter.Client.ClientDistrict;
+                    ViewIntervention.ClientName = inter.Client.ClientName;
                     ViewIntervention.InterventionTypeName = inter.InterTypeId.InterventionTypeName;
                     ViewIntervention.InterventionCost = inter.InterventionCost;
                     ViewIntervention.InterventionHours = inter.InterventionHours;
                     ViewIntervention.CreateDate = inter.CreateDate;
                     ViewIntervention.InterventionId = inter.InterventionId;
+                    ViewIntervention.Status = Enum.GetName((typeof(Status)),inter.Status);
+                    ViewList.Add(ViewIntervention);
                 }
                 return ViewList;
             }

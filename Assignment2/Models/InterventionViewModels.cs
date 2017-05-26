@@ -11,7 +11,7 @@ namespace Assignment2.Models
     {
         [Required]
         [Display(Name = "Client Name")]
-        public Client clientId { get; set; }
+        public int clientId { get; set; }
 
         [Required]
         [Display(Name = "Intervention Type")]

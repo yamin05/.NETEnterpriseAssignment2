@@ -6,6 +6,7 @@ using Assignment2.Models.Database_Models;
 using System.Collections.Generic;
 using System.Net;
 
+
 namespace Assignment2.Controllers
 {
     [Authorize(Roles = Roles.MANAGER)]
@@ -34,19 +35,15 @@ namespace Assignment2.Controllers
             }
             return View();
         }
+    
+        
         public ActionResult ListOfInterventionsForManager()
         {
-
             IList<ListInterventionViewModel> viewModel = new List<ListInterventionViewModel>();
-            return View(viewModel);
-        }
-        [HttpPost]
-        public ActionResult ListOfInterventionsForManager(IList<ListInterventionViewModel> viewModel)
-        {
             var ApproveOrCancelIntervention = new InterventionHelper();
             try
             {
-                viewModel = ApproveOrCancelIntervention.ListOfProposedInterventions();
+                viewModel = ApproveOrCancelIntervention.ListOfProposedInterventionsForManager();
                 
             }
             catch (Exception ex)
@@ -61,7 +58,7 @@ namespace Assignment2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var intervention = new ListInterventionHelper();
+            var intervention = new InterventionHelper();
             var inter = intervention.GetIntervention(id);
             if (inter == null)
             {
