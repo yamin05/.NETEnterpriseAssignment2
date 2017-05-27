@@ -54,7 +54,7 @@ namespace Assignment2.Controllers
             var createInterventionHelper = new InterventionHelper();
             try
             {
-                createInterventionHelper.CreateIntervention(viewModel.clientname, viewModel.interventionTypeId, viewModel.interventionCost, viewModel.interventionHours);
+                createInterventionHelper.CreateIntervention(viewModel.clientId, viewModel.interventionTypeId, viewModel.interventionCost, viewModel.interventionHours);
                 ModelState.AddModelError("success", "Client Created Successfully");
             }
             catch (Exception ex)
