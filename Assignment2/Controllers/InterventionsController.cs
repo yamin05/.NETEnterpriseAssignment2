@@ -82,8 +82,7 @@ namespace Assignment2.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ApprovedByUserId = new SelectList(db.Users, "UserId", "District", intervention.ApprovedByUserId);
-            ViewBag.CreatedByUserId = new SelectList(db.Users, "UserId", "District", intervention.CreatedByUserId);
+
             ViewBag.InterventionTypeId = new SelectList(db.InterventionTypes, "InterventionTypeId", "InterventionTypeName", intervention.InterventionTypeId);
             return View(intervention);
         }
