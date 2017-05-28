@@ -1,22 +1,18 @@
 ﻿@model IEnumerable<Assignment2.Models.Database_Models.Intervention>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Intervention Details";
 }
 
-<h2>Index</h2>
+<h2>Intervention Details</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ApprovedBy.District)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedBy.District)
-        </th>
+       
+        
         <th>
             @Html.DisplayNameFor(model => model.InterTypeId.InterventionTypeName)
         </th>
@@ -43,12 +39,7 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ApprovedBy.District)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedBy.District)
-        </td>
+       
         <td>
             @Html.DisplayFor(modelItem => item.InterTypeId.InterventionTypeName)
         </td>
