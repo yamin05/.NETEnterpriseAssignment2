@@ -69,7 +69,7 @@ namespace Assignment2.Controllers
 
 
         [HttpPost]
-        public ActionResult EditIntervention([Bind(Include = "ClientDistrict,ClientName,InterventionTypeName,InterventionHours,CreateDate,Intervention")] ListInterventionViewModel InterList)
+        public ActionResult EditIntervention([Bind(Include = "ClientDistrict,ClientName,InterventionTypeName,InterventionHours,InterventionHours,CreateDate,Intervention")] ListInterventionViewModel InterList)
         {
             return View(InterList);
         }
