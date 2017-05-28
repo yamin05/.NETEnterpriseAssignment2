@@ -42,7 +42,7 @@ namespace Assignment2.Controllers
         public ActionResult Create()
         {
             var currentUserId = Utils.getInstance.GetCurrentUserId();
-            ViewBag.ClientName = new SelectList(db.Clients.Where(c => c.CreatedBy.UserId == currentUserId), "ClientId", "ClientName");
+            ViewBag.ClientId = new SelectList(db.Clients.Where(c => c.CreatedBy.UserId == currentUserId), "ClientId", "ClientName");
             ViewBag.InterventionTypeId = new SelectList(db.InterventionTypes, "InterventionTypeId", "InterventionTypeName");
             return View();
         }
@@ -52,13 +52,20 @@ namespace Assignment2.Controllers
         public ActionResult Create(CreateNewInterventionViewModel viewModel)
         {
             var createInterventionHelper = new InterventionHelper();
+
             try
             {
-                createInterventionHelper.CreateIntervention(viewModel.clientname, viewModel.interventionTypeId, viewModel.interventionCost, viewModel.interventionHours);
-                ModelState.AddModelError("success", "Client Created Successfully");
+                createInterventionHelper.CreateIntervention(viewModel.clientId, viewModel.interventionTypeId, viewModel.interventionCost, viewModel.interventionHours);
+                ModelState.AddModelError("success", "Intervention Created Successfully!");
+
+                var currentUserId = Utils.getInstance.GetCurrentUserId();
+                ViewBag.ClientId = new SelectList(db.Clients.Where(c => c.CreatedBy.UserId == currentUserId), "ClientId", "ClientName");
+                ViewBag.InterventionTypeId = new SelectList(db.InterventionTypes, "InterventionTypeId", "InterventionTypeName");
+
             }
             catch (Exception ex)
             {
+
                 ModelState.AddModelError(string.Empty, ex);
             }
             return View(viewModel);

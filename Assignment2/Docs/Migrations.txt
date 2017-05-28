@@ -1,8 +1,8 @@
 ﻿================================================================================   CustomeDBContext   ========================================================================
 
 Enable-Migrations -ContextTypeName CustomDBContext -MigrationsDirectory Migrations\ENET
-add-migration -ConfigurationTypeName Assignment2.Migrations.ENET.Configuration "InitialCreate"
-update-database -ConfigurationTypeName Assignment2.Migrations.ENET.Configuration "InitialCreate"
+add-migration -ConfigurationTypeName Assignment2.Migrations.ENET.Configuration "Initial"
+update-database -ConfigurationTypeName Assignment2.Migrations.ENET.Configuration
 
 ==============================================================================================================================================================================
 
