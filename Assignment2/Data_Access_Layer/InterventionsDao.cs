@@ -26,6 +26,8 @@ public class InterventionsDao
                 var intervention = context.Interventions
                                     .Where(i => i.InterventionId.Equals(InterventionId))
                                     .Select(i => i)
+                                    .Include(i => i.Client)
+                                    .Include(i=> i.InterTypeId)
                                     .FirstOrDefault();
                 return intervention;
 
