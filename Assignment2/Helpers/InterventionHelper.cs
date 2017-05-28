@@ -20,9 +20,51 @@ namespace Assignment2.Helpers
             interventionDao = new InterventionsDao();
         }
 
+        public User GetSiteEngineerData(string userId)
+        {
+            User siteEngineer = UDao.GetUser(userId);
+            return siteEngineer;
+        }
+
+        public InterventionType GetInterventionTypeData(int interventionTypeId) {
+
+            InterventionType interventionType = interventionDao.GetInterventionType(interventionTypeId);
+            return interventionType;
+        }
+
+        public string ValidateInterventionStatus(int interventionTypeId) {
+
+            InterventionType interventionType = GetInterventionTypeData(interventionTypeId);
+            decimal defaultCost = interventionType.InterventionTypeCost;
+            decimal defaultHours = interventionType.InterventionTypeHours;
+
+            User siterEnfineer = GetSiteEngineerData(Utils.getInstance.GetCurrentUserId());
+            decimal userMaxCost = siterEnfineer.MaximumCost;
+            decimal userMaxHours = siterEnfineer.MaximumHours;
+
+            if (userMaxCost >= defaultCost && userMaxHours >= defaultHours)
+            {
+
+                return "Approve";
+            }
+            else {
+                return "Propose";
+            }
+
+        }
+
         public void CreateIntervention(int clientId, int interventionTypeId, decimal interventionCost, decimal interventionHours)
         {
             var intervention = new Intervention();
+            string status = ValidateInterventionStatus(interventionTypeId);
+            if (status == "Approve") {
+                intervention.Status = 1;
+            }
+            else
+            {
+                intervention.Status = 0;
+            }
+
             intervention.ClientId = clientId;
             intervention.InterventionTypeId = interventionTypeId;
             intervention.InterventionCost = interventionCost;

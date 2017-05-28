@@ -19,7 +19,22 @@ public class InterventionsDao
             }
         }
 
-        public Intervention GetIntervention(int? InterventionId)
+
+    public InterventionType GetInterventionType(int interventionTypeId) {
+
+        using (context = new CustomDBContext()) {
+
+            var interventionType = context.InterventionTypes
+                                    .Where(i => i.InterventionTypeId.Equals(interventionTypeId))
+                                    .Select(i => i)
+                                    .FirstOrDefault();
+
+            return interventionType;
+        }
+
+    }
+
+    public Intervention GetIntervention(int? InterventionId)
         {
             using (context = new CustomDBContext())
             {
