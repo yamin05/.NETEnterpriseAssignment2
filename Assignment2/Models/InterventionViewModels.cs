@@ -26,4 +26,27 @@ namespace Assignment2.Models
         public decimal interventionHours { get; set; }
 
     }
+
+    public class ListInterventionViewModel {
+
+        [Display(Name = "Client District")]
+        public string ClientDistrict { get; set; }
+        [Display(Name = "Client Name")]
+        public string ClientName { get; set; }
+        [Display(Name = "Intervention Type Name")]
+        public string InterventionTypeName { get; set; }
+        [Display(Name = "Intervention Cost")]
+        public decimal InterventionCost { get; set; }
+        [Display(Name = "Intervention Hours")]
+        public decimal InterventionHours { get; set; }
+        [Display(Name = "Created Date")]
+        public DateTime CreateDate { get; set; }
+        public string Status { get; set; }
+        [Display(Name = "Intervention Id")]
+        public int InterventionId { get; set; }
+        [Display(Name = "Modified Date")]
+        public DateTime? ModifyDate { get; set; }
+        [Display(Name = "Life")]
+        public int? Condition { get; set; }
+    }
 }

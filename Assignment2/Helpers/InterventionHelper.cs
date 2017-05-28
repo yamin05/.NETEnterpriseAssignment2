@@ -45,10 +45,10 @@ namespace Assignment2.Helpers
             if (userMaxCost >= defaultCost && userMaxHours >= defaultHours)
             {
 
-                return "Approve";
+                return Status.APPROVED.ToString();
             }
             else {
-                return "Propose";
+                return Status.PROPOSED.ToString();
             }
 
         }
@@ -57,12 +57,12 @@ namespace Assignment2.Helpers
         {
             var intervention = new Intervention();
             string status = ValidateInterventionStatus(interventionTypeId);
-            if (status == "Approve") {
-                intervention.Status = 1;
+            if (status == Status.APPROVED.ToString()) {
+                intervention.Status = Convert.ToInt32(Status.APPROVED);
             }
             else
             {
-                intervention.Status = 0;
+                intervention.Status = Convert.ToInt32(Status.PROPOSED);
             }
 
             intervention.ClientId = clientId;
@@ -80,6 +80,37 @@ namespace Assignment2.Helpers
             catch (Exception)
             {
                 throw new FailedToCreateRecordException();
+            }
+        }
+
+        public IList<ListInterventionViewModel> ListOfUsersInterventions()
+        {
+            try
+            {
+                var userId = Utils.getInstance.GetCurrentUserId();
+                IList<Intervention> getList = new List<Intervention>();
+                IList<ListInterventionViewModel> ViewList = new List<ListInterventionViewModel>();
+                getList = InterventionDao.GetUsersInterventions(userId);
+
+                foreach (var inter in getList)
+                {
+                    ListInterventionViewModel ViewIntervention = new ListInterventionViewModel();
+                    ViewIntervention.InterventionTypeName = inter.InterTypeId.InterventionTypeName;
+                    ViewIntervention.InterventionCost = inter.InterventionCost;
+                    ViewIntervention.InterventionHours = inter.InterventionHours;
+                    ViewIntervention.CreateDate = inter.CreateDate;
+                    ViewIntervention.InterventionId = inter.InterventionId;
+                    ViewIntervention.Status = Enum.GetName((typeof(Status)), inter.Status);
+                    ViewIntervention.Condition = inter.Condition;
+                    ViewIntervention.ModifyDate = inter.ModifyDate;
+                    ViewList.Add(ViewIntervention);
+                }
+
+                return ViewList;
+            }
+            catch
+            {
+                throw new FaliedToRetriveRecordException();
             }
         }
 

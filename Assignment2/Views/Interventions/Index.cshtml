@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Assignment2.Models.Database_Models.Intervention>
+﻿@using Assignment2.Models
+@model IEnumerable<ListInterventionViewModel>
 
 @{
     ViewBag.Title = "Intervention Details";
@@ -14,25 +15,25 @@
        
         
         <th>
-            Intervention type
+            @Html.DisplayNameFor(model => model.InterventionTypeName)
         </th>
         <th>
-            Intervention Cost
+            @Html.DisplayNameFor(model => model.InterventionCost)
         </th>
         <th>
-            Intervention Hours
+            @Html.DisplayNameFor(model => model.InterventionHours)
         </th>
         <th>
-            Created on
+            @Html.DisplayNameFor(model => model.CreateDate)
         </th>
         <th>
-            Status
+            @Html.DisplayNameFor(model => model.Status)
         </th>
         <th>
-            Life
+            @Html.DisplayNameFor(model => model.Condition)
         </th>
         <th>
-            Modified On
+            @Html.DisplayNameFor(model => model.ModifyDate)
         </th>
         <th></th>
     </tr>
@@ -41,7 +42,7 @@
     <tr>
        
         <td>
-            @Html.DisplayFor(modelItem => item.InterTypeId.InterventionTypeName)
+            @Html.DisplayFor(modelItem => item.InterventionTypeName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.InterventionCost)
@@ -62,9 +63,7 @@
             @Html.DisplayFor(modelItem => item.ModifyDate)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.InterventionId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.InterventionId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.InterventionId })
+            @Html.ActionLink("Edit", "Edit", new { id=item.InterventionId })
         </td>
     </tr>
 }

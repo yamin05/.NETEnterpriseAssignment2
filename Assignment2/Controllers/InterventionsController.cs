@@ -13,30 +13,26 @@ using Assignment2.Helpers;
 
 namespace Assignment2.Controllers
 {
+    [Authorize(Roles = Roles.SITE_ENGINEER + "," + Roles.MANAGER)]
     public class InterventionsController : Controller
     {
         private CustomDBContext db = new CustomDBContext();
 
         public ActionResult Index()
         {
-            var interventions = db.Interventions.Include(i => i.ApprovedBy).Include(i => i.CreatedBy).Include(i => i.InterTypeId);
-            return View(interventions.ToList());
-        }
-
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
+            IList<ListInterventionViewModel> viewModel = new List<ListInterventionViewModel>();
+            var usersIntervention  = new InterventionHelper();
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Intervention intervention = db.Interventions.Find(id);
-            if (intervention == null)
-            {
-                return HttpNotFound();
-            }
-            return View(intervention);
-        }
+                viewModel = usersIntervention.ListOfUsersInterventions();
 
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex);
+            }
+            return View(viewModel);
+        }
 
 
         public ActionResult Create()
@@ -102,30 +98,6 @@ namespace Assignment2.Controllers
             ViewBag.CreatedByUserId = new SelectList(db.Users, "UserId", "District", intervention.CreatedByUserId);
             ViewBag.InterventionTypeId = new SelectList(db.InterventionTypes, "InterventionTypeId", "InterventionTypeName", intervention.InterventionTypeId);
             return View(intervention);
-        }
-
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Intervention intervention = db.Interventions.Find(id);
-            if (intervention == null)
-            {
-                return HttpNotFound();
-            }
-            return View(intervention);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Intervention intervention = db.Interventions.Find(id);
-            db.Interventions.Remove(intervention);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

@@ -330,8 +330,6 @@
     <Content Include="Views\Manager\ListOfInterventionsForManager.cshtml" />
     <Content Include="Views\SiteEngineer\ViewAllClients.cshtml" />
     <Content Include="Views\Interventions\Create.cshtml" />
-    <Content Include="Views\Interventions\Delete.cshtml" />
-    <Content Include="Views\Interventions\Details.cshtml" />
     <Content Include="Views\Interventions\Edit.cshtml" />
     <Content Include="Views\Interventions\Index.cshtml" />
     <Content Include="Views\Manager\ApproveOrCancelIntervention.cshtml" />

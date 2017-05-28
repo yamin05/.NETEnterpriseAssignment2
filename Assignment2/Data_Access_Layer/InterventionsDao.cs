@@ -49,6 +49,21 @@ public class InterventionsDao
             }
         }
 
+    public IList<Intervention> GetUsersInterventions(string userId) {
+
+        using (context = new CustomDBContext()) {
+
+           IList<Intervention> usersInterventions = context.Interventions
+                                       .Where(i => i.CreatedBy.UserId.Equals(userId))
+                                       .Select(i => i)
+                                       .Include(i => i.InterTypeId).ToList();
+
+            return usersInterventions;
+        
+
+        }
+
+    }
         public IList<Intervention> GetInterventionsByStatus(int status)
         {
             using (context = new CustomDBContext())
