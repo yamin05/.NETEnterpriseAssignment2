@@ -11,7 +11,6 @@ namespace Assignment2.Helpers
 {
     public class InterventionHelper
     {
-        InterventionsDao InterventionDao = new InterventionsDao();
         private Dao UDao;
         private InterventionsDao interventionDao;
         public InterventionHelper()
@@ -90,7 +89,7 @@ namespace Assignment2.Helpers
                 var userId = Utils.getInstance.GetCurrentUserId();
                 IList<Intervention> getList = new List<Intervention>();
                 IList<ListInterventionViewModel> ViewList = new List<ListInterventionViewModel>();
-                getList = InterventionDao.GetUsersInterventions(userId);
+                getList = interventionDao.GetUsersInterventions(userId);
 
                 foreach (var inter in getList)
                 {
@@ -117,14 +116,14 @@ namespace Assignment2.Helpers
         public Intervention GetIntervention(int? userid)
         {
             Intervention Inter = new Intervention();
-            Inter = InterventionDao.GetIntervention(userid);
+            Inter = interventionDao.GetIntervention(userid);
             return Inter;
         }
 
         public IList<Intervention> ListofProposedIntervention()
         {
             IList<Intervention> ProposedInterList = new List<Intervention>();
-            ProposedInterList = InterventionDao.GetInterventionsByStatus((int)Status.PROPOSED);
+            ProposedInterList = interventionDao.GetInterventionsByStatus((int)Status.PROPOSED);
             return ProposedInterList;
         }
 

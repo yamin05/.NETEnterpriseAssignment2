@@ -23,9 +23,18 @@ namespace Assignment2.Controllers
 
         public ActionResult Index()
         {
+            IList<ListClientsViewModel> viewModel = new List<ListClientsViewModel>();
+            var userClients = new ClientHelper();
+            try
+            {
+                viewModel = userClients.ListOfClients();
 
-            var clients = d.GetAllClientsForUser();
-            return View(clients.ToList());
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex);
+            }
+            return View(viewModel);
         }
 
 

@@ -238,9 +238,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ClientHelper.cs" />
     <Compile Include="Helpers\SiteEngineerHelper.cs" />
     <Compile Include="Helpers\InterventionHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ClientViewModel.cs" />
     <Compile Include="Models\Database_Models\Client.cs" />
     <Compile Include="Models\Database_Models\Intervention.cs" />
     <Compile Include="Models\Database_Models\InterventionType.cs" />

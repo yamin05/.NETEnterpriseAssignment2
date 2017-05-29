@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Assignment2.Models.Database_Models.Client>
+﻿@using Assignment2.Models
+@model IEnumerable<ListClientsViewModel>
 
 @{
     ViewBag.Title = "Clients Details";
@@ -12,13 +13,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ClientName)
+            @Html.DisplayNameFor(model => model.clientName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ClientLocation)
+            @Html.DisplayNameFor(model => model.clientLocation)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CreateDate)
+            @Html.DisplayNameFor(model => model.createDate)
         </th>
         <th></th>
     </tr>
@@ -26,17 +27,17 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.ClientName)
+            @Html.DisplayFor(modelItem => item.clientName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ClientLocation)
+            @Html.DisplayFor(modelItem => item.clientLocation)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CreateDate)
+            @Html.DisplayFor(modelItem => item.createDate)
         </td>
         <td>
         <td>
-            @Html.ActionLink("View Associated Interventions", "ViewAssociatedInterventions", new { id = item.ClientId })
+            @Html.ActionLink("View Associated Interventions", "ViewAssociatedInterventions", new { id = item.clientID })
         </td>
         </td>
     </tr>
