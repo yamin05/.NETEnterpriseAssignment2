@@ -13,7 +13,7 @@ using Assignment2.Helpers;
 
 namespace Assignment2.Controllers
 {
-    [Authorize(Roles = Roles.SITE_ENGINEER + "," + Roles.MANAGER)]
+    [Authorize(Roles = Roles.SITE_ENGINEER)]
     public class InterventionsController : Controller
     {
         private CustomDBContext db = new CustomDBContext();
@@ -33,7 +33,6 @@ namespace Assignment2.Controllers
             }
             return View(viewModel);
         }
-
 
         public ActionResult Create()
         {
