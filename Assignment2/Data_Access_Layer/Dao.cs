@@ -20,6 +20,10 @@ namespace Assignment2.Data_Access_Layer
             }
         }
 
+        /// <summary>
+        /// This method is used for getting all clients associated with the user
+        /// </summary>
+        /// <returns>IList</returns>
         public IList<Client> GetAllClientsForUser()
         {
             using (context = new CustomDBContext())
@@ -45,7 +49,11 @@ namespace Assignment2.Data_Access_Layer
             }
         }
 
-
+        /// <summary>
+        /// This method is used for getting current users data
+        /// </summary>
+        /// <param name="userID">Id of the current User</param>
+        /// <returns>user</returns>
         public User GetUser(string userID)
         {
             using (context = new CustomDBContext())

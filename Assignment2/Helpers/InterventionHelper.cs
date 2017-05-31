@@ -7,8 +7,13 @@ using WebApplication2.Exceptions;
 using System.Web;
 using Microsoft.AspNet.Identity;
 
+
+
 namespace Assignment2.Helpers
 {
+    /// <summary>
+    /// This class is act as a helper for creating, listing, validating,  updating Interventions
+    /// </summary>
     public class InterventionHelper
     {
         private Dao UDao;
@@ -19,29 +24,46 @@ namespace Assignment2.Helpers
             interventionDao = new InterventionsDao();
         }
 
+        /// <summary>
+        /// This method use GetUser method to get Site Engineers Data
+        /// </summary>
+        /// <param name="userId">Id of the current Site Engineer</param>
+        /// <returns>User</returns>
         public User GetSiteEngineerData(string userId)
         {
             User siteEngineer = UDao.GetUser(userId);
             return siteEngineer;
         }
 
+        /// <summary>
+        /// This method use GetInterventionType method to get Intervention Type Data i.e Default Coast and Hours
+        /// </summary>
+        /// <param name="interventionTypeId">Id of an Intervention type</param>
+        /// <returns>InterventionType</returns>
         public InterventionType GetInterventionTypeData(int interventionTypeId) {
 
             InterventionType interventionType = interventionDao.GetInterventionType(interventionTypeId);
             return interventionType;
         }
 
-        public string ValidateInterventionStatus(int interventionTypeId) {
+        /// <summary>
+        /// This method is used to check if created intervention should be Approved or marked as Proposed based on User and Intervention's Data
+        /// </summary>
+        /// <param name="interventionTypeId">Id of an intervention type</param>
+        /// <param name="requiredHours">Hours required to complete intervention enterd by Site Engineer</param>
+        /// <param name="requiredCost">Cost required to complete intervention enterd by Site Engineer</param>
+        /// <returns>string</returns>
+        public string ValidateInterventionStatus(int interventionTypeId, decimal requiredHours, decimal requiredCost) {
 
             InterventionType interventionType = GetInterventionTypeData(interventionTypeId);
             decimal defaultCost = interventionType.InterventionTypeCost;
             decimal defaultHours = interventionType.InterventionTypeHours;
 
-            User siterEnfineer = GetSiteEngineerData(Utils.getInstance.GetCurrentUserId());
-            decimal userMaxCost = siterEnfineer.MaximumCost;
-            decimal userMaxHours = siterEnfineer.MaximumHours;
+            User siteEngineer = GetSiteEngineerData(Utils.getInstance.GetCurrentUserId());
+            decimal userMaxCost = siteEngineer.MaximumCost;
+            decimal userMaxHours = siteEngineer.MaximumHours;
 
-            if (userMaxCost >= defaultCost && userMaxHours >= defaultHours)
+            if (userMaxCost >= defaultCost && userMaxCost >= requiredCost && userMaxHours >= defaultHours && userMaxHours >= requiredHours)
             {
 
                 return Status.Approved.ToString();
@@ -52,10 +74,17 @@ namespace Assignment2.Helpers
 
         }
 
+        /// <summary>
+        /// This Method is used to Create a new intevention 
+        /// </summary>
+        /// <param name="clientId">Id of an client this intervention is for</param>
+        /// <param name="interventionTypeId">Id of an Intervention type</param>
+        /// <param name="interventionCost">Cost required to complete intervention</param>
+        /// <param name="interventionHours">Hours required to complete intervention</param>
         public void CreateIntervention(int clientId, int interventionTypeId, decimal interventionCost, decimal interventionHours)
         {
             var intervention = new Intervention();
-            string status = ValidateInterventionStatus(interventionTypeId);
+            string status = ValidateInterventionStatus(interventionTypeId, interventionHours, interventionCost);
             if (status == Status.Approved.ToString()) {
                 intervention.Status = Convert.ToInt32(Status.Approved);
             }
@@ -82,6 +111,10 @@ namespace Assignment2.Helpers
             }
         }
 
+        /// <summary>
+        /// This method is to list all interventions associated with the user
+        /// </summary>
+        /// <returns>IList</returns>
         public IList<ListInterventionViewModel> ListOfUsersInterventions()
         {
             try

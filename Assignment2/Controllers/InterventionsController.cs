@@ -13,11 +13,18 @@ using Assignment2.Helpers;
 
 namespace Assignment2.Controllers
 {
+    /// <summary>
+    /// With the help of Intervention View And InterventionViewModel this controller is used for create edit view Interventions
+    /// </summary>
     [Authorize(Roles = Roles.SITE_ENGINEER)]
     public class InterventionsController : Controller
     {
         private CustomDBContext db = new CustomDBContext();
 
+        /// <summary>
+        /// This method is used to view all associated interventions to user
+        /// </summary>
+        /// <returns>List</returns>
         public ActionResult Index()
         {
             IList<ListInterventionViewModel> viewModel = new List<ListInterventionViewModel>();
@@ -34,6 +41,10 @@ namespace Assignment2.Controllers
             return View(viewModel);
         }
 
+        /// <summary>
+        /// This method is used for the view page of creating interventions
+        /// </summary>
+        /// <returns>View</returns>
         public ActionResult Create()
         {
             var currentUserId = Utils.getInstance.GetCurrentUserId();
@@ -42,6 +53,10 @@ namespace Assignment2.Controllers
             return View();
         }
 
+        /// <summary>
+        /// This method is used for calling CreateIntervention method to create a new intervention by passing user enterd values in fields
+        /// </summary>
+        /// <returns>View</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateNewInterventionViewModel viewModel)
@@ -53,6 +68,8 @@ namespace Assignment2.Controllers
                 createInterventionHelper.CreateIntervention(viewModel.clientId, viewModel.interventionTypeId, viewModel.interventionCost, viewModel.interventionHours);
                 ModelState.AddModelError("success", "Intervention Created Successfully!");
 
+
+                //Getting values from DB for Dropdown List
                 var currentUserId = Utils.getInstance.GetCurrentUserId();
                 ViewBag.ClientId = new SelectList(db.Clients.Where(c => c.CreatedBy.UserId == currentUserId), "ClientId", "ClientName");
                 ViewBag.InterventionTypeId = new SelectList(db.InterventionTypes, "InterventionTypeId", "InterventionTypeName");
@@ -66,6 +83,12 @@ namespace Assignment2.Controllers
             return View(viewModel);
         }
 
+
+        /// <summary>
+        /// This method is used for view page of Edit Interventions
+        /// </summary>
+        /// <param name="id">Id of intervention to be edited</param>
+        /// <returns>View</returns>
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -82,7 +105,11 @@ namespace Assignment2.Controllers
             return View(intervention);
         }
 
-      
+
+        /// <summary>
+        /// This method is used for calling UpdateIntervention method to update an intervention by passing user enterd values in fields
+        /// </summary>
+        /// <returns>View</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "InterventionId,CreatedByUserId,ApprovedByUserId,InterventionTypeId,InterventionCost,InterventionHours,CreateDate,Status,Condition,ModifyDate")] Intervention intervention)

@@ -19,7 +19,11 @@ public class InterventionsDao
             }
         }
 
-
+    /// <summary>
+    /// This method is used for getting intervention Type from the Id
+    /// </summary>
+    /// <param name="interventionTypeId">Id of an intervention type</param>
+    /// <returns>InterventionType</returns>
     public InterventionType GetInterventionType(int interventionTypeId) {
 
         using (context = new CustomDBContext()) {
@@ -49,6 +53,11 @@ public class InterventionsDao
             }
         }
 
+    /// <summary>
+    /// This method is used for getting inteventions created by the user
+    /// </summary>
+    /// <param name="userId">Id of a current User</param>
+    /// <returns>IList</returns>
     public IList<Intervention> GetUsersInterventions(string userId) {
 
         using (context = new CustomDBContext()) {

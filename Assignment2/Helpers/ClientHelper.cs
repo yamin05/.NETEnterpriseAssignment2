@@ -9,6 +9,9 @@ using WebApplication2.Exceptions;
 
 namespace Assignment2.Helpers
 {
+    /// <summary>
+    /// This class act as a helper for listing clients
+    /// </summary>
     public class ClientHelper
     {
         private Dao clientDao;
@@ -18,6 +21,10 @@ namespace Assignment2.Helpers
             clientDao = new Dao();
         }
 
+        /// <summary>
+        /// This method is for getting all clients created by the user
+        /// </summary>
+        /// <returns>IList</returns>
         public IList<ListClientsViewModel> ListOfClients()
         {
             try
