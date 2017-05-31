@@ -31,7 +31,7 @@ namespace Assignment2.Helpers
             return interventionType;
         }
 
-        public string ValidateInterventionStatus(int interventionTypeId) {
+        public string ValidateInterventionStatus(int interventionTypeId, decimal requiredHours, decimal requiredCost) {
 
             InterventionType interventionType = GetInterventionTypeData(interventionTypeId);
             decimal defaultCost = interventionType.InterventionTypeCost;
@@ -41,7 +41,7 @@ namespace Assignment2.Helpers
             decimal userMaxCost = siterEnfineer.MaximumCost;
             decimal userMaxHours = siterEnfineer.MaximumHours;
 
-            if (userMaxCost >= defaultCost && userMaxHours >= defaultHours)
+            if (userMaxCost >= defaultCost && userMaxCost >= requiredCost && userMaxHours >= defaultHours && userMaxHours >= requiredHours)
             {
 
                 return Status.Approved.ToString();
@@ -55,7 +55,7 @@ namespace Assignment2.Helpers
         public void CreateIntervention(int clientId, int interventionTypeId, decimal interventionCost, decimal interventionHours)
         {
             var intervention = new Intervention();
-            string status = ValidateInterventionStatus(interventionTypeId);
+            string status = ValidateInterventionStatus(interventionTypeId, interventionHours, interventionCost);
             if (status == Status.Approved.ToString()) {
                 intervention.Status = Convert.ToInt32(Status.Approved);
             }
