@@ -2,9 +2,9 @@
 {
     public enum Status
     {
-       PROPOSED = 0,
-        APPROVED = 1,
-         CANCELLED = 2,
-         COMPLETED = 3
+       Proposed = 0,
+        Approved = 1,
+         Cancelled = 2,
+         Completed = 3
     }
 }

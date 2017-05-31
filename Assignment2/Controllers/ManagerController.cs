@@ -23,7 +23,7 @@ namespace Assignment2.Controllers
         {
             if (Button.Equals("List of Intervention to approve or cancel in your district"))
             {
-                return RedirectToAction("ListOfInterventionsForManager");                   
+                return RedirectToAction("ListOfInterventionsForManager");
             }
             else if (Button.Equals("List of associated Interevntions"))
             {
@@ -35,8 +35,8 @@ namespace Assignment2.Controllers
             }
             return View();
         }
-    
-        
+
+
         public ActionResult ListOfInterventionsForManager()
         {
             IList<ListInterventionViewModel> viewModel = new List<ListInterventionViewModel>();
@@ -44,7 +44,7 @@ namespace Assignment2.Controllers
             try
             {
                 viewModel = ApproveOrCancelIntervention.ListOfProposedInterventionsForManager();
-                
+
             }
             catch (Exception ex)
             {
@@ -52,7 +52,7 @@ namespace Assignment2.Controllers
             }
             return View(viewModel);
         }
-        public ActionResult EditIntervention(int? id)
+        public ActionResult EditInterventionForManager(int? id)
         {
             if (id == null)
             {
@@ -64,14 +64,36 @@ namespace Assignment2.Controllers
             {
                 return HttpNotFound();
             }
+            var statuslist = intervention.GetPossibleStatusUpdateForIntervention(inter.Status);
+            ViewBag.Status = new SelectList(statuslist.Keys);
             return View(inter);
         }
 
 
         [HttpPost]
-        public ActionResult EditIntervention([Bind(Include = "ClientDistrict,ClientName,InterventionTypeName,InterventionHours,InterventionHours,CreateDate,Intervention")] ListInterventionViewModel InterList)
+        public ActionResult EditInterventionForManager(ListInterventionViewModel InterList)
         {
-            return View(InterList);
+            if (ModelState.IsValid)
+            {
+                InterventionsDao interDao = new InterventionsDao();
+
+                if (InterList.Status == Status.Approved.ToString())
+                {
+                    interDao.UpdateInterventionStatus_ToAppoved(InterList.InterventionId);
+
+
+                }
+                else if (InterList.Status == Status.Cancelled.ToString())
+                {
+                    interDao.UpdateInterventionStatus_ToCancelled(InterList.InterventionId);
+
+                }
+
+
+            }
+            return RedirectToAction("EditInterventionForManager");
+
+
         }
     }
 }

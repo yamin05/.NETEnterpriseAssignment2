@@ -334,7 +334,7 @@
     <Content Include="Views\Interventions\Create.cshtml" />
     <Content Include="Views\Interventions\Edit.cshtml" />
     <Content Include="Views\Interventions\Index.cshtml" />
-    <Content Include="Views\Manager\ApproveOrCancelIntervention.cshtml" />
+    <Content Include="Views\Manager\EditInterventionForManager.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Clients\Create.cshtml" />

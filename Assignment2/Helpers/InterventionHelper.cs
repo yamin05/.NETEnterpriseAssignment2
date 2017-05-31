@@ -44,10 +44,10 @@ namespace Assignment2.Helpers
             if (userMaxCost >= defaultCost && userMaxHours >= defaultHours)
             {
 
-                return Status.APPROVED.ToString();
+                return Status.Approved.ToString();
             }
             else {
-                return Status.PROPOSED.ToString();
+                return Status.Proposed.ToString();
             }
 
         }
@@ -56,12 +56,12 @@ namespace Assignment2.Helpers
         {
             var intervention = new Intervention();
             string status = ValidateInterventionStatus(interventionTypeId);
-            if (status == Status.APPROVED.ToString()) {
-                intervention.Status = Convert.ToInt32(Status.APPROVED);
+            if (status == Status.Approved.ToString()) {
+                intervention.Status = Convert.ToInt32(Status.Approved);
             }
             else
             {
-                intervention.Status = Convert.ToInt32(Status.PROPOSED);
+                intervention.Status = Convert.ToInt32(Status.Proposed);
             }
 
             intervention.ClientId = clientId;
@@ -113,17 +113,28 @@ namespace Assignment2.Helpers
             }
         }
 
-        public Intervention GetIntervention(int? userid)
+        public ListInterventionViewModel GetIntervention(int? userid)
         {
             Intervention Inter = new Intervention();
             Inter = interventionDao.GetIntervention(userid);
-            return Inter;
+            ListInterventionViewModel InterventionView = new ListInterventionViewModel();
+            InterventionView.ClientDistrict = Inter.Client.ClientDistrict;
+            InterventionView.ClientName = Inter.Client.ClientName;
+            InterventionView.InterventionTypeName = Inter.InterTypeId.InterventionTypeName;
+            InterventionView.InterventionCost = Inter.InterventionCost;
+            InterventionView.InterventionHours = Inter.InterventionHours;
+            InterventionView.Status = Enum.GetName((typeof(Status)), Inter.Status);
+            InterventionView.CreateDate = Inter.CreateDate;
+            InterventionView.InterventionId = Inter.InterventionId;
+            return InterventionView;
         }
+
+
 
         public IList<Intervention> ListofProposedIntervention()
         {
             IList<Intervention> ProposedInterList = new List<Intervention>();
-            ProposedInterList = interventionDao.GetInterventionsByStatus((int)Status.PROPOSED);
+            ProposedInterList = interventionDao.GetInterventionsByStatus((int)Status.Proposed);
             return ProposedInterList;
         }
 
@@ -180,6 +191,29 @@ namespace Assignment2.Helpers
                 throw new FaliedToRetriveRecordException();
             }
 
+        }
+        public Dictionary<string, int> GetPossibleStatusUpdateForIntervention(string status)
+        {
+            Dictionary<string, int> list = new Dictionary<string, int>();
+            if (Status.Proposed.ToString().Equals(status))
+            {   /*list.Clear();*/
+                list.Add(Status.Proposed.ToString(), (int)Status.Proposed);
+                list.Add(Status.Approved.ToString(), (int)Status.Approved);
+                list.Add(Status.Cancelled.ToString(), (int)Status.Cancelled);
+            }
+            else if (Status.Approved.ToString().Equals(status))
+            {
+                //list.Clear();
+                list.Add(Status.Approved.ToString(), (int)Status.Approved);
+                list.Add(Status.Cancelled.ToString(), (int)Status.Cancelled);
+            }
+            else if (Status.Cancelled.ToString().Equals(status))
+            {
+
+                list.Add(Status.Cancelled.ToString(), (int)Status.Cancelled);
+            }
+
+            return list;
         }
 
 

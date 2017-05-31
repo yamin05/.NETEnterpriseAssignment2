@@ -39,7 +39,7 @@ public class InterventionsDao
             using (context = new CustomDBContext())
             {
                 var intervention = context.Interventions
-                                    .Where(i => i.InterventionId.Equals(InterventionId))
+                                    .Where(i => i.InterventionId == InterventionId)
                                     .Select(i => i)
                                     .Include(i => i.Client)
                                     .Include(i=> i.InterTypeId)
@@ -87,11 +87,11 @@ public class InterventionsDao
             {
                 var intervention =
                 from inter in context.Interventions
-                where inter.Status == (int)Status.PROPOSED && inter.InterventionId == interventionId     //Added &&
+                where inter.InterventionId == interventionId     //Added &&
                 select inter;
                 foreach (Intervention inter in intervention)
                 {
-                    inter.Status = (int)Status.APPROVED;
+                    inter.Status = (int)Status.Approved;
                 }
                 try
                 {
@@ -104,6 +104,28 @@ public class InterventionsDao
 
             }
         }
+    public void UpdateInterventionStatus_ToCancelled(int interventionId)
+    {
+        using (context = new CustomDBContext())
+        {
+            var intervention =
+            from inter in context.Interventions
+            where inter.InterventionId == interventionId     //Added &&
+            select inter;
+            foreach (Intervention inter in intervention)
+            {
+                inter.Status = (int)Status.Cancelled;
+            }
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw new FailedToUpdateRecordException();
+            }
 
-        
+        }
     }
+
+}
