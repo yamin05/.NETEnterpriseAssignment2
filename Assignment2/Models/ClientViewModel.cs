@@ -4,8 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
+/// <summary>
+/// This is a view model for the client connected to client model
+/// </summary>
 namespace Assignment2.Models
 {
+    /// <summary>
+    /// Annotations and validation for creating client page
+    /// </summary>
     public class CreateNewClientViewModel
     {
         [Required]
@@ -22,6 +28,9 @@ namespace Assignment2.Models
         public string clientDistrict { get; set; }
     }
 
+    /// <summary>
+    /// Annotations for view client page - index
+    /// </summary>
     public class ListClientsViewModel
     {
         [Display(Name = "Client ID")]

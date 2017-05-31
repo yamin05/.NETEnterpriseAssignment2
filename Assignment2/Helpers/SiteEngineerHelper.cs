@@ -16,7 +16,10 @@ namespace Assignment2.Helpers
             dao = new Dao();
         }
 
-        //get the district for site manager
+        /// <summary>
+        /// This method is for getting district of the current User
+        /// </summary>
+        /// <returns>string</returns>
         public string GetDistrictForSiteManager ()
         {
             try

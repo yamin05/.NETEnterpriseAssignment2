@@ -5,8 +5,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
+/// <summary>
+/// This is a view model for the Interventions connected to Intervention model
+/// </summary>
 namespace Assignment2.Models
 {
+    /// <summary>
+    /// Annotations and validation for create Intervention page
+    /// </summary>
     public class CreateNewInterventionViewModel
     {
         [Required]
@@ -27,6 +33,9 @@ namespace Assignment2.Models
 
     }
 
+    /// <summary>
+    /// Annotations for View Interventions page - Index
+    /// </summary>
     public class ListInterventionViewModel {
 
         [Display(Name = "Client District")]

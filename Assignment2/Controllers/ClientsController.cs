@@ -14,6 +14,9 @@ using Assignment2.Helpers;
 
 namespace Assignment2.Controllers
 {
+    /// <summary>
+    /// With the help of Clients View And ClientVieModel this controller is used for create  view Clients
+    /// </summary>
     [Authorize (Roles = "Site_Engineer")]
     public class ClientsController : Controller
     {
@@ -21,6 +24,11 @@ namespace Assignment2.Controllers
         private SiteEngineerHelper siteEngineerHelper = new SiteEngineerHelper();
         private Dao d = new Dao();
 
+
+        /// <summary>
+        /// This method is used to view all associated Clients to user
+        /// </summary>
+        /// <returns>View</returns>
         public ActionResult Index()
         {
             IList<ListClientsViewModel> viewModel = new List<ListClientsViewModel>();
@@ -38,6 +46,10 @@ namespace Assignment2.Controllers
         }
 
 
+        /// <summary>
+        /// This method is used for the view page of creating clients
+        /// </summary>
+        /// <returns>View</returns>
         public ActionResult Create()
         {
             var viewModel = new CreateNewClientViewModel();
@@ -45,7 +57,10 @@ namespace Assignment2.Controllers
             return View(viewModel);
         }
 
-
+        /// <summary>
+        /// This method is used for calling CreateClient method to create a new client by passing user enterd values in fields
+        /// </summary>
+        /// <returns>Biew</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateNewClientViewModel viewModel)
