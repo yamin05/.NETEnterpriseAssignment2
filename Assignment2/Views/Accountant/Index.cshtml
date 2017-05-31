@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Accountant Home Page";
+}
+
+<p>
+    <br />
+    <h2>@ViewBag.Title</h2>
+</p>
+@using (Html.BeginForm("Index", "Accountant", FormMethod.Post, new { id = "submitForm" }))
+{
+    <p>
+        <button id="ButtonUsersView" name="Button" value="List of Users">List of Users </button>
+    </p>
+
+    <p>
+        &nbsp;
+    </p>
+}
+
+
+

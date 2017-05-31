@@ -197,6 +197,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccountantController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -211,6 +212,7 @@
     <Compile Include="Data_Access_Layer\CustomDBContext.cs" />
     <Compile Include="Data_Access_Layer\InterventionsDao.cs" />
     <Compile Include="Data_Access_Layer\ProjectDBContext.cs" />
+    <Compile Include="Data_Access_Layer\UsersDao.cs" />
     <Compile Include="Exceptions\CannotEditStatusException.cs" />
     <Compile Include="Exceptions\ClientAdditionConflictException.cs" />
     <Compile Include="Exceptions\EditQMInfoPermissionException.cs" />
@@ -241,6 +243,7 @@
     <Compile Include="Helpers\ClientHelper.cs" />
     <Compile Include="Helpers\SiteEngineerHelper.cs" />
     <Compile Include="Helpers\InterventionHelper.cs" />
+    <Compile Include="Helpers\UsersHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ClientViewModel.cs" />
     <Compile Include="Models\Database_Models\Client.cs" />
@@ -255,6 +258,8 @@
     <Compile Include="Models\Roles.cs" />
     <Compile Include="Models\SiteEngineerViewModels.cs" />
     <Compile Include="Models\Status.cs" />
+    <Compile Include="Models\UserRole.cs" />
+    <Compile Include="Models\UsersViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\Utils.cs" />
@@ -335,6 +340,8 @@
     <Content Include="Views\Interventions\Edit.cshtml" />
     <Content Include="Views\Interventions\Index.cshtml" />
     <Content Include="Views\Manager\EditInterventionForManager.cshtml" />
+    <Content Include="Views\Accountant\Index.cshtml" />
+    <Content Include="Views\Accountant\ListOfUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Clients\Create.cshtml" />
