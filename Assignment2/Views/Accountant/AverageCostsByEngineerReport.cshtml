@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Assignment2.Models.AverageCostsByEngineerModel>
+
+@{
+    ViewBag.Title = "AverageCostsByEngineerReport";
+}
+
+<h2>AverageCostsByEngineerReport</h2>
+
+<p>
+   
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RoleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AverageHours)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AverageCosts)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoleName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AverageHours)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AverageCosts)
+        </td>
+    </tr>
+}
+
+</table>

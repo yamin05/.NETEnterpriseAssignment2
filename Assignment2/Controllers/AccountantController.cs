@@ -28,6 +28,14 @@ namespace Assignment2.Controllers
             {
                 return RedirectToAction("ListOfUsers");
             }
+            else if (Button.Equals("Total Costs By Engineer Report"))
+            {
+                return RedirectToAction("TotalCostsByEngineerReport");
+            }
+            else if (Button.Equals("Average Costs By Engineer Report"))
+            {
+                return RedirectToAction("AverageCostsByEngineerReport");
+            }
             return View();
         }
 
@@ -48,22 +56,6 @@ namespace Assignment2.Controllers
             return View(viewModel);
         }
 
-        //public ActionResult EditInterventionForManager(string userId)
-        //{
-        //    if (userId == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    var intervention = new InterventionHelper();
-        //    var inter = intervention.GetIntervention(id);
-        //    if (inter == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    var statuslist = intervention.GetPossibleStatusUpdateForIntervention(inter.Status);
-        //    ViewBag.Status = new SelectList(statuslist.Keys);
-        //    return View(inter);
-        //}
         public ActionResult ChangeDistrictForUsers(string userId)
         {
             if (userId == null)
@@ -91,6 +83,41 @@ namespace Assignment2.Controllers
             
             }
             return RedirectToAction("ListOfUsers");
+        }
+
+        //Report
+
+        public ActionResult TotalCostsByEngineerReport()
+        {
+            IList<TotalCostsByEngineerModel> viewModel = new List<TotalCostsByEngineerModel>();
+            var Report = new ReportHelper();
+            try
+            {
+                viewModel = Report.TotalCostsByEngineerView();
+
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex);
+            }
+            return View(viewModel);
+        }
+
+
+        public ActionResult AverageCostsByEngineerReport()
+        {
+            IList<AverageCostsByEngineerModel> viewModel = new List<AverageCostsByEngineerModel>();
+            var Report = new ReportHelper();
+            try
+            {
+                viewModel = Report.AverageCostsByEngineerView();
+
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex);
+            }
+            return View(viewModel);
         }
 
     }

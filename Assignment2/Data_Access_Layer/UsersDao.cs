@@ -25,8 +25,8 @@ namespace Assignment2.Data_Access_Layer
                 var userList =  (from tb1 in context1.Users
                                 from tb2 in tb1.Roles
                                 join tb3 in context1.Roles on tb2.RoleId equals tb3.Id
-                                //where tb3.Name == "siteengineer" || tb3.Name == "manager"
-                                select new { tb1.Id, tb3.Name, tb1.UserName }).ToList();
+                                where tb3.Name == "Site_Engineer" || tb3.Name == "Manager"
+                                select new { tb1.Id, Name=tb3.Name.Replace("_", " "), tb1.UserName }).ToList();
 
                 var userDetail = (from tb1 in context.Users
                                   select tb1).ToList();
