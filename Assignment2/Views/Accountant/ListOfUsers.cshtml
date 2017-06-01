@@ -47,9 +47,7 @@
             @Html.DisplayFor(modelItem => item.District)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Change District", "ChangeDistrictForUsers", new { userId = item.UserId })
         </td>
     </tr>
 }

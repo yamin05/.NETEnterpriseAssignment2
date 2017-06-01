@@ -49,5 +49,45 @@ namespace Assignment2.Data_Access_Layer
                 return userView;
             }
         }
+
+
+        public UserViewModel GetUserData(string userID)
+        {
+            IList<UserViewModel> userList = GetUsersView();
+            {
+                UserViewModel userData = (from tb1 in userList
+                                          where tb1.UserId == userID
+                                          select new UserViewModel()
+                                          {
+                                              UserId = tb1.UserId,
+                                              RoleName = tb1.RoleName,
+                                              UserName = tb1.UserName,
+                                              MaximumCost = tb1.MaximumCost,
+                                              MaximumHours = tb1.MaximumHours,
+                                              District = tb1.District
+                                          }).FirstOrDefault();
+                return userData;
+            }
+        }
+
+        public void UpdateDistrictForUser(string userId, string district)
+        {
+            context = new CustomDBContext();
+            {
+                
+                User user = context.Users.Single(u => u.UserId == userId);
+                user.District = district;
+                try
+                {
+                    context.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    throw new FailedToUpdateRecordException();
+                }
+
+            }
+        }
+
     }
 }

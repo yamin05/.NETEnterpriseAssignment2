@@ -342,6 +342,7 @@
     <Content Include="Views\Manager\EditInterventionForManager.cshtml" />
     <Content Include="Views\Accountant\Index.cshtml" />
     <Content Include="Views\Accountant\ListOfUsers.cshtml" />
+    <Content Include="Views\Accountant\ChangeDistrictForUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Clients\Create.cshtml" />
