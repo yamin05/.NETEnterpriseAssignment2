@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Assignment2.Models.CostsByDistrictModel>
+
+@{
+    ViewBag.Title = "CostsByDistrictReport";
+}
+
+<h2>CostsByDistrictReport</h2>
+
+<p>
+  
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DistrictName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hours)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Costs)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DistrictName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hours)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Costs)
+        </td>
+    </tr>
+}
+
+</table>

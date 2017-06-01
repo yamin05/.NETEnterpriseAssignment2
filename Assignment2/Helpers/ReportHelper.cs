@@ -28,5 +28,12 @@ namespace Assignment2.Helpers
             viewList = reportDao.AverageCostsByEngineerView();
             return viewList;
         }
+
+        public IList<CostsByDistrictModel> CostsByDistrictView()
+        {
+            IList<CostsByDistrictModel> viewList = new List<CostsByDistrictModel>();        
+            viewList = reportDao.CostsByDistrictView();
+            return viewList;
+        }
     }
 }

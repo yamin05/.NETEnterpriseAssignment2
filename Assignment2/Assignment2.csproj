@@ -249,6 +249,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AverageCostsByEngineerModel.cs" />
     <Compile Include="Models\ClientViewModel.cs" />
+    <Compile Include="Models\CostsByDistrictModel.cs" />
     <Compile Include="Models\Database_Models\Client.cs" />
     <Compile Include="Models\Database_Models\Intervention.cs" />
     <Compile Include="Models\Database_Models\InterventionType.cs" />
@@ -349,6 +350,7 @@
     <Content Include="Views\Accountant\ChangeDistrictForUsers.cshtml" />
     <Content Include="Views\Accountant\TotalCostsByEngineerReport.cshtml" />
     <Content Include="Views\Accountant\AverageCostsByEngineerReport.cshtml" />
+    <Content Include="Views\Accountant\CostsByDistrictReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Clients\Create.cshtml" />

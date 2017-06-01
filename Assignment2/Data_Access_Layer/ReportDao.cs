@@ -87,5 +87,69 @@ namespace Assignment2.Data_Access_Layer
                 return AverageCostsByEngineerView;
             }
         }
+
+
+        public IList<CostsByDistrictModel> CostsByDistrictView()
+        {
+            context = new CustomDBContext();
+            {
+                var districtList = new List<string>();
+
+                districtList.Add(Districts.URBAN_INDONESIA);
+                districtList.Add(Districts.RURAL_INDONESIA);
+                districtList.Add(Districts.URBAN_PAPUA_NEW_GUINEA);
+                districtList.Add(Districts.RURAL_PAPUA_NEW_GUINEA);
+                districtList.Add(Districts.SYDNEY);
+                districtList.Add(Districts.RURAL_NEW_SOUTH_WALES);
+
+                var costsByDistrict = (from tb1 in context.Interventions.Include("Client")
+                                      group tb1 by tb1.Client.ClientDistrict into tb2
+                                      select new
+                                      {
+                                          District = tb2.Key,
+                                          Hours = tb2.Sum(i => i.InterventionHours),
+                                          Costs = tb2.Sum(i => i.InterventionCost)
+                                      }).ToList();
+
+                IList<CostsByDistrictModel> AverageCostsByEngineerView =
+                                                (from tb1 in districtList
+                                                 join tb2 in costsByDistrict
+                                                 on tb1 equals tb2.District into temp
+                                                 from tb3 in temp.DefaultIfEmpty()
+                                                 select new CostsByDistrictModel()
+                                                 {
+                                                     DistrictName = tb1,
+                                                     Hours = (tb3 == null) ? 0 : tb3.Hours,
+                                                     Costs = (tb3 == null) ? 0 : tb3.Costs
+                                                 }).ToList()
+                                                 .Union(from tb1 in context.Interventions
+                                                        group tb1 by "" into tb2
+                                                        select new CostsByDistrictModel()
+                                                        {
+                                                          DistrictName = "Total",
+                                                          Hours = tb2.Sum(i => i.InterventionHours),
+                                                          Costs = tb2.Sum(i => i.InterventionCost)
+                                                        }).ToList();
+                return AverageCostsByEngineerView;
+            }
+        }
+
+        //public IList<CostsByDistrictModel> TotalCostsView()
+        //{
+        //    context = new CustomDBContext();
+        //    {
+        //        IList<CostsByDistrictModel> totalCosts =
+        //                        (from tb1 in context.Interventions
+        //                         group tb1 by "" into tb2
+        //                         select new CostsByDistrictModel()
+        //                         {
+        //                             DistrictName = "Total",
+        //                             Hours = tb2.Sum(i => i.InterventionHours),
+        //                             Costs = tb2.Sum(i => i.InterventionCost)
+        //                         }).ToList();
+        //        return totalCosts;
+        //    }
+        //}
+
     }
 }

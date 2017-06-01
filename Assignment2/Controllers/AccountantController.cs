@@ -36,6 +36,10 @@ namespace Assignment2.Controllers
             {
                 return RedirectToAction("AverageCostsByEngineerReport");
             }
+            else if (Button.Equals("Costs By District Report"))
+            {
+                return RedirectToAction("CostsByDistrictReport");
+            }
             return View();
         }
 
@@ -111,6 +115,22 @@ namespace Assignment2.Controllers
             try
             {
                 viewModel = Report.AverageCostsByEngineerView();
+
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex);
+            }
+            return View(viewModel);
+        }
+
+        public ActionResult CostsByDistrictReport()
+        {
+            IList<CostsByDistrictModel> viewModel = new List<CostsByDistrictModel>();
+            var Report = new ReportHelper();
+            try
+            {
+                viewModel = Report.CostsByDistrictView();
 
             }
             catch (Exception ex)
