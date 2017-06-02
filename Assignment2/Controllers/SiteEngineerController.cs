@@ -21,6 +21,10 @@ namespace Assignment2.Controllers
     {
         private CustomDBContext db = new CustomDBContext();
 
+        private SiteEngineerHelper siteEngineerHelper = new SiteEngineerHelper();
+        private Dao d = new Dao();
+
+
         /// <summary>
         /// This method is used to view all associated interventions to user
         /// </summary>
@@ -95,14 +99,15 @@ namespace Assignment2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Intervention intervention = db.Interventions.Find(id);
-            if (intervention == null)
+            var intervention = new InterventionHelper();
+            var inter = intervention.GetIntervention(id);
+            if (inter == null)
             {
                 return HttpNotFound();
             }
-
-            ViewBag.InterventionTypeId = new SelectList(db.InterventionTypes, "InterventionTypeId", "InterventionTypeName", intervention.InterventionTypeId);
-            return View(intervention);
+            var statuslist = intervention.GetPossibleStatusUpdateForIntervention(inter.Status);
+            ViewBag.Status = new SelectList(statuslist.Keys);
+            return View(inter);
         }
 
 
@@ -112,26 +117,32 @@ namespace Assignment2.Controllers
         /// <returns>View</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "InterventionId,CreatedByUserId,ApprovedByUserId,InterventionTypeId,InterventionCost,InterventionHours,CreateDate,Status,Condition,ModifyDate")] Intervention intervention)
+        public ActionResult EditIntervention(ListInterventionViewModel InterList)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(intervention).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                InterventionsDao interDao = new InterventionsDao();
+
+                interDao.UpdateLife(InterList.InterventionId, InterList.Condition);
+
+                if (InterList.Status == Status.Approved.ToString())
+                {
+                    interDao.UpdateInterventionStatus_ToAppoved(InterList.InterventionId);
+                    ModelState.AddModelError("success", "Intervention Updated Successfully!");
+                }
+                else if (InterList.Status == Status.Cancelled.ToString())
+                {
+                    interDao.UpdateInterventionStatus_ToCancelled(InterList.InterventionId);
+                    ModelState.AddModelError("success", "Intervention Updated Successfully!");
+                }
+
+
             }
-            ViewBag.ApprovedByUserId = new SelectList(db.Users, "UserId", "District", intervention.ApprovedByUserId);
-            ViewBag.CreatedByUserId = new SelectList(db.Users, "UserId", "District", intervention.CreatedByUserId);
-            ViewBag.InterventionTypeId = new SelectList(db.InterventionTypes, "InterventionTypeId", "InterventionTypeName", intervention.InterventionTypeId);
-            return View(intervention);
+            return Redirect(Request.QueryString["url"]);
         }
 
-        private SiteEngineerHelper siteEngineerHelper = new SiteEngineerHelper();
-        private Dao d = new Dao();
-
-
         /// <summary>
-        /// This method is used to view all associated Clients to user
+        /// This method is used to view all assosiated Clients to user
         /// </summary>
         /// <returns>View</returns>
         public ActionResult ViewClients()
@@ -150,6 +161,30 @@ namespace Assignment2.Controllers
             return View(viewModel);
         }
 
+        /// <summary>
+        /// This method is used to list all Interventions assosiated to client
+        /// </summary>
+        /// <param name="id">Client ID</param>
+        /// <returns>View</returns>
+        public ActionResult ViewClientsInterventions(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            IList<ListInterventionViewModel> viewModel = new List<ListInterventionViewModel>();
+            var usersIntervention = new InterventionHelper();
+            try
+            {
+                viewModel = usersIntervention.ListOfClientsInterventions(id);
+
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex);
+            }
+            return View(viewModel);
+        }
 
         /// <summary>
         /// This method is used for the view page of creating clients

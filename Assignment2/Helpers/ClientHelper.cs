@@ -36,6 +36,7 @@ namespace Assignment2.Helpers
                 foreach (var inter in getList)
                 {
                     ListClientsViewModel ViewClients = new ListClientsViewModel();
+                    ViewClients.clientID = inter.ClientId;
                     ViewClients.clientName = inter.ClientName;
                     ViewClients.clientLocation = inter.ClientLocation;
                     ViewClients.createDate = inter.CreateDate;
