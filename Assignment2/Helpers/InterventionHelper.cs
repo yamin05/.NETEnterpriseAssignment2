@@ -112,7 +112,7 @@ namespace Assignment2.Helpers
         }
 
         /// <summary>
-        /// This method is to list all interventions associated with the user
+        /// This method is to list all interventions assosiated with the user
         /// </summary>
         /// <returns>IList</returns>
         public IList<ListInterventionViewModel> ListOfUsersInterventions()
@@ -123,6 +123,40 @@ namespace Assignment2.Helpers
                 IList<Intervention> getList = new List<Intervention>();
                 IList<ListInterventionViewModel> ViewList = new List<ListInterventionViewModel>();
                 getList = interventionDao.GetUsersInterventions(userId);
+
+                foreach (var inter in getList)
+                {
+                    ListInterventionViewModel ViewIntervention = new ListInterventionViewModel();
+                    ViewIntervention.InterventionTypeName = inter.InterTypeId.InterventionTypeName;
+                    ViewIntervention.InterventionCost = inter.InterventionCost;
+                    ViewIntervention.InterventionHours = inter.InterventionHours;
+                    ViewIntervention.CreateDate = inter.CreateDate;
+                    ViewIntervention.InterventionId = inter.InterventionId;
+                    ViewIntervention.Status = Enum.GetName((typeof(Status)), inter.Status);
+                    ViewIntervention.Condition = inter.Condition;
+                    ViewIntervention.ModifyDate = inter.ModifyDate;
+                    ViewList.Add(ViewIntervention);
+                }
+
+                return ViewList;
+            }
+            catch
+            {
+                throw new FaliedToRetriveRecordException();
+            }
+        }
+
+        /// <summary>
+        /// This method is to list all interventions assosiated with the Client
+        /// </summary>
+        /// <returns>IList</returns>
+        public IList<ListInterventionViewModel> ListOfClientsInterventions(int? id)
+        {
+            try
+            {
+                IList<Intervention> getList = new List<Intervention>();
+                IList<ListInterventionViewModel> ViewList = new List<ListInterventionViewModel>();
+                getList = interventionDao.GetClientsInterventions(id);
 
                 foreach (var inter in getList)
                 {
@@ -159,6 +193,8 @@ namespace Assignment2.Helpers
             InterventionView.Status = Enum.GetName((typeof(Status)), Inter.Status);
             InterventionView.CreateDate = Inter.CreateDate;
             InterventionView.InterventionId = Inter.InterventionId;
+            InterventionView.ModifyDate = Inter.ModifyDate;
+            InterventionView.Condition = Inter.Condition;
             return InterventionView;
         }
 
