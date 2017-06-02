@@ -259,6 +259,7 @@
     <Compile Include="Models\InterventionViewModels.cs" />
     <Compile Include="Models\ManagerViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MonthlyCostsForDistrictModel.cs" />
     <Compile Include="Models\Roles.cs" />
     <Compile Include="Models\SiteEngineerViewModels.cs" />
     <Compile Include="Models\Status.cs" />
@@ -351,6 +352,7 @@
     <Content Include="Views\Accountant\TotalCostsByEngineerReport.cshtml" />
     <Content Include="Views\Accountant\AverageCostsByEngineerReport.cshtml" />
     <Content Include="Views\Accountant\CostsByDistrictReport.cshtml" />
+    <Content Include="Views\Accountant\MonthlyCostsForDistrictReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Clients\Create.cshtml" />
