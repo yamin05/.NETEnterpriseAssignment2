@@ -201,7 +201,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\InterventionsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Controllers\SiteEngineerController.cs" />
@@ -260,7 +259,6 @@
     <Compile Include="Models\ManagerViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Roles.cs" />
-    <Compile Include="Models\SiteEngineerViewModels.cs" />
     <Compile Include="Models\Status.cs" />
     <Compile Include="Models\TotalCostsByEngineerModel.cs" />
     <Compile Include="Models\UserRole.cs" />
@@ -336,14 +334,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\SiteEngineer\Index.cshtml" />
-    <Content Include="Views\SiteEngineer\CreateNewClient.cshtml" />
     <Content Include="Views\Manager\Index.cshtml" />
     <Content Include="Views\Manager\ListOfInterventionsForManager.cshtml" />
-    <Content Include="Views\SiteEngineer\ViewAllClients.cshtml" />
-    <Content Include="Views\Interventions\Create.cshtml" />
-    <Content Include="Views\Interventions\Edit.cshtml" />
-    <Content Include="Views\Interventions\Index.cshtml" />
+    <Content Include="Views\SiteEngineer\CreateIntervention.cshtml" />
+    <Content Include="Views\SiteEngineer\EditIntervention.cshtml" />
+    <Content Include="Views\SiteEngineer\Index.cshtml" />
     <Content Include="Views\Manager\EditInterventionForManager.cshtml" />
     <Content Include="Views\Accountant\Index.cshtml" />
     <Content Include="Views\Accountant\ListOfUsers.cshtml" />
@@ -353,8 +348,8 @@
     <Content Include="Views\Accountant\CostsByDistrictReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Clients\Create.cshtml" />
-    <Content Include="Views\Clients\Index.cshtml" />
+    <Content Include="Views\SiteEngineer\CreateClient.cshtml" />
+    <Content Include="Views\SiteEngineer\ViewClients.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

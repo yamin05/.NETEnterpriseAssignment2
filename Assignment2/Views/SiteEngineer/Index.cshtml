@@ -1,30 +1,71 @@
-﻿
+﻿@using Assignment2.Models
+@model IEnumerable<ListInterventionViewModel>
+
 @{
-    ViewBag.Title = "Site Engineer Home Page";
+    ViewBag.Title = "Intervention Details";
 }
+
+<h2>Intervention Details</h2>
+
 <p>
-    <br />
-    <h2>@ViewBag.Title</h2>
+    @Html.ActionLink("Create New", "CreateIntervention")
 </p>
-@using (Html.BeginForm("Index", "SiteEngineer", FormMethod.Post, new { id = "submitForm" }))
-{
-    <p>
-        <button id="ButtonViewAllClientsInSameDistrict" name="Button" value="View All Clients In Same District">View All Clients In Same District</button>
-    </p>
-    <hr />
-    <p>
-        <button id="ButtonCreateIntervention" name="Button" value="Create New Intervention">Create New Intervention</button>
-    </p>
-    <p>
-        <button ID="ButtonViewInterventions" name="Button" value="View All Interventions Created By You">View All Interventions Created By You</button>
-    </p>
+<table class="table">
+    <tr>
+       
+        
+        <th>
+            @Html.DisplayNameFor(model => model.InterventionTypeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InterventionCost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InterventionHours)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Condition)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifyDate)
+        </th>
+        <th></th>
+    </tr>
 
-    <hr />
-
-    <p>
-        <button ID="ButtonChangePassword" name="Button" value="Change Password" Width="400px">Change Password</button>
-    </p>
-    <p>
-        &nbsp;
-    </p>
+@foreach (var item in Model) {
+    <tr>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.InterventionTypeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InterventionCost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InterventionHours)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Condition)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifyDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditIntervention", new { id=item.InterventionId })
+        </td>
+    </tr>
 }
+
+</table>
