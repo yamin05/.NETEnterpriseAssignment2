@@ -36,11 +36,11 @@ namespace Assignment2.Helpers
             return viewList;
         }
 
-        public IList<MonthlyCostsForDistrictModel> MonthlyCostsForDistrictView(string district)
-        {
-            IList<MonthlyCostsForDistrictModel> viewList = new List<MonthlyCostsForDistrictModel>();
-            viewList = reportDao.MonthlyCostsForDistrictView(district);
-            return viewList;
-        }
+        //public IList<MonthlyCostsForDistrictModel> MonthlyCostsForDistrictView(string district)
+        //{
+        //    IList<MonthlyCostsForDistrictModel> viewList = new List<MonthlyCostsForDistrictModel>();
+        //    viewList = reportDao.MonthlyCostsForDistrictView(district);
+        //    return viewList;
+        //}
     }
 }
