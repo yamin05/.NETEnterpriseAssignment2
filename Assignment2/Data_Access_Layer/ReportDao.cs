@@ -24,6 +24,7 @@ namespace Assignment2.Data_Access_Layer
                                 select new { UserId=tb1.Id, RoleName=tb3.Name.Replace("_"," "), UserName=tb1.UserName }).ToList();
 
                 var totalCostsByEngineer = (from tb1 in context.Interventions
+                                            where tb1.Status ==3
                                             group tb1 by tb1.CreatedByUserId into tb2
                                             select new
                                             {
@@ -63,6 +64,7 @@ namespace Assignment2.Data_Access_Layer
                                 select new { UserId = tb1.Id, RoleName = tb3.Name.Replace("_", " "), UserName = tb1.UserName }).ToList();
 
                 var totalCostsByEngineer = (from tb1 in context.Interventions
+                                            where tb1.Status == 3
                                             group tb1 by tb1.CreatedByUserId into tb2
                                             select new
                                             {
@@ -104,7 +106,8 @@ namespace Assignment2.Data_Access_Layer
                 districtList.Add(Districts.RURAL_NEW_SOUTH_WALES);
 
                 var costsByDistrict = (from tb1 in context.Interventions.Include("Client")
-                                      group tb1 by tb1.Client.ClientDistrict into tb2
+                                       where tb1.Status == 3
+                                       group tb1 by tb1.Client.ClientDistrict into tb2
                                       select new
                                       {
                                           District = tb2.Key,
@@ -149,6 +152,7 @@ namespace Assignment2.Data_Access_Layer
             context = new CustomDBContext();
 
             var monthlyCosts = (from tb1 in context.Interventions.Include("Client")
+                                where tb1.Status == 3
                                 group tb1 by new { tb1.Client.ClientDistrict, tb1.CreateDate.Month } into tb2
                                 select new
                                 {
