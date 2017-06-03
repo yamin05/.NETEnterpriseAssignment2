@@ -22,7 +22,7 @@ namespace Assignment2.Helpers
         }
 
         /// <summary>
-        /// This method is for getting all clients created by the user
+        /// This method is for getting all clients for the user in same district
         /// </summary>
         /// <returns>IList</returns>
         public IList<ListClientsViewModel> ListOfClients()

@@ -261,6 +261,12 @@ namespace Assignment2.Helpers
             }
 
         }
+
+        /// <summary>
+        /// This method is used to check status update for siteengineers Interventions
+        /// </summary>
+        /// <param name="status">current status of an intervention</param>
+        /// <returns>list</returns>
         public Dictionary<string, int> GetPossibleStatusUpdateForInterventionForSiteEngineer(string status)
         {
             Dictionary<string, int> list = new Dictionary<string, int>();

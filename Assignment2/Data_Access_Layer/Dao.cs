@@ -31,7 +31,7 @@ namespace Assignment2.Data_Access_Layer
                 var currentUserId = Utils.getInstance.GetCurrentUserId();
 
                 var clients = context.Clients
-                           .Where(c => c.CreatedByUserId.Equals(currentUserId))
+                           .Where(c => c.ClientDistrict.Equals(c.CreatedBy.District))
                            .Select(c => c);
                 return clients.ToList();
             }
