@@ -139,6 +139,11 @@ namespace Assignment2.Controllers
                     interDao.UpdateInterventionStatus_ToAppoved(InterList.InterventionId);
                     ModelState.AddModelError("success", "Intervention Updated Successfully!");
                 }
+                else if (InterList.Status == Status.Completed.ToString())
+                {
+                    interDao.UpdateInterventionStatus_ToCompleted(InterList.InterventionId);
+                    ModelState.AddModelError("success", "Intervention Updated Successfully!");
+                }
                 else if (InterList.Status == Status.Cancelled.ToString())
                 {
                     interDao.UpdateInterventionStatus_ToCancelled(InterList.InterventionId);

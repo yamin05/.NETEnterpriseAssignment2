@@ -169,6 +169,31 @@ public class InterventionsDao
 
             }
         }
+
+    public void UpdateInterventionStatus_ToCompleted(int interventionId)
+    {
+        using (context = new CustomDBContext())
+        {
+            var intervention =
+            from inter in context.Interventions
+            where inter.InterventionId == interventionId     //Added &&
+                select inter;
+            foreach (Intervention inter in intervention)
+            {
+                inter.Status = (int)Status.Completed;
+                inter.ModifyDate = DateTime.Now;
+            }
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw new FailedToUpdateRecordException();
+            }
+
+        }
+    }
     public void UpdateInterventionStatus_ToCancelled(int interventionId)
     {
         using (context = new CustomDBContext())

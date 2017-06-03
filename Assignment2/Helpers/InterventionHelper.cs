@@ -273,12 +273,13 @@ namespace Assignment2.Helpers
             {
                 //list.Clear();
                 list.Add(Status.Approved.ToString(), (int)Status.Approved);
+                list.Add(Status.Completed.ToString(), (int)Status.Completed);
                 list.Add(Status.Cancelled.ToString(), (int)Status.Cancelled);
             }
-            else if (Status.Cancelled.ToString().Equals(status))
+            else if (Status.Completed.ToString().Equals(status))
             {
-
-                list.Add(Status.Cancelled.ToString(), (int)Status.Cancelled);
+                //list.Clear();
+                list.Add(Status.Completed.ToString(), (int)Status.Completed);
             }
 
             return list;
