@@ -144,35 +144,35 @@ namespace Assignment2.Controllers
             return View(viewModel);
         }
 
-        //public ActionResult MonthlyCostsForDistrictReport()
-        //{
-        //    var Users = new UsersHelper();
-        //    var districtList = Users.GetDistrictList();
-        //    ViewBag.District = new SelectList(districtList);
-        //    IList<MonthlyCostsForDistrictModel> viewModel = new List<MonthlyCostsForDistrictModel>();
-        //    var Report = new ReportHelper();
-        //    return View(viewModel);
-        //}
+        public ActionResult MonthlyCostsForDistrictReport()
+        {
+            var Users = new UsersHelper();
+            var districtList = Users.GetDistrictList();
+            ViewBag.District = new SelectList(districtList);
+            IList<MonthlyCostsForDistrictModel> viewModel = new List<MonthlyCostsForDistrictModel>();
+            var Report = new ReportHelper();
+            return View(viewModel);
+        }
 
 
-        //[HttpPost]
-        //public ActionResult MonthlyCostsForDistrictReport(FormCollection fc, string district)
-        //{
-        //    var Users = new UsersHelper();
-        //    var districtList = Users.GetDistrictList();
-        //    ViewBag.District = new SelectList(districtList);
-        //    IList<MonthlyCostsForDistrictModel> viewModel = new List<MonthlyCostsForDistrictModel>();
-        //    var Report = new ReportHelper();
-        //    try
-        //    {
-        //        viewModel = Report.MonthlyCostsForDistrictView(district);
+        [HttpPost]
+        public ActionResult MonthlyCostsForDistrictReport(FormCollection fc, string district)
+        {
+            var Users = new UsersHelper();
+            var districtList = Users.GetDistrictList();
+            ViewBag.District = new SelectList(districtList);
+            IList<MonthlyCostsForDistrictModel> viewModel = new List<MonthlyCostsForDistrictModel>();
+            var Report = new ReportHelper();
+            try
+            {
+                viewModel = Report.MonthlyCostsForDistrictView(district);
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ModelState.AddModelError(string.Empty, ex);
-        //    }
-        //    return View(viewModel);
-        //}
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex);
+            }
+            return View(viewModel);
+        }
     }
 }
