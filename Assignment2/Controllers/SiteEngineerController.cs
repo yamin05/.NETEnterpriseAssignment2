@@ -69,15 +69,24 @@ namespace Assignment2.Controllers
 
             try
             {
-                createInterventionHelper.CreateIntervention(viewModel.clientId, viewModel.interventionTypeId, viewModel.interventionCost, viewModel.interventionHours);
-                ModelState.AddModelError("success", "Intervention Created Successfully!");
+                if (viewModel.clientId != 0)
+                {
+                    createInterventionHelper.CreateIntervention(viewModel.clientId, viewModel.interventionTypeId, viewModel.interventionCost, viewModel.interventionHours);
+                    ModelState.AddModelError("success", "Intervention Created Successfully!");
 
 
-                //Getting values from DB for Dropdown List
-                var currentUserId = Utils.getInstance.GetCurrentUserId();
-                ViewBag.ClientId = new SelectList(db.Clients.Where(c => c.CreatedBy.UserId == currentUserId), "ClientId", "ClientName");
-                ViewBag.InterventionTypeId = new SelectList(db.InterventionTypes, "InterventionTypeId", "InterventionTypeName");
-
+                    //Getting values from DB for Dropdown List
+                    var currentUserId = Utils.getInstance.GetCurrentUserId();
+                    ViewBag.ClientId = new SelectList(db.Clients.Where(c => c.CreatedBy.UserId == currentUserId), "ClientId", "ClientName");
+                    ViewBag.InterventionTypeId = new SelectList(db.InterventionTypes, "InterventionTypeId", "InterventionTypeName");
+                }
+                else
+                {
+                    var currentUserId = Utils.getInstance.GetCurrentUserId();
+                    ViewBag.ClientId = new SelectList(db.Clients.Where(c => c.CreatedBy.UserId == currentUserId), "ClientId", "ClientName");
+                    ViewBag.InterventionTypeId = new SelectList(db.InterventionTypes, "InterventionTypeId", "InterventionTypeName");
+                    ModelState.AddModelError("success", "Sorry, You don't have any client to assosiate intervention with!, Hint: Create a client first!");
+                }
             }
             catch (Exception ex)
             {
