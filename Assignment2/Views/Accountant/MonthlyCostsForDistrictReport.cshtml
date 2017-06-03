@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Assignment2.Models.MonthlyCostsForDistrictModel>
+
+@{
+    ViewBag.Title = "MonthlyCostsForDistrictReport";
+}
+
+<h2>Monthly Costs For District Report</h2>
+
+
+    @using (Html.BeginForm())
+    {
+<p>
+    Title: @Html.DropDownList("District")  <input type="submit" value="Search" />
+</p>
+    }
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.District)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Month)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MonthlyHours)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MonthlyCosts)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.District)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Month)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MonthlyHours)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MonthlyCosts)
+                </td>
+            </tr>
+        }
+
+    </table>
