@@ -63,8 +63,8 @@ public class InterventionsDao
         using (context = new CustomDBContext()) {
 
            IList<Intervention> usersInterventions = context.Interventions
-                                       .Where(i => i.CreatedBy.UserId.Equals(userId))
                                        .Select(i => i)
+                                       .Where(i => i.CreatedBy.UserId.Equals(userId) && i.Status != (int)Status.Cancelled)
                                        .Include(i => i.InterTypeId).ToList();
 
             return usersInterventions;
@@ -86,8 +86,8 @@ public class InterventionsDao
         {
 
             IList<Intervention> clientInterventions = context.Interventions
-                                        .Where(i => i.ClientId == id)
                                         .Select(i => i)
+                                        .Where(i => i.ClientId == id && i.Status != (int)Status.Cancelled)
                                         .Include(i => i.InterTypeId).ToList();
 
             return clientInterventions;
