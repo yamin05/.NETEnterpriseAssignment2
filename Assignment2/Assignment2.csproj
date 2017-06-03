@@ -268,14 +268,6 @@
     <Compile Include="Utils\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\aspnet-Assignment2-20170505045859.mdf" />
-    <Content Include="App_Data\aspnet-Assignment2-20170505045859_log.ldf">
-      <DependentUpon>aspnet-Assignment2-20170505045859.mdf</DependentUpon>
-    </Content>
-    <Content Include="App_Data\Assignment2Database.mdf" />
-    <Content Include="App_Data\Assignment2Database_log.ldf">
-      <DependentUpon>Assignment2Database.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Docs\Migrations.txt" />
@@ -361,7 +353,9 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
