@@ -52,7 +52,7 @@ namespace Assignment2.Controllers
         public ActionResult CreateIntervention()
         {
             var currentUserId = Utils.getInstance.GetCurrentUserId();
-            ViewBag.ClientId = new SelectList(db.Clients.Where(c => c.CreatedBy.UserId == currentUserId), "ClientId", "ClientName");
+            ViewBag.ClientId = new SelectList(db.Clients.Where(c => c.CreatedBy.UserId == currentUserId && c.CreatedBy.District.Equals(c.ClientDistrict)), "ClientId", "ClientName");
             ViewBag.InterventionTypeId = new SelectList(db.InterventionTypes, "InterventionTypeId", "InterventionTypeName");
             return View();
         }
@@ -77,13 +77,13 @@ namespace Assignment2.Controllers
 
                     //Getting values from DB for Dropdown List
                     var currentUserId = Utils.getInstance.GetCurrentUserId();
-                    ViewBag.ClientId = new SelectList(db.Clients.Where(c => c.CreatedBy.UserId == currentUserId), "ClientId", "ClientName");
+                    ViewBag.ClientId = new SelectList(db.Clients.Where(c => c.CreatedBy.UserId == currentUserId && c.CreatedBy.District.Equals(c.ClientDistrict)), "ClientId", "ClientName");
                     ViewBag.InterventionTypeId = new SelectList(db.InterventionTypes, "InterventionTypeId", "InterventionTypeName");
                 }
                 else
                 {
                     var currentUserId = Utils.getInstance.GetCurrentUserId();
-                    ViewBag.ClientId = new SelectList(db.Clients.Where(c => c.CreatedBy.UserId == currentUserId), "ClientId", "ClientName");
+                    ViewBag.ClientId = new SelectList(db.Clients.Where(c => c.CreatedBy.UserId == currentUserId && c.CreatedBy.District.Equals(c.ClientDistrict)), "ClientId", "ClientName");
                     ViewBag.InterventionTypeId = new SelectList(db.InterventionTypes, "InterventionTypeId", "InterventionTypeName");
                     ModelState.AddModelError("success", "Sorry, You don't have any client to assosiate intervention with!, Hint: Create a client first!");
                 }
@@ -114,7 +114,7 @@ namespace Assignment2.Controllers
             {
                 return HttpNotFound();
             }
-            var statuslist = intervention.GetPossibleStatusUpdateForIntervention(inter.Status);
+            var statuslist = intervention.GetPossibleStatusUpdateForInterventionForSiteEngineer(inter.Status);
             ViewBag.Status = new SelectList(statuslist.Keys);
             return View(inter);
         }

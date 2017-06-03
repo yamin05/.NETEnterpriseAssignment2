@@ -261,6 +261,29 @@ namespace Assignment2.Helpers
             }
 
         }
+        public Dictionary<string, int> GetPossibleStatusUpdateForInterventionForSiteEngineer(string status)
+        {
+            Dictionary<string, int> list = new Dictionary<string, int>();
+            if (Status.Proposed.ToString().Equals(status))
+            {   /*list.Clear();*/
+                list.Add(Status.Proposed.ToString(), (int)Status.Proposed);
+                list.Add(Status.Cancelled.ToString(), (int)Status.Cancelled);
+            }
+            else if (Status.Approved.ToString().Equals(status))
+            {
+                //list.Clear();
+                list.Add(Status.Approved.ToString(), (int)Status.Approved);
+                list.Add(Status.Cancelled.ToString(), (int)Status.Cancelled);
+            }
+            else if (Status.Cancelled.ToString().Equals(status))
+            {
+
+                list.Add(Status.Cancelled.ToString(), (int)Status.Cancelled);
+            }
+
+            return list;
+        }
+
         public Dictionary<string, int> GetPossibleStatusUpdateForIntervention(string status)
         {
             Dictionary<string, int> list = new Dictionary<string, int>();
