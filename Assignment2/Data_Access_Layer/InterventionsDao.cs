@@ -65,7 +65,7 @@ public class InterventionsDao
 
            IList<Intervention> usersInterventions = context.Interventions
                                        .Select(i => i)
-                                       .Where(i => i.CreatedBy.UserId.Equals(userId) && i.Status != (int)Status.Cancelled)
+                                       .Where(i => i.CreatedBy.UserId.Equals(userId) && i.Status != Status.CANCELLED)
                                        .Include(i => i.InterTypeId).ToList();
 
             return usersInterventions;
@@ -88,7 +88,7 @@ public class InterventionsDao
             var userId = Utils.getInstance.GetCurrentUserId();
             IList<Intervention> clientInterventions = context.Interventions
                                         .Select(i => i)
-                                        .Where(i => i.ClientId == id && i.Status != (int)Status.Cancelled && i.CreatedByUserId.Equals(userId))
+                                        .Where(i => i.ClientId == id && i.Status != Status.CANCELLED && i.CreatedByUserId.Equals(userId))
                                         .Include(i => i.InterTypeId).ToList();
 
             return clientInterventions;
@@ -98,7 +98,7 @@ public class InterventionsDao
 
     }
 
-    public IList<Intervention> GetInterventionsByStatus(int status)
+    public IList<Intervention> GetInterventionsByStatus(string status)
         {
             using (context = new CustomDBContext())
             {
@@ -167,7 +167,7 @@ public class InterventionsDao
                 select inter;
                 foreach (Intervention inter in intervention)
                 {
-                    inter.Status = (int)Status.Approved;
+                    inter.Status = Status.APPROVED;
                     inter.ModifyDate = DateTime.Now;
                 }
                 try
@@ -196,7 +196,7 @@ public class InterventionsDao
                 select inter;
             foreach (Intervention inter in intervention)
             {
-                inter.Status = (int)Status.Completed;
+                inter.Status = Status.COMPLETED;
                 inter.ModifyDate = DateTime.Now;
             }
             try
@@ -225,7 +225,7 @@ public class InterventionsDao
             select inter;
             foreach (Intervention inter in intervention)
             {
-                inter.Status = (int)Status.Cancelled;
+                inter.Status = Status.CANCELLED;
                 inter.ModifyDate = DateTime.Now;
             }
             try
