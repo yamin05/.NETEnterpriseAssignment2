@@ -128,5 +128,19 @@ namespace Assignment2.Data_Access_Layer
                 return intervention;
             }
         }
+
+        public IList<Intervention> GetInterventions(string status)
+        {
+            using (context = new CustomDBContext())
+            {
+                IList<Intervention> intervention = (context.Interventions
+                                    .Where(i => i.Status.Equals(status))
+                                    .Select(i => i))
+                                    .Include(i => i.Client)
+                                    .Include(i => i.InterTypeId)
+                                    .ToList();
+                return intervention;
+            }
+        }
     }
 }

@@ -22,8 +22,9 @@ namespace Assignment2.Helpers
             {
                 IList<ListInterventionViewModel> ViewList = new List<ListInterventionViewModel>();
                 var manager = dao.GetUser(Utils.getInstance.GetCurrentUserId());
-                var interventions = dao.GetInterventionsForManager(manager);
-                foreach (var inter in interventions)
+                var interlist = ListofProposedIntervention();
+                var proposedinterlist = ValidateProposedInterventions(manager, interlist);
+                foreach (var inter in proposedinterlist)
                 {
                     ListInterventionViewModel ViewIntervention = new ListInterventionViewModel();
                     ViewIntervention.ClientDistrict = inter.Client.ClientDistrict;
@@ -42,6 +43,28 @@ namespace Assignment2.Helpers
             {
                 throw new FaliedToRetriveRecordException();
             }
+        }
+
+        private IList<Intervention> ListofProposedIntervention()
+        {
+            IList<Intervention> ProposedInterList = new List<Intervention>();
+            ProposedInterList = dao.GetInterventions(Status.PROPOSED);
+            return ProposedInterList;
+        }
+
+        private IList<Intervention> ValidateProposedInterventions(User manager, IList<Intervention> InterList)
+        {
+            IList<Intervention> ProposedList = new List<Intervention>();
+            for (int i = 0; i <= InterList.Count - 1; i++)
+            {
+                {
+                    if (manager.MaximumHours >= InterList[i].InterventionHours && manager.MaximumCost >= InterList[i].InterventionCost && manager.District == InterList[i].Client.ClientDistrict)
+                    {
+                        ProposedList.Add(InterList[i]);
+                    }
+                }
+            }
+            return ProposedList;
         }
 
         public ListInterventionViewModel GetIntervention(int interventionId)

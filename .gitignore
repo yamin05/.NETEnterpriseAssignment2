@@ -240,3 +240,11 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/Assignment2/Push_Notification/NotificationHub.cs
+/Assignment2/Scripts/jquery.signalR-2.2.2.js
+/Assignment2/Scripts/jquery.signalR-2.2.2.min.js
+/Assignment2.Tests/Scripts/jquery.signalR-2.2.2.min.js
+/Assignment2.Tests/Scripts/jquery.signalR-2.2.2.js
+/Assignment2.Tests/Scripts/jquery-1.6.4.min.js
+/Assignment2.Tests/Scripts/jquery-1.6.4.js
+/Assignment2.Tests/Scripts/jquery-1.6.4-vsdoc.js
