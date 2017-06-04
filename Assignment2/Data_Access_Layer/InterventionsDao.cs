@@ -6,6 +6,7 @@ using WebApplication2.Exceptions;
 using System.Collections.Generic;
 using System.Data.Entity;
 using Assignment2.Data_Access_Layer;
+using Assignment2;
 
 public class InterventionsDao
     {
@@ -64,7 +65,7 @@ public class InterventionsDao
 
            IList<Intervention> usersInterventions = context.Interventions
                                        .Select(i => i)
-                                       .Where(i => i.CreatedBy.UserId.Equals(userId) && !i.Status.Equals(Status.CANCELLED))
+                                       .Where(i => i.CreatedBy.UserId.Equals(userId) && i.Status != (int)Status.Cancelled)
                                        .Include(i => i.InterTypeId).ToList();
 
             return usersInterventions;
@@ -84,10 +85,10 @@ public class InterventionsDao
 
         using (context = new CustomDBContext())
         {
-
+            var userId = Utils.getInstance.GetCurrentUserId();
             IList<Intervention> clientInterventions = context.Interventions
                                         .Select(i => i)
-                                        .Where(i => i.ClientId == id && !i.Status.Equals(Status.CANCELLED))
+                                        .Where(i => i.ClientId == id && i.Status != (int)Status.Cancelled && i.CreatedByUserId.Equals(userId))
                                         .Include(i => i.InterTypeId).ToList();
 
             return clientInterventions;
@@ -96,7 +97,8 @@ public class InterventionsDao
         }
 
     }
-    public IList<Intervention> GetInterventionsByStatus(string status)
+
+    public IList<Intervention> GetInterventionsByStatus(int status)
         {
             using (context = new CustomDBContext())
             {
@@ -113,6 +115,11 @@ public class InterventionsDao
             }
         }
 
+    /// <summary>
+    /// This method is used to change condition of an Intervention
+    /// </summary>
+    /// <param name="interventionId">id of an intervention</param>
+    /// <param name="life">current life of an intervention</param>
     public void UpdateLife(int interventionId, int? life) {
         using (context = new CustomDBContext())
         {
@@ -145,7 +152,12 @@ public class InterventionsDao
 
 
     }
-        public void UpdateInterventionStatus_ToAppoved(int interventionId)
+
+    /// <summary>
+    /// This method is used for change intervention status to Approved
+    /// </summary>
+    /// <param name="interventionId">Id of an intervention</param>
+    public void UpdateInterventionStatus_ToAppoved(int interventionId)
         {
             using (context = new CustomDBContext())
             {
@@ -155,7 +167,7 @@ public class InterventionsDao
                 select inter;
                 foreach (Intervention inter in intervention)
                 {
-                    inter.Status = Status.APPROVED;
+                    inter.Status = (int)Status.Approved;
                     inter.ModifyDate = DateTime.Now;
                 }
                 try
@@ -170,6 +182,10 @@ public class InterventionsDao
             }
         }
 
+    /// <summary>
+    /// This method is used for change intervention status to Completed
+    /// </summary>
+    /// <param name="interventionId">Id of an intervention</param>
     public void UpdateInterventionStatus_ToCompleted(int interventionId)
     {
         using (context = new CustomDBContext())
@@ -180,7 +196,7 @@ public class InterventionsDao
                 select inter;
             foreach (Intervention inter in intervention)
             {
-                inter.Status = Status.COMPLETED;
+                inter.Status = (int)Status.Completed;
                 inter.ModifyDate = DateTime.Now;
             }
             try
@@ -194,6 +210,11 @@ public class InterventionsDao
 
         }
     }
+
+    /// <summary>
+    /// This method is used for change intervention status to Cancelled
+    /// </summary>
+    /// <param name="interventionId">Id of an intervention</param>
     public void UpdateInterventionStatus_ToCancelled(int interventionId)
     {
         using (context = new CustomDBContext())
@@ -204,7 +225,7 @@ public class InterventionsDao
             select inter;
             foreach (Intervention inter in intervention)
             {
-                inter.Status = Status.CANCELLED;
+                inter.Status = (int)Status.Cancelled;
                 inter.ModifyDate = DateTime.Now;
             }
             try
