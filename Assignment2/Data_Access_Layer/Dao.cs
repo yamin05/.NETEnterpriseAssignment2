@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Assignment2.Models;
 using Assignment2.Models.Database_Models;
+using System.Data.Entity;
 
 namespace Assignment2.Data_Access_Layer
 {
@@ -78,6 +79,54 @@ namespace Assignment2.Data_Access_Layer
             }
         }
 
-        
+        public IList<Intervention> GetInterventionsForManager(User manager)
+        {
+            using (context = new CustomDBContext())
+            {
+                IList<Intervention> intervention = (context.Interventions
+                                    .Where(i => i.Status == Status.PROPOSED && manager.MaximumHours >= i.InterventionHours 
+                                            && manager.MaximumCost >= i.InterventionCost && manager.District.Equals(i.Client.ClientDistrict))
+                                    .Select(i => i))
+                                    .Include(i => i.Client)
+                                    .Include(i => i.InterTypeId)
+                                    .ToList();
+                return intervention;
+            }
+        }
+
+        public Intervention GetIntervention(int InterventionId)
+        {
+            using (context = new CustomDBContext())
+            {
+                Intervention intervention = context.Interventions
+                                    .Where(i => i.InterventionId == InterventionId)
+                                    .Select(i => i)
+                                    .Include(i => i.Client)
+                                    .Include(i => i.InterTypeId)
+                                    .FirstOrDefault();
+                return intervention;
+            }
+        }
+
+        public Intervention UpdateIntervention(int interventionId, User user, string oldStatus, string newStatus)
+        {
+            using (context = new CustomDBContext())
+            {
+                var intervention = context.Interventions
+                                   .Where(i => i.InterventionId == interventionId && i.Client.ClientDistrict.Equals(user.District)
+                                           && i.Status.Equals(oldStatus))     //Added &&
+                                   .Select(i => i)
+                                   .FirstOrDefault();
+                if (newStatus.Equals(Status.APPROVED))
+                {
+                    intervention.ApprovedByUserId = user.UserId;
+                }
+                intervention.LastUpdatedByUserId = user.UserId;
+                intervention.Status = newStatus;
+                intervention.ModifyDate = DateTime.Now;
+                context.SaveChanges();
+                return intervention;
+            }
+        }
     }
 }

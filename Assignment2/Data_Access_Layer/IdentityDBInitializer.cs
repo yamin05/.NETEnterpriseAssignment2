@@ -54,6 +54,12 @@ namespace Assignment2.Data_Access_Layer
             {
                 userManager.AddToRole(manager1.Id, Roles.MANAGER);
             }
+            var managerYamin = new ApplicationUser() { UserName = "ManagerYamin", Email = "yams.stj@gmail.com" };
+            IdentityResult resultManagerYamin = await userManager.CreateAsync(managerYamin, "123456");
+            if (resultManagerYamin.Succeeded)
+            {
+                userManager.AddToRole(managerYamin.Id, Roles.MANAGER);
+            }
             var manager2 = new ApplicationUser() { UserName = "Manager2", Email = "manager2@enet.com" };
             IdentityResult resultManager2 = await userManager.CreateAsync(manager2, "123456");
             if (resultManager2.Succeeded)
@@ -95,6 +101,12 @@ namespace Assignment2.Data_Access_Layer
             if (resultSiteEngineer1.Succeeded)
             {
                 userManager.AddToRole(siteEngineer1.Id, Roles.SITE_ENGINEER);
+            }
+            var siteEngineerYamin = new ApplicationUser() { UserName = "siteengineerYamin", Email = "yams_stj@hotmail.com" };
+            IdentityResult resultSiteEngineerYamin = await userManager.CreateAsync(siteEngineerYamin, "123456");
+            if (resultSiteEngineerYamin.Succeeded)
+            {
+                userManager.AddToRole(siteEngineerYamin.Id, Roles.SITE_ENGINEER);
             }
             var siteEngineer2 = new ApplicationUser() { UserName = "siteengineer2", Email = "siteengineer2@enet.com" };
             IdentityResult resultSiteEngineer2 = await userManager.CreateAsync(siteEngineer2, "123456");

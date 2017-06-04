@@ -240,6 +240,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ClientHelper.cs" />
+    <Compile Include="Helpers\MailHelper.cs" />
+    <Compile Include="Helpers\ManagerHelper.cs" />
     <Compile Include="Helpers\ReportHelper.cs" />
     <Compile Include="Helpers\SiteEngineerHelper.cs" />
     <Compile Include="Helpers\InterventionHelper.cs" />
@@ -327,11 +329,11 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Manager\Index.cshtml" />
-    <Content Include="Views\Manager\ListOfInterventionsForManager.cshtml" />
+    <Content Include="Views\Manager\ListOfInterventions.cshtml" />
     <Content Include="Views\SiteEngineer\CreateIntervention.cshtml" />
     <Content Include="Views\SiteEngineer\EditIntervention.cshtml" />
     <Content Include="Views\SiteEngineer\Index.cshtml" />
-    <Content Include="Views\Manager\EditInterventionForManager.cshtml" />
+    <Content Include="Views\Manager\EditIntervention.cshtml" />
     <Content Include="Views\Accountant\Index.cshtml" />
     <Content Include="Views\Accountant\ListOfUsers.cshtml" />
     <Content Include="Views\Accountant\ChangeDistrictForUsers.cshtml" />

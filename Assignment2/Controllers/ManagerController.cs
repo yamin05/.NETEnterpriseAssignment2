@@ -5,13 +5,14 @@ using System.Web.Mvc;
 using Assignment2.Models.Database_Models;
 using System.Collections.Generic;
 using System.Net;
-
+using WebApplication2.Exceptions;
 
 namespace Assignment2.Controllers
 {
     [Authorize(Roles = Roles.MANAGER)]
     public class ManagerController : Controller
     {
+        private ManagerHelper managerHelper = new ManagerHelper();
         // GET: Manager
         public ActionResult Index()
         {
@@ -23,7 +24,7 @@ namespace Assignment2.Controllers
         {
             if (Button.Equals("List of Intervention to approve or cancel in your district"))
             {
-                return RedirectToAction("ListOfInterventionsForManager");
+                return RedirectToAction("ListOfInterventions");
             }
             else if (Button.Equals("List of associated Interevntions"))
             {
@@ -36,62 +37,80 @@ namespace Assignment2.Controllers
             return View();
         }
 
-
-        public ActionResult ListOfInterventionsForManager()
+        public ActionResult ListOfInterventions()
         {
             IList<ListInterventionViewModel> viewModel = new List<ListInterventionViewModel>();
-            var ApproveOrCancelIntervention = new InterventionHelper();
+            //var ApproveOrCancelIntervention = new InterventionHelper();
             try
             {
-                viewModel = ApproveOrCancelIntervention.ListOfProposedInterventionsForManager();
-
+                //viewModel = ApproveOrCancelIntervention.ListOfProposedInterventionsForManager();
+                viewModel = managerHelper.GetListOfProposedInterventions();
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex);
             }
+
             return View(viewModel);
         }
-        public ActionResult EditInterventionForManager(int? id)
+
+        public ActionResult EditIntervention(int interventionId)
         {
-            if (id == null)
+            //if (interventionId == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //var intervention = new InterventionHelper();
+            //var inter = intervention.GetIntervention(interventionId);
+            ListInterventionViewModel viewModel = new ListInterventionViewModel();
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //viewModel = ApproveOrCancelIntervention.ListOfProposedInterventionsForManager();
+                viewModel = managerHelper.GetIntervention(interventionId);
+                var statuslist = managerHelper.GetPossibleStatusUpdateForIntervention(viewModel.Status);
+                ViewBag.Status = new SelectList(statuslist);
             }
-            var intervention = new InterventionHelper();
-            var inter = intervention.GetIntervention(id);
-            if (inter == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                ModelState.AddModelError(string.Empty, ex);
             }
-            var statuslist = intervention.GetPossibleStatusUpdateForIntervention(inter.Status);
-            ViewBag.Status = new SelectList(statuslist.Keys);
-            return View(inter);
+
+            return View(viewModel);
         }
 
 
         [HttpPost]
-        public ActionResult EditInterventionForManager(ListInterventionViewModel InterList)
+        public ActionResult EditIntervention(ListInterventionViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                InterventionsDao interDao = new InterventionsDao();
-
-                if (InterList.Status == Status.Approved.ToString())
+                try
                 {
-                    interDao.UpdateInterventionStatus_ToAppoved(InterList.InterventionId);
-
-
+                    var intervention = managerHelper.UpdateInterventionStatus(viewModel.InterventionId, viewModel.Status);
+                    var statuslist = managerHelper.GetPossibleStatusUpdateForIntervention(viewModel.Status);
+                    ViewBag.Status = new SelectList(statuslist);
+                    ModelState.AddModelError("success", "Intervention Updated Successfully");
                 }
-                else if (InterList.Status == Status.Cancelled.ToString())
+                catch (Exception ex)
                 {
-                    interDao.UpdateInterventionStatus_ToCancelled(InterList.InterventionId);
-
+                    ViewBag.Status = new SelectList(new List<string>() { viewModel.Status });
+                    ModelState.AddModelError("", ex.Message);
                 }
+                //InterventionsDao interDao = new InterventionsDao();
+                //if (InterList.Status == Status.Approved.ToString())
+                //{
+                //    interDao.UpdateInterventionStatus_ToAppoved(InterList.InterventionId);
 
 
+                //}
+                //else if (InterList.Status == Status.Cancelled.ToString())
+                //{
+                //    interDao.UpdateInterventionStatus_ToCancelled(InterList.InterventionId);
+
+                //}
             }
-            return RedirectToAction("EditInterventionForManager");
+            return View(viewModel);
+            //return RedirectToAction("EditIntervention");
 
 
         }

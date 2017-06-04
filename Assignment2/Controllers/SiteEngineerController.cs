@@ -134,17 +134,17 @@ namespace Assignment2.Controllers
 
                 interDao.UpdateLife(InterList.InterventionId, InterList.Condition);
 
-                if (InterList.Status == Status.Approved.ToString())
+                if (InterList.Status.Equals(Status.APPROVED))
                 {
                     interDao.UpdateInterventionStatus_ToAppoved(InterList.InterventionId);
                     ModelState.AddModelError("success", "Intervention Updated Successfully!");
                 }
-                else if (InterList.Status == Status.Completed.ToString())
+                else if (InterList.Status.Equals(Status.COMPLETED))
                 {
                     interDao.UpdateInterventionStatus_ToCompleted(InterList.InterventionId);
                     ModelState.AddModelError("success", "Intervention Updated Successfully!");
                 }
-                else if (InterList.Status == Status.Cancelled.ToString())
+                else if (InterList.Status.Equals(Status.CANCELLED))
                 {
                     interDao.UpdateInterventionStatus_ToCancelled(InterList.InterventionId);
                     ModelState.AddModelError("success", "Intervention Updated Successfully!");

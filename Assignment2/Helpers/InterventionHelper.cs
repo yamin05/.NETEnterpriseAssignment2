@@ -66,10 +66,10 @@ namespace Assignment2.Helpers
             if (userMaxCost >= defaultCost && userMaxCost >= requiredCost && userMaxHours >= defaultHours && userMaxHours >= requiredHours)
             {
 
-                return Status.Approved.ToString();
+                return Status.APPROVED;
             }
             else {
-                return Status.Proposed.ToString();
+                return Status.PROPOSED;
             }
 
         }
@@ -85,12 +85,12 @@ namespace Assignment2.Helpers
         {
             var intervention = new Intervention();
             string status = ValidateInterventionStatus(interventionTypeId, interventionHours, interventionCost);
-            if (status == Status.Approved.ToString()) {
-                intervention.Status = Convert.ToInt32(Status.Approved);
+            if (status.Equals(Status.APPROVED)) {
+                intervention.Status = Status.APPROVED;
             }
             else
             {
-                intervention.Status = Convert.ToInt32(Status.Proposed);
+                intervention.Status = Status.PROPOSED;
             }
 
             intervention.ClientId = clientId;
@@ -132,7 +132,7 @@ namespace Assignment2.Helpers
                     ViewIntervention.InterventionHours = inter.InterventionHours;
                     ViewIntervention.CreateDate = inter.CreateDate;
                     ViewIntervention.InterventionId = inter.InterventionId;
-                    ViewIntervention.Status = Enum.GetName((typeof(Status)), inter.Status);
+                    ViewIntervention.Status = inter.Status;
                     ViewIntervention.Condition = inter.Condition;
                     ViewIntervention.ModifyDate = inter.ModifyDate;
                     ViewList.Add(ViewIntervention);
@@ -166,7 +166,7 @@ namespace Assignment2.Helpers
                     ViewIntervention.InterventionHours = inter.InterventionHours;
                     ViewIntervention.CreateDate = inter.CreateDate;
                     ViewIntervention.InterventionId = inter.InterventionId;
-                    ViewIntervention.Status = Enum.GetName((typeof(Status)), inter.Status);
+                    ViewIntervention.Status = inter.Status;
                     ViewIntervention.Condition = inter.Condition;
                     ViewIntervention.ModifyDate = inter.ModifyDate;
                     ViewList.Add(ViewIntervention);
@@ -190,7 +190,7 @@ namespace Assignment2.Helpers
             InterventionView.InterventionTypeName = Inter.InterTypeId.InterventionTypeName;
             InterventionView.InterventionCost = Inter.InterventionCost;
             InterventionView.InterventionHours = Inter.InterventionHours;
-            InterventionView.Status = Enum.GetName((typeof(Status)), Inter.Status);
+            InterventionView.Status = Inter.Status;
             InterventionView.CreateDate = Inter.CreateDate;
             InterventionView.InterventionId = Inter.InterventionId;
             InterventionView.ModifyDate = Inter.ModifyDate;
@@ -203,7 +203,7 @@ namespace Assignment2.Helpers
         public IList<Intervention> ListofProposedIntervention()
         {
             IList<Intervention> ProposedInterList = new List<Intervention>();
-            ProposedInterList = interventionDao.GetInterventionsByStatus((int)Status.Proposed);
+            ProposedInterList = interventionDao.GetInterventionsByStatus(Status.PROPOSED);
             return ProposedInterList;
         }
 
@@ -250,7 +250,7 @@ namespace Assignment2.Helpers
                     ViewIntervention.InterventionHours = inter.InterventionHours;
                     ViewIntervention.CreateDate = inter.CreateDate;
                     ViewIntervention.InterventionId = inter.InterventionId;
-                    ViewIntervention.Status = Enum.GetName((typeof(Status)),inter.Status);
+                    ViewIntervention.Status = inter.Status;
                     ViewList.Add(ViewIntervention);
                 }
                 return ViewList;
@@ -261,49 +261,49 @@ namespace Assignment2.Helpers
             }
 
         }
-        public Dictionary<string, int> GetPossibleStatusUpdateForInterventionForSiteEngineer(string status)
+        public Dictionary<string, string> GetPossibleStatusUpdateForInterventionForSiteEngineer(string status)
         {
-            Dictionary<string, int> list = new Dictionary<string, int>();
-            if (Status.Proposed.ToString().Equals(status))
+            Dictionary<string, string> list = new Dictionary<string, string>();
+            if (Status.PROPOSED.Equals(status))
             {   /*list.Clear();*/
-                list.Add(Status.Proposed.ToString(), (int)Status.Proposed);
-                list.Add(Status.Cancelled.ToString(), (int)Status.Cancelled);
+                list.Add(Status.PROPOSED, Status.PROPOSED);
+                list.Add(Status.CANCELLED, Status.CANCELLED);
             }
-            else if (Status.Approved.ToString().Equals(status))
+            else if (Status.APPROVED.Equals(status))
             {
                 //list.Clear();
-                list.Add(Status.Approved.ToString(), (int)Status.Approved);
-                list.Add(Status.Completed.ToString(), (int)Status.Completed);
-                list.Add(Status.Cancelled.ToString(), (int)Status.Cancelled);
+                list.Add(Status.APPROVED, Status.APPROVED);
+                list.Add(Status.COMPLETED, Status.COMPLETED);
+                list.Add(Status.CANCELLED, Status.CANCELLED);
             }
-            else if (Status.Completed.ToString().Equals(status))
+            else if (Status.COMPLETED.Equals(status))
             {
                 //list.Clear();
-                list.Add(Status.Completed.ToString(), (int)Status.Completed);
+                list.Add(Status.COMPLETED, Status.COMPLETED);
             }
 
             return list;
         }
 
-        public Dictionary<string, int> GetPossibleStatusUpdateForIntervention(string status)
+        public Dictionary<string, string> GetPossibleStatusUpdateForIntervention(string status)
         {
-            Dictionary<string, int> list = new Dictionary<string, int>();
-            if (Status.Proposed.ToString().Equals(status))
+            Dictionary<string, string> list = new Dictionary<string, string>();
+            if (Status.PROPOSED.Equals(status))
             {   /*list.Clear();*/
-                list.Add(Status.Proposed.ToString(), (int)Status.Proposed);
-                list.Add(Status.Approved.ToString(), (int)Status.Approved);
-                list.Add(Status.Cancelled.ToString(), (int)Status.Cancelled);
+                list.Add(Status.PROPOSED, Status.PROPOSED);
+                list.Add(Status.APPROVED, Status.APPROVED);
+                list.Add(Status.CANCELLED, Status.CANCELLED);
             }
-            else if (Status.Approved.ToString().Equals(status))
+            else if (Status.APPROVED.Equals(status))
             {
                 //list.Clear();
-                list.Add(Status.Approved.ToString(), (int)Status.Approved);
-                list.Add(Status.Cancelled.ToString(), (int)Status.Cancelled);
+                list.Add(Status.APPROVED, Status.APPROVED);
+                list.Add(Status.CANCELLED, Status.CANCELLED);
             }
-            else if (Status.Cancelled.ToString().Equals(status))
+            else if (Status.CANCELLED.Equals(status))
             {
 
-                list.Add(Status.Cancelled.ToString(), (int)Status.Cancelled);
+                list.Add(Status.CANCELLED, Status.CANCELLED);
             }
 
             return list;

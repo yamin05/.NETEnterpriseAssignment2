@@ -10,5 +10,8 @@ namespace Assignment2.Data_Access_Layer
         void AddClient(User user, Client client);
         Client GetClient();
         IList<Client> GetAllClientsForUser();
+        IList<Intervention> GetInterventionsForManager(User manager);
+        Intervention GetIntervention(int InterventionId);
+        Intervention UpdateIntervention(int interventionId, User user, string oldStatus, string newStatus);
     }
 }

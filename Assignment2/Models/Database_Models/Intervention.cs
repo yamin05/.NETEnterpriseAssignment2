@@ -11,12 +11,13 @@ namespace Assignment2.Models.Database_Models
         public int InterventionId { get; set; }
         public string CreatedByUserId { get; set; }
         public string ApprovedByUserId { get; set; }
+        public string LastUpdatedByUserId { get; set; }
         public int InterventionTypeId { get; set; }
         public int ClientId { get; set; }
         public decimal InterventionCost { get; set; }
         public decimal InterventionHours { get; set; }
         public DateTime CreateDate { get; set; }
-        public int Status { get; set; }
+        public string Status { get; set; }
         public int? Condition { get; set; }
         public DateTime? ModifyDate { get; set; }
         [ForeignKey("CreatedByUserId")]
@@ -25,7 +26,8 @@ namespace Assignment2.Models.Database_Models
         public virtual User ApprovedBy { get; set; }
         [ForeignKey("ClientId")]
         public virtual Client Client { get; set; }
-        public virtual ICollection<User> UpdatedBy { get; set; }
+        [ForeignKey("LastUpdatedByUserId")]
+        public virtual User UpdatedBy { get; set; }
         [ForeignKey("InterventionTypeId")]
         public virtual InterventionType InterTypeId { get; set; }
     }

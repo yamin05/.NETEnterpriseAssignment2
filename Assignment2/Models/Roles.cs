@@ -7,5 +7,4 @@
         public const string SITE_ENGINEER = "Site_Engineer";
         public const string ACCOUNTANT = "Accountant";
     }
-
 }

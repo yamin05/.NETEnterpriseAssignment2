@@ -10,7 +10,6 @@ namespace Assignment2.Models.Database_Models
         public decimal MaximumHours { get; set; }
         public decimal MaximumCost { get; set; }
         public string District { get; set; }
-        public virtual ICollection<Intervention> UpdatedBy { get; set; }
         public virtual ICollection<Client> Clients { get; set; }
     }
 }

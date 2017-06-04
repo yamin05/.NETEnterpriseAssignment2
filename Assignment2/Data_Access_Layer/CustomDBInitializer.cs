@@ -67,11 +67,31 @@ namespace Assignment2.Data_Access_Layer
                 user.District = Districts.URBAN_INDONESIA;
                 users.Add(user);
             }
+            var findManagerYamin = await userManager.FindByEmailAsync("yams.stj@gmail.com");
+            if (!Utils.getInstance.isNullOrEmpty(findManagerYamin))
+            {
+                user = new User();
+                user.UserId = findManagerYamin.Id;
+                user.MaximumHours = 100;
+                user.MaximumCost = 5000;
+                user.District = Districts.URBAN_INDONESIA;
+                users.Add(user);
+            }
             var findSiteEngineer = await userManager.FindByEmailAsync("siteengineer1@enet.com");
             if (!Utils.getInstance.isNullOrEmpty(findSiteEngineer))
             {
                 user = new User();
                 user.UserId = findSiteEngineer.Id;
+                user.MaximumHours = 50;
+                user.MaximumCost = 2000;
+                user.District = Districts.URBAN_INDONESIA;
+                users.Add(user);
+            }
+            var findSiteEngineerYamin = await userManager.FindByEmailAsync("yams_stj@hotmail.com");
+            if (!Utils.getInstance.isNullOrEmpty(findSiteEngineerYamin))
+            {
+                user = new User();
+                user.UserId = findSiteEngineerYamin.Id;
                 user.MaximumHours = 50;
                 user.MaximumCost = 2000;
                 user.District = Districts.URBAN_INDONESIA;

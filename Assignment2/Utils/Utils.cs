@@ -21,6 +21,7 @@ namespace Assignment2
                 return instance;
             }
         }
+
         public void validateEmail(string inputEmail)
         {
             if (isNullOrEmpty(inputEmail))
@@ -86,24 +87,13 @@ namespace Assignment2
             return str.Replace("_", "");
         }
 
-        //public object convertToObject(object type, string str)
-        //{
-        //    var prop = type.GetType().GetProperty(str);
-        //    if (this.isNullOrEmpty(prop))
-        //    {
-        //        var field = type.GetType().GetField(str);
-        //        if (this.isNullOrEmpty(field))
-        //        {
-        //            return null;
-        //        } else
-        //        {
-        //            return field.GetValue(type);
-        //        }
-        //    } else
-        //    {
-        //        return prop.GetValue(type);
-        //    }
-        //}
+        public ApplicationUser GetIdentityUser(string userId)
+        {
+            var userStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
+            var userManager = new UserManager<ApplicationUser>(userStore);
+            var user = userManager.FindById(userId);
+            return user;
+        }
 
         public string ReplaceSpaceWithUnderscore(string str)
         {

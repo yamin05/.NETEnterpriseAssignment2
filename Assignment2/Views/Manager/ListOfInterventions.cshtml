@@ -1,0 +1,75 @@
+﻿@using Assignment2.Models
+@using Assignment2
+@model IEnumerable<ListInterventionViewModel>
+
+@{
+    ViewBag.Title = "List of Intervention to approve or cancel in your district";
+}
+
+<h2>List of Intervention to approve or cancel in your district</h2>
+
+@if (Model.Any())
+{ 
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ClientName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClientDistrict)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterventionTypeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterventionCost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterventionHours)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+                    
+            </th>
+            <th></th>
+        </tr>
+            
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th>
+                    @Html.DisplayFor(modelItem => item.ClientName)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.ClientDistrict)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.InterventionTypeName)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.InterventionCost)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.InterventionHours)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.CreateDate)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </th>
+                <th>
+                    @Html.ActionLink("Approve/Cancel", "EditIntervention", new { interventionId = item.InterventionId })   
+                </th>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <hr/>
+    <div> <h3>You have no interventions to approve or cancel</h3> </div>
+}
