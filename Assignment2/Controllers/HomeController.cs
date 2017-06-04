@@ -10,7 +10,10 @@ namespace Assignment2.Controllers
             {
                 return Redirect(Utils.getInstance.getHomePageURL());
             }
-            return View();
+            else
+            {
+                return View();
+            }
         }
     }
 }
