@@ -18,7 +18,7 @@ namespace Assignment2.Helpers
                 EnableSsl = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableSsl"]),
                 UseDefaultCredentials = Convert.ToBoolean(ConfigurationManager.AppSettings["UseDefaultCredentials"]),
                 DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory,
-                PickupDirectoryLocation = "C:\\Users\\YaminBin\\Documents\\"
+                PickupDirectoryLocation = "C:\\Users\\Public"
             };
         }
 

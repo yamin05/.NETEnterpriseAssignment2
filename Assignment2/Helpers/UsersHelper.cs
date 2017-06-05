@@ -43,10 +43,29 @@ namespace Assignment2.Helpers
         }
 
         public void UpdateDistrictForUser(string userId, string district)
+
         {
-            if (userId!="" && district!="")
+            try
             {
+                var Users = new UsersHelper();
+                UserViewModel userDetail = Users.GetUserData(userId);
+                if (userDetail.District.Equals(district))
+                {
+                    throw new CannotEditDistrictException();
+                }
+
                 usersDao.UpdateDistrictForUser(userId, district);
+            }
+            catch(Exception ex)
+            {
+                if (ex is CannotEditDistrictException)
+                {
+                    throw;
+                }
+                else
+                {
+                    throw new FailedToUpdateRecordException();
+                }
             }
         }
 

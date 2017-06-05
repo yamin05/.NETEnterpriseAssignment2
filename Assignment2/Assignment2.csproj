@@ -212,6 +212,7 @@
     <Compile Include="Data_Access_Layer\ProjectDBContext.cs" />
     <Compile Include="Data_Access_Layer\ReportDao.cs" />
     <Compile Include="Data_Access_Layer\UsersDao.cs" />
+    <Compile Include="Exceptions\CannotEditDistrictRecordException.cs" />
     <Compile Include="Exceptions\CannotEditStatusException.cs" />
     <Compile Include="Exceptions\ClientAdditionConflictException.cs" />
     <Compile Include="Exceptions\EditQMInfoPermissionException.cs" />
