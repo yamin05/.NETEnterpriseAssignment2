@@ -30,10 +30,6 @@ namespace Assignment2.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-            else if (Button.Equals("Change Password"))
-            {
-                return RedirectToAction("Login", "Account");
-            }
             return View();
         }
 

@@ -5,26 +5,29 @@
     {
     @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        @if (User.IsInRole("Site_Engineer"))
-        {
-        <li>
-            @Html.ActionLink("View Interventions", "Index", "SiteEngineer")
-        </li>
-        <li>
-            @Html.ActionLink("New Client", "CreateClient", "SiteEngineer")
-        </li>
-        }
-        <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
-    }
-}
-else
-{
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
-}
+        
+           
+           
+            <ul class="nav navbar-nav navbar-right">
+              
+                <li class="dropdown">
+                    <a href="#" class="nav navbar-nav navbar-right" data-toggle="dropdown">Hello @User.Identity.GetUserName() <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Change Password ", "ChangePassword", "Manage", routeValues: null, htmlAttributes: new { title = "ChangePassword" })</li>
+                        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                    </ul>
+                </li>
+                @*<li>
+                        @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                    </li>*@
+                @*<li>@Html.ActionLink("Change Password " , "ChangePassword", "Manage", routeValues: null, htmlAttributes: new { title = "ChangePassword" })</li>
+                    <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>*@
+            </ul>
+            }
+            }
+            else
+            {
+            <ul class="nav navbar-nav navbar-right">
+                <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+            </ul>
+            }

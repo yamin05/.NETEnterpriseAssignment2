@@ -21,13 +21,6 @@
                 @Html.ActionLink("ENET CARE", "", "", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    @if (User.IsInRole(Assignment2.Models.Roles.SITE_ENGINEER))
-                    {
-                    
-                    <li>@Html.ActionLink("Your Clients", "ViewClients", "SiteEngineer")</li>
-                    }
-                </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

@@ -91,7 +91,8 @@ namespace Assignment2.Helpers
         {
             IList<string> list = new List<string>();
             if (Status.PROPOSED.Equals(status))
-            {   
+            {
+                list.Add(Status.PROPOSED);
                 list.Add(Status.APPROVED);
                 list.Add(Status.CANCELLED);
             }

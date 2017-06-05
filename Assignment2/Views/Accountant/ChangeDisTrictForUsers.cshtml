@@ -1,19 +1,25 @@
 ﻿@model Assignment2.Models.UserViewModel
 
 @{
-    ViewBag.Title = "ChangeDisTrict";
+    ViewBag.Title = "ChangeDistrict";
 }
 
-<h2>Change DisTrict For Users</h2>
+<h2>Change District For Users</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>UserViewModel</h4>
+       
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.ValidationMessage("success", new { @class = "text-success" })
+        @Html.ValidationSummary(true, "", new { @class = "text-success" })
+        @Html.HiddenFor(model => model.UserId)
+        @Html.HiddenFor(model => model.UserName)
+        @Html.HiddenFor(model => model.RoleName)
+        @Html.HiddenFor(model => model.MaximumCost)
+        @Html.HiddenFor(model => model.MaximumHours)
 
         <div class="form-group">
             @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })

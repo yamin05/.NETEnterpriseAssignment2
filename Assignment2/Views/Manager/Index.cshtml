@@ -4,22 +4,17 @@
     
 }
 <p>
-    <br />
     <h2>@ViewBag.Title</h2>
 </p>
 @using (Html.BeginForm("Index", "Manager", FormMethod.Post, new { id = "submitForm" }))
-{
+{<hr />
     <p>
         <button id="ButtonCreateNewClient" name="Button" value="List of Intervention to approve or cancel in your district">List of Intervention to approve or cancel in your district</button>
     </p>
     <p>
         <button id="ButtonCreateIntervention" name="Button" value="List of associated Interevntions">List of associated Interevntions</button>
     </p>
-    <p>
-        <button ID="ButtonChangePassword" name="Button" value="Change Password" Width="400px">Change Password</button>
-    </p>
-    <p>
-        &nbsp;
-    </p>
+    
+    
 }
 
