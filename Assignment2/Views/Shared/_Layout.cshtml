@@ -28,10 +28,6 @@
                     
                     <li>@Html.ActionLink("Your Clients", "ViewClients", "SiteEngineer")</li>
                     }
-                    @if (User.IsInRole(Assignment2.Models.Roles.MANAGER))
-                    {
-                    <li>@Html.ActionLink("Approve Or Cancel Interventions ", "ListOfInterventionsForManager", "Manager")</li>
-                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
