@@ -94,7 +94,7 @@ namespace Assignment2.Controllers
                 catch (Exception ex)
                 {
                     ViewBag.Status = new SelectList(new List<string>() { viewModel.Status });
-                    ModelState.AddModelError("", ex.Message);
+                    ModelState.AddModelError("alert", ex.Message);
                 }
                 //InterventionsDao interDao = new InterventionsDao();
                 //if (InterList.Status == Status.Approved.ToString())
@@ -111,8 +111,6 @@ namespace Assignment2.Controllers
             }
             return View(viewModel);
             //return RedirectToAction("EditIntervention");
-
-
         }
     }
 }

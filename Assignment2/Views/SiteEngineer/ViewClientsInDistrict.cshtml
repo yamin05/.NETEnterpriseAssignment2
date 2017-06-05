@@ -2,7 +2,7 @@
 @model IEnumerable<ListClientsViewModel>
 
 @{
-    ViewBag.Title = "Your Clients";
+    ViewBag.Title = "Clients In Your District";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -24,6 +24,9 @@
                 @Html.DisplayNameFor(model => model.createDate)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.createdBy)
+            </th>
+            <th>
                 @Html.DisplayName("Interventions")
             </th>
             <th></th>
@@ -40,6 +43,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.createDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.createdBy)
                 </td>
                 <td>
                     @Html.ActionLink("View Associated Interventions", "ViewClientsInterventions", new { id = item.clientID })

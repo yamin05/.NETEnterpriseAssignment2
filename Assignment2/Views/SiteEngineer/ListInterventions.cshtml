@@ -1,0 +1,64 @@
+﻿@using Assignment2.Models
+@model IEnumerable<ListInterventionViewModel>
+
+@{
+    ViewBag.Title = "All Interventions Created By You";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateIntervention")
+</p>
+@if (Model.Any())
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.InterventionTypeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterventionCost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterventionHours)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InterventionTypeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InterventionCost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InterventionHours)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditIntervention", new { id = item.InterventionId, url = Request.Url.ToString() })
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <hr />
+    <div> <h3>No interventions created yet</h3> </div>
+}

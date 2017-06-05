@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Assignment2.Data_Access_Layer;
-using Assignment2.Models.Database_Models;
 using Assignment2.Models;
 using Assignment2.Helpers;
 
@@ -24,19 +21,66 @@ namespace Assignment2.Controllers
         private SiteEngineerHelper siteEngineerHelper = new SiteEngineerHelper();
         private Dao d = new Dao();
 
+        public ActionResult Index()
+        {
+            return View();
+        }
 
         /// <summary>
         /// This method is used to view all associated interventions to user
         /// </summary>
         /// <returns>List</returns>
-        public ActionResult Index()
+        
+        [HttpPost]
+        public ActionResult Index(string Button)
+        {
+            if (Button.Equals("List of Intervention to approve or cancel in your district"))
+            {
+                return RedirectToAction("ListInterventions");
+            }
+            else if (Button.Equals("CreateClient"))
+            {
+                return RedirectToAction(Button);
+            }
+            else if (Button.Equals("ViewClients"))
+            {
+                return RedirectToAction(Button);
+            }
+            else if (Button.Equals("ViewClientsInDistrict"))
+            {
+                return RedirectToAction(Button);
+            }
+            else if (Button.Equals("List of associated Interevntions"))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            else if (Button.Equals("Change Password"))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            return View();
+
+            //IList<ListInterventionViewModel> viewModel = new List<ListInterventionViewModel>();
+            //var usersIntervention = new InterventionHelper();
+            //try
+            //{
+            //    viewModel = usersIntervention.ListOfUsersInterventions();
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    ModelState.AddModelError(string.Empty, ex);
+            //}
+            //return View(viewModel);
+        }
+
+        public ActionResult ListInterventions()
         {
             IList<ListInterventionViewModel> viewModel = new List<ListInterventionViewModel>();
-            var usersIntervention = new InterventionHelper();
+            var interventionHelper = new InterventionHelper();
             try
             {
-                viewModel = usersIntervention.ListOfUsersInterventions();
-
+                viewModel = interventionHelper.ListInterventions();
             }
             catch (Exception ex)
             {
@@ -162,11 +206,23 @@ namespace Assignment2.Controllers
         public ActionResult ViewClients()
         {
             IList<ListClientsViewModel> viewModel = new List<ListClientsViewModel>();
-            var userClients = new ClientHelper();
             try
             {
-                viewModel = userClients.ListOfClients();
+                viewModel = siteEngineerHelper.ListOfClients();
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex);
+            }
+            return View(viewModel);
+        }
 
+        public ActionResult ViewClientsInDistrict()
+        {
+            IList<ListClientsViewModel> viewModel = new List<ListClientsViewModel>();
+            try
+            {
+                viewModel = siteEngineerHelper.ListOfClientsInDistrict();
             }
             catch (Exception ex)
             {

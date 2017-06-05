@@ -17,7 +17,7 @@ namespace Assignment2.Helpers
     public class InterventionHelper
     {
         private Dao UDao;
-        private InterventionsDao interventionDao;
+        private IInterventionsDao interventionDao;
         public InterventionHelper()
         {
             UDao = new Dao();
@@ -31,7 +31,7 @@ namespace Assignment2.Helpers
         /// <returns>User</returns>
         public User GetSiteEngineerData(string userId)
         {
-            User siteEngineer = UDao.GetUser(userId);
+            User siteEngineer = UDao.user.GetUser(userId);
             return siteEngineer;
         }
 
@@ -115,16 +115,15 @@ namespace Assignment2.Helpers
         /// This method is to list all interventions assosiated with the user
         /// </summary>
         /// <returns>IList</returns>
-        public IList<ListInterventionViewModel> ListOfUsersInterventions()
+        public IList<ListInterventionViewModel> ListInterventions()
         {
             try
             {
                 var userId = Utils.getInstance.GetCurrentUserId();
-                IList<Intervention> getList = new List<Intervention>();
                 IList<ListInterventionViewModel> ViewList = new List<ListInterventionViewModel>();
-                getList = interventionDao.GetUsersInterventions(userId);
+                var interventions = interventionDao.GetInterventionsForUser(userId);
 
-                foreach (var inter in getList)
+                foreach (var inter in interventions)
                 {
                     ListInterventionViewModel ViewIntervention = new ListInterventionViewModel();
                     ViewIntervention.InterventionTypeName = inter.InterTypeId.InterventionTypeName;
@@ -226,7 +225,7 @@ namespace Assignment2.Helpers
 
         public User GetManagerData(string userId)
         {
-            User manager = UDao.GetUser(userId.ToString());
+            User manager = UDao.user.GetUser(userId.ToString());
             return manager;
         }
         public IList<ListInterventionViewModel> ListOfProposedInterventionsForManager()
