@@ -2,13 +2,13 @@
 
 namespace WebApplication2.Exceptions
 {
-    public class LostClientInformationException : Exception
+    public class MailSendException : Exception
     {
         private string errorMessage { get; set; }
 
-        public LostClientInformationException()
+        public MailSendException()
         {
-            errorMessage = "Lost the information of Client";
+            errorMessage = "Cannot send mail";
         }
 
         public override string Message

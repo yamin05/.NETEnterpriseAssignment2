@@ -2,6 +2,7 @@
 using System;
 using System.Configuration;
 using System.Net.Mail;
+using WebApplication2.Exceptions;
 
 namespace Assignment2.Helpers
 {
@@ -35,7 +36,14 @@ namespace Assignment2.Helpers
                 + " has been updated from <b>" + intervention.Status + "</b> to <b>" + newStatus + "</b> by " + fromUser.UserName
                 + " on " + intervention.ModifyDate.ToString();
             message.IsBodyHtml = true;
-            smtp.Send(message);
+            try
+            {
+                smtp.Send(message);
+            }
+            catch
+            {
+                throw new MailSendException();
+            }
         }
     }
 }

@@ -44,5 +44,8 @@ namespace Assignment2.Models
 
         [Display(Name = "Created On")]
         public DateTime createDate { get; set; }
+
+        [Display(Name = "Created By")]
+        public string createdBy { get; set; }
     }
 }

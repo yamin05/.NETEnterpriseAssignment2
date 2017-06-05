@@ -14,11 +14,11 @@ namespace Assignment2.Helpers
     /// </summary>
     public class ClientHelper
     {
-        private Dao clientDao;
+        private IClientDao clientDao;
 
         public ClientHelper() {
 
-            clientDao = new Dao();
+            clientDao = new ClientDao();
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace Assignment2.Helpers
             {
                 IList<Client> getList = new List<Client>();
                 IList<ListClientsViewModel> ViewList = new List<ListClientsViewModel>();
-                getList = clientDao.GetAllClientsForUser();
+                //getList = clientDao.GetAllClientsForUser();
 
                 foreach (var inter in getList)
                 {

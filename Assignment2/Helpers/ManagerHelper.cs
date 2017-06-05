@@ -9,19 +9,14 @@ namespace Assignment2.Helpers
 {
     public class ManagerHelper
     {
-        private IDao dao;
-
-        public ManagerHelper()
-        {
-            dao = new Dao();
-        }
+        private Dao dao = new Dao();
 
         public IList<ListInterventionViewModel> GetListOfProposedInterventions()
         {
             try
             {
                 IList<ListInterventionViewModel> ViewList = new List<ListInterventionViewModel>();
-                var manager = dao.GetUser(Utils.getInstance.GetCurrentUserId());
+                var manager = dao.user.GetUser(Utils.getInstance.GetCurrentUserId());
                 var interlist = ListofProposedIntervention();
                 var proposedinterlist = ValidateProposedInterventions(manager, interlist);
                 foreach (var inter in proposedinterlist)
@@ -121,30 +116,16 @@ namespace Assignment2.Helpers
 
         public Intervention UpdateInterventionStatus(int interventionId, string newStatus)
         {
-            try
+            var intervention = dao.GetIntervention(interventionId);
+            if (intervention.Status.Equals(newStatus))
             {
-                var intervention = dao.GetIntervention(interventionId);
-                if (intervention.Status.Equals(newStatus))
-                {
-                    throw new CannotEditStatusException();
-                }
-                var manager = dao.GetUser(Utils.getInstance.GetCurrentUserId());
-                var inter = dao.UpdateIntervention(interventionId, manager, intervention.Status, newStatus);
-                var mailHelper = new MailHelper();
-                mailHelper.SendMail(manager.UserId, intervention.CreatedByUserId, intervention, inter.Status);
-                return inter;
+                throw new CannotEditStatusException();
             }
-            catch (Exception ex)
-            {
-                if (ex is CannotEditStatusException)
-                {
-                    throw;
-                }
-                else
-                {
-                    throw new FailedToUpdateRecordException();
-                }
-            }
+            var manager = dao.user.GetUser(Utils.getInstance.GetCurrentUserId());
+            var inter = dao.UpdateIntervention(interventionId, manager, intervention.Status, newStatus);
+            var mailHelper = new MailHelper();
+            mailHelper.SendMail(manager.UserId, intervention.CreatedByUserId, intervention, inter.Status);
+            return inter;       
         }
     }
 }

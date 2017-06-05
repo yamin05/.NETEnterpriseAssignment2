@@ -9,12 +9,7 @@ namespace Assignment2.Helpers
 {
     public class SiteEngineerHelper
     {
-        private IDao dao;
-
-        public SiteEngineerHelper()
-        {
-            dao = new Dao();
-        }
+        private Dao dao = new Dao();
 
         /// <summary>
         /// This method is for getting district of the current User
@@ -24,7 +19,7 @@ namespace Assignment2.Helpers
         {
             try
             {
-                string district = dao.GetUserDistrict(Utils.getInstance.GetCurrentUserId());
+                string district = dao.user.GetUserDistrict(Utils.getInstance.GetCurrentUserId());
                 return district;
             }
             catch (Exception)
@@ -44,39 +39,63 @@ namespace Assignment2.Helpers
             client.CreatedByUserId = Utils.getInstance.GetCurrentUserId();
             try
             {
-                dao.AddClient(client.CreatedBy, client);
+                dao.client.AddClient(client.CreatedBy, client);
             } catch (Exception)
             {
                 throw new FailedToCreateRecordException();
             }
         }
 
+        public IList<ListClientsViewModel> ListOfClients()
+        {
+            try
+            {
+                IList<ListClientsViewModel> ViewList = new List<ListClientsViewModel>();
+                var clients = dao.client.GetClientsForUser(Utils.getInstance.GetCurrentUserId());
 
+                foreach (var inter in clients)
+                {
+                    ListClientsViewModel ViewClients = new ListClientsViewModel();
+                    ViewClients.clientID = inter.ClientId;
+                    ViewClients.clientName = inter.ClientName;
+                    ViewClients.clientLocation = inter.ClientLocation;
+                    ViewClients.createDate = inter.CreateDate;
+                    ViewList.Add(ViewClients);
+                }
 
-     /** No Need for following code for retriving Clients from DB !!
-      
-        //public IList<GetAllClientsViewModel> GetAllClientsForUser()
-        //{
-        //    IList<GetAllClientsViewModel> viewModels = new List<GetAllClientsViewModel>();
-        //    try
-        //    {
-        //        var clients = dao.GetAllClientsForUser(Utils.getInstance.GetCurrentUserId());
-        //        foreach (var client in clients)
-        //        {
-        //            var viewModel = new GetAllClientsViewModel();
-        //            viewModel.clientID = client.ClientId;
-        //            viewModel.clientName = client.ClientName;
-        //            viewModel.clientLocation = client.ClientLocation;
-        //            viewModel.clientDistrict = client.ClientDistrict;
-        //            viewModels.Add(viewModel);
-        //        }
-        //        return viewModels;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw new FaliedToRetriveRecordException();
-        //    }
-        //}
-    **/
+                return ViewList;
+            }
+            catch
+            {
+                throw new FaliedToRetriveRecordException();
+            }
+        }
+
+        public IList<ListClientsViewModel> ListOfClientsInDistrict()
+        {
+            try
+            {
+                IList<ListClientsViewModel> ViewList = new List<ListClientsViewModel>();
+                var district = this.GetDistrictForSiteManager();
+                var clients = dao.client.GetClientsInDistrict(district);
+
+                foreach (var inter in clients)
+                {
+                    ListClientsViewModel ViewClients = new ListClientsViewModel();
+                    ViewClients.clientID = inter.ClientId;
+                    ViewClients.clientName = inter.ClientName;
+                    ViewClients.clientLocation = inter.ClientLocation;
+                    ViewClients.createDate = inter.CreateDate;
+                    ViewClients.createdBy = Utils.getInstance.GetIdentityUser(inter.CreatedByUserId).UserName;
+                    ViewList.Add(ViewClients);
+                }
+
+                return ViewList;
+            }
+            catch
+            {
+                throw new FaliedToRetriveRecordException();
+            }
+        }
     }
 }

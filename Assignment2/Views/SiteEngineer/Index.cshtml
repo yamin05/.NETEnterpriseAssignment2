@@ -1,69 +1,35 @@
-﻿@using Assignment2.Models
-@model IEnumerable<ListInterventionViewModel>
-
-@{
-    ViewBag.Title = "Intervention Details";
+﻿@{
+    ViewBag.Title = "Site Engineer Home Page";
 }
-
-<h2>Intervention Details</h2>
-
 <p>
-    @Html.ActionLink("Create New", "CreateIntervention")
+    <br />
+    <h2>@ViewBag.Title</h2>
 </p>
-@if (Model.Any())
+@using (Html.BeginForm("Index", "SiteEngineer", FormMethod.Post, new { id = "submitForm" }))
 {
-  
-    <table class="table">
-        <tr>
-
-
-            <th>
-                @Html.DisplayNameFor(model => model.InterventionTypeName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InterventionCost)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InterventionHours)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreateDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.InterventionTypeName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.InterventionCost)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.InterventionHours)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreateDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "EditIntervention", new { id = item.InterventionId, url = Request.Url.ToString()})
-                </td>
-            </tr>
-        }
-
-    </table>
-}
-else
-{
+    <p>
+        <button id="ButtonCreateNewClient" name="Button" value="CreateClient">Create New Client</button>
+    </p>
+    <p>
+        <button id="ButtonViewClient" name="Button" value="ViewClients">View All Clients Created By You</button>
+    </p>
+    <p>
+        <button id="ButtonViewAllClientsInSameDistrict" name="Button" value="ViewClientsInDistrict">View All Clients In Same District</button>
+    </p>
     <hr />
-    <div> <h3>Sorry, No interventions to display</h3> </div>
+    <p>
+        <button id="ButtonCreateIntervention" name="Button" value="Create New Intervention">Create New Intervention</button>
+    </p>
+    <p>
+        <button ID="ButtonViewInterventions" name="Button" value="View All Interventions Created By You">View All Interventions Created By You</button>
+    </p>
+
+    <hr />
+
+    <p>
+        <button ID="ButtonChangePassword" name="Button" value="Change Password" Width="400px">Change Password</button>
+    </p>
+    <p>
+        &nbsp;
+    </p>
 }
