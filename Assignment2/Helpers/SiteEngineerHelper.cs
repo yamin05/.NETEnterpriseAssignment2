@@ -25,7 +25,6 @@ namespace Assignment2.Helpers
             try
             {
                 string district = dao.GetUserDistrict(Utils.getInstance.GetCurrentUserId());
-                dao.GetClient();
                 return district;
             }
             catch (Exception)

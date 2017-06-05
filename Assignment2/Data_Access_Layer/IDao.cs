@@ -8,7 +8,7 @@ namespace Assignment2.Data_Access_Layer
         User GetUser(string userID);
         string GetUserDistrict(string userId);
         void AddClient(User user, Client client);
-        Client GetClient();
+        Client GetClient(int clientId);
         IList<Client> GetAllClientsForUser();
         IList<Intervention> GetInterventionsForManager(User manager);
         Intervention GetIntervention(int InterventionId);

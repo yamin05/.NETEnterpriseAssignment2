@@ -38,12 +38,12 @@ namespace Assignment2.Data_Access_Layer
             }
         }
 
-        public Client GetClient()
+        public Client GetClient(int clientId)
         {
             using (context = new CustomDBContext())
             {
                 var client = context.Clients
-                           .Where(c => c.ClientId == 1)
+                           .Where(c => c.ClientId == clientId)
                            .Select(c => c)
                            .FirstOrDefault();
                 return client;
