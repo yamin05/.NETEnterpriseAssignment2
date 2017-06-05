@@ -238,7 +238,7 @@
     <Compile Include="Exceptions\MailSendException.cs" />
     <Compile Include="Exceptions\QualityManagementAdditionConflict.cs" />
     <Compile Include="Exceptions\ValueIsNullException.cs" />
-    <Compile Include="Exceptions\ValueNotSelectedException.cs" />
+    <Compile Include="Exceptions\NoClientCreatedException.cs" />
     <Compile Include="Exceptions\WrongCurrentPassword.cs" />
     <Compile Include="Exceptions\WrongInputEmailException.cs" />
     <Compile Include="Exceptions\WrongInputPasswordException.cs" />

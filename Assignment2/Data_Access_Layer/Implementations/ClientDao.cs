@@ -1,6 +1,7 @@
 ﻿using Assignment2.Models.Database_Models;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace Assignment2.Data_Access_Layer
 {
@@ -36,8 +37,6 @@ namespace Assignment2.Data_Access_Layer
         {
             using (context = new CustomDBContext())
             {
-                var currentUserId = Utils.getInstance.GetCurrentUserId();
-
                 var clients = context.Clients
                            .Where(c => c.ClientDistrict.Equals(district))
                            .Select(c => c);
@@ -54,6 +53,17 @@ namespace Assignment2.Data_Access_Layer
                            .Select(c => c)
                            .FirstOrDefault();
                 return client;
+            }
+        }
+
+        public IList<Client> GetCurrentClients(string userId, string district)
+        {
+            using (context = new CustomDBContext())
+            {
+                var clients = context.Clients
+                           .Where(c => c.ClientDistrict.Equals(district) && c.CreatedByUserId.Equals(userId))
+                           .Select(c => c);
+                return clients.ToList();
             }
         }
     }

@@ -15,7 +15,7 @@ namespace Assignment2.Helpers
         /// This method is for getting district of the current User
         /// </summary>
         /// <returns>string</returns>
-        public string GetDistrictForSiteManager ()
+        public string GetDistrictForUser ()
         {
             try
             {
@@ -76,7 +76,7 @@ namespace Assignment2.Helpers
             try
             {
                 IList<ListClientsViewModel> ViewList = new List<ListClientsViewModel>();
-                var district = this.GetDistrictForSiteManager();
+                var district = this.GetDistrictForUser();
                 var clients = dao.client.GetClientsInDistrict(district);
 
                 foreach (var inter in clients)
@@ -95,6 +95,98 @@ namespace Assignment2.Helpers
             catch
             {
                 throw new FaliedToRetriveRecordException();
+            }
+        }
+
+        /// <summary>
+        /// This method is to list all interventions assosiated with the user
+        /// </summary>
+        /// <returns>IList</returns>
+        public IList<ListInterventionViewModel> ListInterventions()
+        {
+            try
+            { 
+                IList<ListInterventionViewModel> ViewList = new List<ListInterventionViewModel>();
+                var interventions = dao.intervention.GetInterventionsForUser(Utils.getInstance.GetCurrentUserId());
+
+                foreach (var inter in interventions)
+                {
+                    ListInterventionViewModel ViewIntervention = new ListInterventionViewModel();
+                    ViewIntervention.InterventionTypeName = inter.InterTypeId.InterventionTypeName;
+                    ViewIntervention.InterventionCost = inter.InterventionCost;
+                    ViewIntervention.InterventionHours = inter.InterventionHours;
+                    ViewIntervention.CreateDate = inter.CreateDate;
+                    ViewIntervention.InterventionId = inter.InterventionId;
+                    ViewIntervention.Status = inter.Status;
+                    ViewIntervention.Condition = inter.Condition;
+                    ViewIntervention.ModifyDate = inter.ModifyDate;
+                    ViewList.Add(ViewIntervention);
+                }
+
+                return ViewList;
+            }
+            catch
+            {
+                throw new FaliedToRetriveRecordException();
+            }
+        }
+
+        public IList<Client> ListCurrentClients()
+        {
+            var clients = dao.client.GetCurrentClients(Utils.getInstance.GetCurrentUserId(), this.GetDistrictForUser());
+            if (Utils.getInstance.isNullOrEmpty(clients))
+            {
+                throw new NoClientCreatedException();
+            }
+            return clients;
+        }
+
+        public IList<InterventionType> ListInterventionTypes()
+        {
+            var interventionTypes = dao.interventionType.GetAllInterventionTypes();
+            return interventionTypes;
+        }
+
+        /// <summary>
+        /// This Method is used to Create a new intevention 
+        /// </summary>
+        /// <param name="clientId">Id of an client this intervention is for</param>
+        /// <param name="interventionTypeId">Id of an Intervention type</param>
+        /// <param name="interventionCost">Cost required to complete intervention</param>
+        /// <param name="interventionHours">Hours required to complete intervention</param>
+        public void CreateIntervention(int clientId, int interventionTypeId, decimal interventionCost, decimal interventionHours)
+        {
+            var intervention = new Intervention();
+            intervention.Status = ValidateInterventionStatus(interventionTypeId, interventionHours, interventionCost);
+            intervention.ClientId = clientId;
+            intervention.InterventionTypeId = interventionTypeId;
+            intervention.InterventionCost = interventionCost;
+            intervention.InterventionHours = interventionHours;
+            intervention.CreatedByUserId = Utils.getInstance.GetCurrentUserId();
+            intervention.CreateDate = DateTime.Now;
+            try
+            {
+                dao.intervention.AddIntervention(intervention);
+            }
+            catch (Exception)
+            {
+                throw new FailedToCreateRecordException();
+            }
+        }
+
+        public string ValidateInterventionStatus(int interventionTypeId, decimal requiredHours, decimal requiredCost)
+        {
+            User siteEngineer = dao.user.GetUser(Utils.getInstance.GetCurrentUserId());
+            decimal userMaxCost = siteEngineer.MaximumCost;
+            decimal userMaxHours = siteEngineer.MaximumHours;
+
+            if (userMaxCost >= requiredCost && userMaxHours >= requiredHours)
+            {
+                return Status.APPROVED;
+            }
+            else
+            {
+                return Status.PROPOSED;
             }
         }
     }

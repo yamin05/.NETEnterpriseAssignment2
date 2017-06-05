@@ -65,7 +65,7 @@
 
        
 
-        @if (Status.Proposed.ToString().Equals(Model.Status))
+        @if (Status.PROPOSED.Equals(Model.Status))
         {
             <div class="form-group">
                 @Html.LabelFor(model => model.Condition, htmlAttributes: new { @class = "control-label col-md-2" })

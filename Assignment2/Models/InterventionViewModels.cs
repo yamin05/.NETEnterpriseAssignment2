@@ -16,8 +16,11 @@ namespace Assignment2.Models
     public class CreateNewInterventionViewModel
     {
         [Required]
-        [Display(Name = "Client Name")]
+        [Display(Name = "Client ID")]
         public int clientId { get; set; }
+
+        [Display(Name = "Client Name")]
+        public string clientName { get; set; }
 
         [Required]
         [Display(Name = "Intervention Type")]
