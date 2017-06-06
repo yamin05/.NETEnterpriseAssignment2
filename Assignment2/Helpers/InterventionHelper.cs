@@ -14,14 +14,19 @@ namespace Assignment2.Helpers
     /// <summary>
     /// This class is act as a helper for creating, listing, validating,  updating Interventions
     /// </summary>
-    public class InterventionHelper
+    public class InterventionHelper : IInterventionHelper
     {
-        private Dao UDao;
-        private IInterventionsDao interventionDao;
+        private IUserDao UDao = new UserDao();
+        private IInterventionsDao interventionDao = new InterventionsDao();
+        public InterventionHelper(IUserDao UDao, IInterventionsDao InterDao)
+        {
+            this.UDao=UDao;
+            this.interventionDao = InterDao;
+
+        }
         public InterventionHelper()
         {
-            UDao = new Dao();
-            interventionDao = new InterventionsDao();
+
         }
 
         /// <summary>
@@ -29,9 +34,9 @@ namespace Assignment2.Helpers
         /// </summary>
         /// <param name="userId">Id of the current Site Engineer</param>
         /// <returns>User</returns>
-        public User GetSiteEngineerData(string userId)
+        public virtual User GetSiteEngineerData(string userId)
         {
-            User siteEngineer = UDao.user.GetUser(userId);
+            User siteEngineer = UDao.GetUser(userId);
             return siteEngineer;
         }
 
@@ -53,17 +58,12 @@ namespace Assignment2.Helpers
         /// <param name="requiredHours">Hours required to complete intervention enterd by Site Engineer</param>
         /// <param name="requiredCost">Cost required to complete intervention enterd by Site Engineer</param>
         /// <returns>string</returns>
-        public string ValidateInterventionStatus(int interventionTypeId, decimal requiredHours, decimal requiredCost) {
-
-            InterventionType interventionType = GetInterventionTypeData(interventionTypeId);
-            decimal defaultCost = interventionType.InterventionTypeCost;
-            decimal defaultHours = interventionType.InterventionTypeHours;
-
-            User siteEngineer = GetSiteEngineerData(Utils.getInstance.GetCurrentUserId());
+        public virtual string ValidateInterventionStatus(decimal requiredHours, decimal requiredCost,User siteEngineer)
+        { 
             decimal userMaxCost = siteEngineer.MaximumCost;
             decimal userMaxHours = siteEngineer.MaximumHours;
 
-            if (userMaxCost >= defaultCost && userMaxCost >= requiredCost && userMaxHours >= defaultHours && userMaxHours >= requiredHours)
+            if (userMaxCost >= requiredCost  && userMaxHours >= requiredHours)
             {
 
                 return Status.APPROVED;
@@ -83,8 +83,9 @@ namespace Assignment2.Helpers
         /// <param name="interventionHours">Hours required to complete intervention</param>
         public void CreateIntervention(int clientId, int interventionTypeId, decimal interventionCost, decimal interventionHours)
         {
+            User siteEngineer = GetSiteEngineerData(Utils.getInstance.GetCurrentUserId());
             var intervention = new Intervention();
-            string status = ValidateInterventionStatus(interventionTypeId, interventionHours, interventionCost);
+            string status = ValidateInterventionStatus(interventionHours, interventionCost, siteEngineer);
             if (status.Equals(Status.APPROVED)) {
                 intervention.Status = Status.APPROVED;
             }
@@ -225,7 +226,7 @@ namespace Assignment2.Helpers
 
         public User GetManagerData(string userId)
         {
-            User manager = UDao.user.GetUser(userId.ToString());
+            User manager = UDao.GetUser(userId.ToString());
             return manager;
         }
         public IList<ListInterventionViewModel> ListOfProposedInterventionsForManager()
