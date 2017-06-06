@@ -2,13 +2,13 @@
 
 namespace WebApplication2.Exceptions
 {
-    public class ValueNotSelectedException : Exception
+    public class NoClientCreatedException : Exception
     {
         private string errorMessage { get; set; }
 
-        public ValueNotSelectedException()
+        public NoClientCreatedException()
         {
-            errorMessage = "Please select a value first";
+            errorMessage = "No Client Created Yet. Please Create a Client First";
         }
 
         public override string Message

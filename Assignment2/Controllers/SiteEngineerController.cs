@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Assignment2.Data_Access_Layer;
 using Assignment2.Models;
 using Assignment2.Helpers;
+using System.Web.UI.WebControls;
 
 namespace Assignment2.Controllers
 {
@@ -34,53 +35,15 @@ namespace Assignment2.Controllers
         [HttpPost]
         public ActionResult Index(string Button)
         {
-            if (Button.Equals("List of Intervention to approve or cancel in your district"))
-            {
-                return RedirectToAction("ListInterventions");
-            }
-            else if (Button.Equals("CreateClient"))
-            {
-                return RedirectToAction(Button);
-            }
-            else if (Button.Equals("ViewClients"))
-            {
-                return RedirectToAction(Button);
-            }
-            else if (Button.Equals("ViewClientsInDistrict"))
-            {
-                return RedirectToAction(Button);
-            }
-            else if (Button.Equals("List of associated Interevntions"))
-            {
-                return RedirectToAction("Login", "Account");
-            }
-            else if (Button.Equals("Change Password"))
-            {
-                return RedirectToAction("Login", "Account");
-            }
-            return View();
-
-            //IList<ListInterventionViewModel> viewModel = new List<ListInterventionViewModel>();
-            //var usersIntervention = new InterventionHelper();
-            //try
-            //{
-            //    viewModel = usersIntervention.ListOfUsersInterventions();
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    ModelState.AddModelError(string.Empty, ex);
-            //}
-            //return View(viewModel);
+            return RedirectToAction(Button);
         }
 
         public ActionResult ListInterventions()
         {
             IList<ListInterventionViewModel> viewModel = new List<ListInterventionViewModel>();
-            var interventionHelper = new InterventionHelper();
             try
             {
-                viewModel = interventionHelper.ListInterventions();
+                viewModel = siteEngineerHelper.ListInterventions();
             }
             catch (Exception ex)
             {
@@ -95,10 +58,31 @@ namespace Assignment2.Controllers
         /// <returns>View</returns>
         public ActionResult CreateIntervention()
         {
-            var currentUserId = Utils.getInstance.GetCurrentUserId();
-            ViewBag.ClientId = new SelectList(db.Clients.Where(c => c.CreatedBy.District.Equals(c.ClientDistrict)), "ClientId", "ClientName");
-            ViewBag.InterventionTypeId = new SelectList(db.InterventionTypes, "InterventionTypeId", "InterventionTypeName");
-            return View();
+            var viewModel = new CreateNewInterventionViewModel();
+            try
+            {
+                var clients = siteEngineerHelper.ListCurrentClients();
+                var listItems = new List<ListItem>();
+                foreach (var client in clients)
+                {
+                    listItems.Add(new ListItem { Text = client.ClientName, Value = client.ClientId.ToString() });
+                }
+                ViewBag.clients = new SelectList(listItems, "Value", "Text");
+                var interventionTypes = siteEngineerHelper.ListInterventionTypes();
+                var listItems2 = new List<ListItem>();
+                foreach (var type in interventionTypes)
+                {
+                    listItems2.Add(new ListItem { Text = type.InterventionTypeName, Value = type.InterventionTypeId.ToString() });
+                }
+                ViewBag.interventionTypes = new SelectList(listItems2, "Value", "Text", interventionTypes.FirstOrDefault());
+                viewModel.interventionCost = interventionTypes.FirstOrDefault().InterventionTypeCost;
+                viewModel.interventionHours = interventionTypes.FirstOrDefault().InterventionTypeHours;
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex);
+            }
+            return View(viewModel);
         }
 
         /// <summary>
@@ -117,18 +101,9 @@ namespace Assignment2.Controllers
                 {
                     createInterventionHelper.CreateIntervention(viewModel.clientId, viewModel.interventionTypeId, viewModel.interventionCost, viewModel.interventionHours);
                     ModelState.AddModelError("success", "Intervention Created Successfully!");
-
-
-                    //Getting values from DB for Dropdown List
-                    var currentUserId = Utils.getInstance.GetCurrentUserId();
-                    ViewBag.ClientId = new SelectList(db.Clients.Where(c => c.CreatedBy.District.Equals(c.ClientDistrict)), "ClientId", "ClientName");
-                    ViewBag.InterventionTypeId = new SelectList(db.InterventionTypes, "InterventionTypeId", "InterventionTypeName");
                 }
                 else
                 {
-                    var currentUserId = Utils.getInstance.GetCurrentUserId();
-                    ViewBag.ClientId = new SelectList(db.Clients.Where(c => c.CreatedBy.District.Equals(c.ClientDistrict)), "ClientId", "ClientName");
-                    ViewBag.InterventionTypeId = new SelectList(db.InterventionTypes, "InterventionTypeId", "InterventionTypeName");
                     ModelState.AddModelError("success", "Sorry, You don't have any client to assosiate intervention with!, Hint: Create a client first!");
                 }
             }
@@ -137,6 +112,20 @@ namespace Assignment2.Controllers
 
                 ModelState.AddModelError(string.Empty, ex);
             }
+            var clients = siteEngineerHelper.ListCurrentClients();
+            var listItems3 = new List<ListItem>();
+            foreach (var client in clients)
+            {
+                listItems3.Add(new ListItem { Text = client.ClientName, Value = client.ClientId.ToString() });
+            }
+            ViewBag.clients = new SelectList(listItems3, "Value", "Text", listItems3.Where(i => i.Value.Equals(viewModel.clientId)).Select(i => i));
+            var interventionTypes2 = siteEngineerHelper.ListInterventionTypes();
+            var listItems4 = new List<ListItem>();
+            foreach (var type in interventionTypes2)
+            {
+                listItems4.Add(new ListItem { Text = type.InterventionTypeName, Value = type.InterventionTypeId.ToString() });
+            }
+            ViewBag.interventionTypes = new SelectList(listItems4, "Value", "Text", listItems4.Where(i => i.Value.Equals(viewModel.interventionTypeId)).Select(i => i));
             return View(viewModel);
         }
 
@@ -263,7 +252,7 @@ namespace Assignment2.Controllers
         public ActionResult CreateClient()
         {
             var viewModel = new CreateNewClientViewModel();
-            viewModel.clientDistrict = siteEngineerHelper.GetDistrictForSiteManager();
+            viewModel.clientDistrict = siteEngineerHelper.GetDistrictForUser();
             return View(viewModel);
         }
 

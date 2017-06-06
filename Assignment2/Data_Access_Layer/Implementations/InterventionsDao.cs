@@ -52,7 +52,6 @@ namespace Assignment2.Data_Access_Layer
                                     .Include(i => i.InterTypeId)
                                     .FirstOrDefault();
                 return intervention;
-
             }
         }
 
@@ -63,20 +62,15 @@ namespace Assignment2.Data_Access_Layer
         /// <returns>IList</returns>
         public IList<Intervention> GetInterventionsForUser(string userId)
         {
-
             using (context = new CustomDBContext())
             {
-
-                IList<Intervention> usersInterventions = context.Interventions
+                IList<Intervention> interventions = context.Interventions
                                             .Select(i => i)
-                                            .Where(i => i.CreatedBy.UserId.Equals(userId) && i.Status != Status.CANCELLED)
-                                            .Include(i => i.InterTypeId).ToList();
-
-                return usersInterventions;
-
-
+                                            .Where(i => i.CreatedByUserId.Equals(userId) && i.Status != Status.CANCELLED)
+                                            .Include(i => i.InterTypeId)
+                                            .ToList();
+                return interventions;
             }
-
         }
 
         /// <summary>

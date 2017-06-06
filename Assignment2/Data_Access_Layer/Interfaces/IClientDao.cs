@@ -9,5 +9,6 @@ namespace Assignment2.Data_Access_Layer
         Client GetClient(int clientId);
         IList<Client> GetClientsForUser(string userId);
         IList<Client> GetClientsInDistrict(string district);
+        IList<Client> GetCurrentClients(string userId, string district);
     }
 }

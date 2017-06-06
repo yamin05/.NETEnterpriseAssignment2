@@ -9,7 +9,7 @@ namespace Assignment2.Helpers
 {
     public class ReportHelper
     {
-        private ReportDao reportDao;
+        private IReportDao reportDao;
         public ReportHelper()
         {
             reportDao = new ReportDao();

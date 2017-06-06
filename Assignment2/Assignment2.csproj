@@ -207,7 +207,9 @@
     <Compile Include="Data_Access_Layer\Implementations\ClientDao.cs" />
     <Compile Include="Data_Access_Layer\Implementations\Dao.cs" />
     <Compile Include="Data_Access_Layer\Implementations\InterventionTypeDao.cs" />
+    <Compile Include="Data_Access_Layer\Implementations\ReportDao.cs" />
     <Compile Include="Data_Access_Layer\Implementations\UserDao.cs" />
+    <Compile Include="Data_Access_Layer\Implementations\UsersDao.cs" />
     <Compile Include="Data_Access_Layer\Interfaces\IClientDao.cs" />
     <Compile Include="Data_Access_Layer\Interfaces\IDao.cs" />
     <Compile Include="Data_Access_Layer\IdentityDBInitializer.cs" />
@@ -215,10 +217,10 @@
     <Compile Include="Data_Access_Layer\Interfaces\IInterventionsDao.cs" />
     <Compile Include="Data_Access_Layer\Implementations\InterventionsDao.cs" />
     <Compile Include="Data_Access_Layer\Interfaces\IInterventionType.cs" />
+    <Compile Include="Data_Access_Layer\Interfaces\IReportDao.cs" />
     <Compile Include="Data_Access_Layer\Interfaces\IUserDao.cs" />
+    <Compile Include="Data_Access_Layer\Interfaces\IUsersDao.cs" />
     <Compile Include="Data_Access_Layer\ProjectDBContext.cs" />
-    <Compile Include="Data_Access_Layer\ReportDao.cs" />
-    <Compile Include="Data_Access_Layer\UsersDao.cs" />
     <Compile Include="Exceptions\CannotEditDistrictRecordException.cs" />
     <Compile Include="Exceptions\CannotEditStatusException.cs" />
     <Compile Include="Exceptions\ClientAdditionConflictException.cs" />
@@ -239,7 +241,7 @@
     <Compile Include="Exceptions\MailSendException.cs" />
     <Compile Include="Exceptions\QualityManagementAdditionConflict.cs" />
     <Compile Include="Exceptions\ValueIsNullException.cs" />
-    <Compile Include="Exceptions\ValueNotSelectedException.cs" />
+    <Compile Include="Exceptions\NoClientCreatedException.cs" />
     <Compile Include="Exceptions\WrongCurrentPassword.cs" />
     <Compile Include="Exceptions\WrongInputEmailException.cs" />
     <Compile Include="Exceptions\WrongInputPasswordException.cs" />
