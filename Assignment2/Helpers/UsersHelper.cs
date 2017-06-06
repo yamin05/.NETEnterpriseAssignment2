@@ -10,7 +10,7 @@ namespace Assignment2.Helpers
 {
     public class UsersHelper
     {
-        private UsersDao usersDao;
+        private IUsersDao usersDao;
         public UsersHelper()
         {
             usersDao = new UsersDao();
