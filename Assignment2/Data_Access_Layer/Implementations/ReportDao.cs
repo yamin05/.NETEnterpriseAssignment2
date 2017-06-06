@@ -127,6 +127,7 @@ namespace Assignment2.Data_Access_Layer
                                                      Costs = (tb3 == null) ? 0 : tb3.Costs
                                                  }).ToList()
                                                  .Union(from tb1 in context.Interventions
+                                                        where tb1.Status == Status.COMPLETED
                                                         group tb1 by "" into tb2
                                                         select new CostsByDistrictModel()
                                                         {
