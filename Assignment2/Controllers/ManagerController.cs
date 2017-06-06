@@ -12,7 +12,12 @@ namespace Assignment2.Controllers
     [Authorize(Roles = Roles.MANAGER)]
     public class ManagerController : Controller
     {
-        private ManagerHelper managerHelper = new ManagerHelper();
+        private readonly IManagerHelper managerHelper = new ManagerHelper();
+        public ManagerController(IManagerHelper _managerHelper)
+        {
+            managerHelper = _managerHelper;
+        } 
+
         // GET: Manager
         public ActionResult Index()
         {
@@ -22,24 +27,14 @@ namespace Assignment2.Controllers
         [HttpPost]
         public ActionResult Index(string Button)
         {
-            if (Button.Equals("List of Intervention to approve or cancel in your district"))
-            {
-                return RedirectToAction("ListOfInterventions");
-            }
-            else if (Button.Equals("List of associated Interevntions"))
-            {
-                return RedirectToAction("Login", "Account");
-            }
-            return View();
+            return RedirectToAction(Button);
         }
 
         public ActionResult ListOfInterventions()
         {
             IList<ListInterventionViewModel> viewModel = new List<ListInterventionViewModel>();
-            //var ApproveOrCancelIntervention = new InterventionHelper();
             try
             {
-                //viewModel = ApproveOrCancelIntervention.ListOfProposedInterventionsForManager();
                 viewModel = managerHelper.GetListOfProposedInterventions();
             }
             catch (Exception ex)
@@ -52,16 +47,9 @@ namespace Assignment2.Controllers
 
         public ActionResult EditIntervention(int interventionId)
         {
-            //if (interventionId == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //var intervention = new InterventionHelper();
-            //var inter = intervention.GetIntervention(interventionId);
             ListInterventionViewModel viewModel = new ListInterventionViewModel();
             try
             {
-                //viewModel = ApproveOrCancelIntervention.ListOfProposedInterventionsForManager();
                 viewModel = managerHelper.GetIntervention(interventionId);
                 var statuslist = managerHelper.GetPossibleStatusUpdateForIntervention(viewModel.Status);
                 ViewBag.Status = new SelectList(statuslist);
@@ -92,21 +80,10 @@ namespace Assignment2.Controllers
                     ViewBag.Status = new SelectList(new List<string>() { viewModel.Status });
                     ModelState.AddModelError("alert", ex.Message);
                 }
-                //InterventionsDao interDao = new InterventionsDao();
-                //if (InterList.Status == Status.Approved.ToString())
-                //{
-                //    interDao.UpdateInterventionStatus_ToAppoved(InterList.InterventionId);
-
-
-                //}
-                //else if (InterList.Status == Status.Cancelled.ToString())
-                //{
-                //    interDao.UpdateInterventionStatus_ToCancelled(InterList.InterventionId);
-
-                //}
+             
             }
             return View(viewModel);
-            //return RedirectToAction("EditIntervention");
+            
         }
     }
 }

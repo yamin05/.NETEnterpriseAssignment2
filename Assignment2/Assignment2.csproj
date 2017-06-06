@@ -254,7 +254,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ClientHelper.cs" />
-    <Compile Include="Helpers\IInterventionHelper.cs" />
+    <Compile Include="Helpers\Helper_Interfaces\IInterventionHelper.cs" />
+    <Compile Include="Helpers\Helper_Interfaces\IManagerHelper.cs" />
     <Compile Include="Helpers\MailHelper.cs" />
     <Compile Include="Helpers\ManagerHelper.cs" />
     <Compile Include="Helpers\ReportHelper.cs" />

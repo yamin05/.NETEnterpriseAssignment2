@@ -68,7 +68,8 @@ namespace Assignment2.Helpers
 
                 return Status.APPROVED;
             }
-            else {
+            else
+            {
                 return Status.PROPOSED;
             }
 

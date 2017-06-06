@@ -7,7 +7,7 @@ using WebApplication2.Exceptions;
 
 namespace Assignment2.Helpers
 {
-    public class ManagerHelper
+    public class ManagerHelper : IManagerHelper
     {
         private Dao dao = new Dao();
 
@@ -125,7 +125,7 @@ namespace Assignment2.Helpers
             var inter = dao.UpdateIntervention(interventionId, manager, intervention.Status, newStatus);
             var mailHelper = new MailHelper();
             mailHelper.SendMail(manager.UserId, intervention.CreatedByUserId, intervention, inter.Status);
-            return inter;       
+            return inter;
         }
     }
 }
