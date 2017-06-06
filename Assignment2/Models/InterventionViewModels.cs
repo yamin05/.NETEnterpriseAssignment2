@@ -55,7 +55,8 @@ namespace Assignment2.Models
         public int InterventionId { get; set; }
         [Display(Name = "Modified Date")]
         public DateTime? ModifyDate { get; set; }
-        [Display(Name = "Life")]
+        [Display(Name = "Life in %")]
+        [Range(typeof(int), "0", "100",ErrorMessage ="Life can be only between 0 - 100 %")]
         public int? Condition { get; set; }
     }
 }

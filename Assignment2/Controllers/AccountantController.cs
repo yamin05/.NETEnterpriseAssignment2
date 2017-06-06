@@ -83,13 +83,15 @@ namespace Assignment2.Controllers
 
         [HttpPost]
         public ActionResult ChangeDistrictForUsers(UserViewModel UserViewModel)
-        {  try
+        {
+            var Users = new UsersHelper();
+            var districtList = Users.GetDistrictList();
+
+            try
             {
+               
                 if (ModelState.IsValid)
                 {
-
-                    var Users = new UsersHelper();
-                    var districtList = Users.GetDistrictList();
                     ViewBag.District = new SelectList(districtList);
                     Users.UpdateDistrictForUser(UserViewModel.UserId, UserViewModel.District);
                     ModelState.AddModelError("success", "The District has been changed!!");
@@ -98,9 +100,7 @@ namespace Assignment2.Controllers
 
             catch (Exception ex)
             {
-                ViewBag.District = new SelectList(new List<string>() { UserViewModel.District });
-                var Users = new UsersHelper();
-                
+                ViewBag.District = new SelectList(districtList);
                 ModelState.AddModelError("", ex.Message);
             }
             return View(UserViewModel);
