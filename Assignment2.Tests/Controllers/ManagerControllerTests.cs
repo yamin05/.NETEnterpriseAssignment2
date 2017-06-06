@@ -11,34 +11,35 @@ namespace Assignment2.Controllers.Tests
     [TestClass()]
     public class ManagerControllerTests
     {
-        [TestMethod()]
-        public void IndexTest()
-        {
+        //    [TestMethod()]
+        //    public void IndexTest()
+        //    {
 
-        }
+        //    }
 
-        [TestMethod()]
-        public void IndexTest1()
-        {
+        //    [TestMethod()]
+        //    public void IndexTest1()
+        //    {
 
-        }
+        //    }
 
-        [TestMethod()]
-        public void ListOfInterventionsTest()
-        {
+        //    [TestMethod()]
+        //    public void ListOfInterventionsTest()
+        //    {
 
-        }
+        //    }
 
-        [TestMethod()]
-        public void EditInterventionTest()
-        {
+        //    [TestMethod()]
+        //    public void EditInterventionTest()
+        //    {
 
-        }
+        //    }
 
-        [TestMethod()]
-        public void EditInterventionTest1()
-        {
+        //    [TestMethod()]
+        //    public void EditInterventionTest1()
+        //    {
 
-        }
+        //    }
+        //}
     }
 }
