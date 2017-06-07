@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Assignment2.Helpers
 {
-    public class UsersHelper : IUsersHelper
+    public  class UsersHelper : IUsersHelper
     {
         private IUsersDao usersDao;
         public UsersHelper()

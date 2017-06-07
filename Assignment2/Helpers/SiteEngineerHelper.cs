@@ -7,7 +7,7 @@ using WebApplication2.Exceptions;
 
 namespace Assignment2.Helpers
 {
-    public class SiteEngineerHelper
+    public  class SiteEngineerHelper : ISiteEngineerHelper
     {
         private Dao dao = new Dao();
 
@@ -189,6 +189,36 @@ namespace Assignment2.Helpers
             else
             {
                 return Status.PROPOSED;
+            }
+        }
+
+        public IList<ListInterventionViewModel> ListOfClientsInterventions(int clientId)
+        {
+            try
+            {
+                IList<ListInterventionViewModel> ViewList = new List<ListInterventionViewModel>();
+                var interventions = dao.intervention.GetClientsInterventions(clientId);
+
+                foreach (var inter in interventions)
+                {
+                    ListInterventionViewModel ViewIntervention = new ListInterventionViewModel();
+                    ViewIntervention.InterventionTypeName = inter.InterTypeId.InterventionTypeName;
+                    ViewIntervention.InterventionCost = inter.InterventionCost;
+                    ViewIntervention.InterventionHours = inter.InterventionHours;
+                    ViewIntervention.CreateDate = inter.CreateDate;
+                    ViewIntervention.InterventionId = inter.InterventionId;
+                    ViewIntervention.CreatedBy = Utils.getInstance.GetIdentityUser(inter.CreatedByUserId).UserName;
+                    ViewIntervention.Status = inter.Status;
+                    ViewIntervention.Condition = inter.Condition;
+                    ViewIntervention.ModifyDate = inter.ModifyDate;
+                    ViewList.Add(ViewIntervention);
+                }
+
+                return ViewList;
+            }
+            catch
+            {
+                throw new FaliedToRetriveRecordException();
             }
         }
     }

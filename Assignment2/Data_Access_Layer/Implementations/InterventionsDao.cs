@@ -78,22 +78,17 @@ namespace Assignment2.Data_Access_Layer
         /// </summary>
         /// <param name="Id">Id of the client</param>
         /// <returns>IList</returns>
-        public IList<Intervention> GetClientsInterventions(int? id)
+        public IList<Intervention> GetClientsInterventions(int clientId)
         {
-
             using (context = new CustomDBContext())
             {
-                var userId = Utils.getInstance.GetCurrentUserId();
                 IList<Intervention> clientInterventions = context.Interventions
                                             .Select(i => i)
-                                            .Where(i => i.ClientId == id && i.Status != Status.CANCELLED && i.CreatedByUserId.Equals(userId))
-                                            .Include(i => i.InterTypeId).ToList();
-
+                                            .Where(i => i.ClientId == clientId && i.Status != Status.CANCELLED)
+                                            .Include(i => i.InterTypeId)
+                                            .ToList();
                 return clientInterventions;
-
-
             }
-
         }
 
         public IList<Intervention> GetInterventionsByStatus(string status)

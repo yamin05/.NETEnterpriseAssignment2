@@ -115,7 +115,7 @@ namespace Assignment2.Data_Access_Layer
                                            Costs = tb2.Sum(i => i.InterventionCost)
                                        }).ToList();
 
-                IList<CostsByDistrictModel> AverageCostsByEngineerView =
+                IList<CostsByDistrictModel> CostsByDistrictView =
                                                 (from tb1 in districtList
                                                  join tb2 in costsByDistrict
                                                  on tb1 equals tb2.District into temp
@@ -125,22 +125,26 @@ namespace Assignment2.Data_Access_Layer
                                                      DistrictName = tb1,
                                                      Hours = (tb3 == null) ? 0 : tb3.Hours,
                                                      Costs = (tb3 == null) ? 0 : tb3.Costs
-                                                 }).ToList()
-                                                 .Union(from tb1 in context.Interventions
-                                                        where tb1.Status == Status.COMPLETED
-                                                        group tb1 by "" into tb2
-                                                        select new CostsByDistrictModel()
-                                                        {
-                                                            DistrictName = "Total",
-                                                            Hours = tb2.Sum(i => i.InterventionHours),
-                                                            Costs = tb2.Sum(i => i.InterventionCost)
-                                                        }).ToList();
-                return AverageCostsByEngineerView;
+                                                 }).ToList();
+
+                IList<CostsByDistrictModel> CostsByDistrictWithTotalView1 = (from tb1 in CostsByDistrictView
+                                                                    select tb1).ToList()
+                                                                   .Union
+                                                                    (from tb2 in CostsByDistrictView
+                                                                          group tb2 by "" into tb2
+                                                                          select new CostsByDistrictModel()
+                                                                          {
+                                                                              DistrictName = "Total",
+                                                                              Hours = tb2.Sum(i => i.Hours),
+                                                                              Costs = tb2.Sum(i => i.Costs)
+                                                                          }).ToList();
+                return CostsByDistrictWithTotalView1;
             }
         }
 
         public IList<MonthlyCostsForDistrictModel> MonthlyCostsForDistrictView(string district)
         {
+            var yearList = new List<int> { 2017 };
             var monthList = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
             var districtList = new List<string>();
             districtList.Add(Districts.URBAN_INDONESIA);
@@ -154,10 +158,11 @@ namespace Assignment2.Data_Access_Layer
 
             var monthlyCosts = (from tb1 in context.Interventions.Include("Client")
                                 where tb1.Status == Status.COMPLETED
-                                group tb1 by new { tb1.Client.ClientDistrict, tb1.CreateDate.Month } into tb2
+                                group tb1 by new { tb1.Client.ClientDistrict, tb1.CreateDate.Year,tb1.CreateDate.Month } into tb2
                                 select new
                                 {
                                     District = tb2.Key.ClientDistrict,
+                                    Year = tb2.Key.Year,
                                     Month = tb2.Key.Month,
                                     Hours = tb2.Sum(i => i.InterventionHours),
                                     Costs = tb2.Sum(i => i.InterventionCost)
@@ -165,13 +170,15 @@ namespace Assignment2.Data_Access_Layer
 
             IList<MonthlyCostsForDistrictModel> monthlyCostsForDistrict = (from tb1 in districtList
                                                                            from tb2 in monthList
+                                                                           from tb22 in yearList
                                                                            join tb3 in monthlyCosts
-                                                                           on new { district = tb1, month = tb2 } equals new { district = tb3.District, month = tb3.Month } into temp
+                                                                           on new { district = tb1, month = tb2, year=tb22 } equals new { district = tb3.District, month = tb3.Month, year = tb3.Year } into temp
                                                                            from tb4 in temp.DefaultIfEmpty()
                                                                            where tb1 == district
                                                                            select new MonthlyCostsForDistrictModel()
                                                                            {
                                                                                District = tb1,
+                                                                               Year = Convert.ToString(tb22),
                                                                                Month = new DateTime(2000, Convert.ToInt32(tb2), 1).ToString("MMMM", CultureInfo.GetCultureInfo("en-US")),
                                                                                MonthlyHours = (tb4 == null) ? 0 : tb4.Hours,
                                                                                MonthlyCosts = (tb4 == null) ? 0 : tb4.Costs

@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Assignment2.Helpers
 {
-    public class ReportHelper : IReportHelper
+    public  class ReportHelper : IReportHelper
     {
         private IReportDao reportDao;
         public ReportHelper()

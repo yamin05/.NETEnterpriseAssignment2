@@ -254,10 +254,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ClientHelper.cs" />
+    <Compile Include="Helpers\Helper_Interfaces\IClientHelper.cs" />
     <Compile Include="Helpers\Helper_Interfaces\IInterventionHelper.cs" />
     <Compile Include="Helpers\Helper_Interfaces\IManagerHelper.cs" />
+    <Compile Include="Helpers\Helper_Interfaces\IMailHelper.cs" />
     <Compile Include="Helpers\Helper_Interfaces\IReportHelper.cs" />
-    <Compile Include="Helpers\IUsersHelper.cs" />
+    <Compile Include="Helpers\Helper_Interfaces\ISiteEngineerHelper.cs" />
+    <Compile Include="Helpers\Helper_Interfaces\IUsersHelper.cs" />
     <Compile Include="Helpers\MailHelper.cs" />
     <Compile Include="Helpers\ManagerHelper.cs" />
     <Compile Include="Helpers\ReportHelper.cs" />

@@ -6,7 +6,7 @@ using WebApplication2.Exceptions;
 
 namespace Assignment2.Helpers
 {
-    public class MailHelper
+    public class MailHelper : IMailHelper
     {
         private SmtpClient smtp { get; set; }
 
