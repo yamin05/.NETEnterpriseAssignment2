@@ -55,7 +55,7 @@ namespace Assignment2.Helpers.Tests
             user.UserId = "1"; 
             user.MaximumHours = 25;
             user.MaximumCost = 500;
-            var mockinterventionHelper = new InterventionHelper();
+            var mockinterventionHelper = new SiteEngineerHelper();
             var status = mockinterventionHelper.ValidateInterventionStatus(requiredhours, requiredcost, user);
             Assert.AreEqual(Status.APPROVED, status);
         }
@@ -91,7 +91,7 @@ namespace Assignment2.Helpers.Tests
             inter.Client = client1;
             interventionListMock.Add(inter);
             var list2 = interventionListMock;
-            var list = new InterventionHelper();
+            var list = new ManagerHelper();
             var list1 = list.ValidateProposedInterventions(MockUser, interventionListMock);
             Collection<Intervention> collection = new Collection<Intervention>(list1);
             CollectionAssert.AreEqual(collection, list2);
@@ -114,7 +114,7 @@ namespace Assignment2.Helpers.Tests
             inter.Client = client1;
             interventionListMock.Add(inter);
             var list2 = interventionListMock;
-            var list = new InterventionHelper();
+            var list = new ManagerHelper();
             var list1 = list.ValidateProposedInterventions(MockUser, interventionListMock);
             Collection<Intervention> collection = new Collection<Intervention>(list1);
             CollectionAssert.AreNotEqual(collection, list2);
@@ -126,7 +126,7 @@ namespace Assignment2.Helpers.Tests
             var Proposed_Status = Status.PROPOSED;
             var Approved_Status = Status.APPROVED;
             var Completed_Status = Status.COMPLETED;
-            var mockinterventionHelper = new InterventionHelper();
+            var mockinterventionHelper = new SiteEngineerHelper();
             var Status_IsProposed = mockinterventionHelper.GetPossibleStatusUpdateForInterventionForSiteEngineer(Proposed_Status);
             var Status_IsApproved = mockinterventionHelper.GetPossibleStatusUpdateForInterventionForSiteEngineer(Approved_Status);
             var Status_IsCompleted = mockinterventionHelper.GetPossibleStatusUpdateForInterventionForSiteEngineer(Completed_Status);

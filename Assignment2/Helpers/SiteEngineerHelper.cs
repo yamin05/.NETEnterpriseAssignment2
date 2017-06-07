@@ -23,12 +23,21 @@ namespace Assignment2.Helpers
         {
         }
 
+        /// <summary>
+        /// This method use GetUser method to get Site Engineers Data
+        /// </summary>
+        /// <param name="userId">Id of the current Site Engineer</param>
+        /// <returns>User</returns>
         public virtual User GetSiteEngineerData(string userId)
         {
             User siteEngineer = uDao.GetUser(userId);
             return siteEngineer;
         }
-
+        /// <summary>
+        /// This method use GetInterventionType method to get Intervention Type Data i.e Default Coast and Hours
+        /// </summary>
+        /// <param name="interventionTypeId">Id of an Intervention type</param>
+        /// <returns>InterventionType</returns>
         public InterventionType GetInterventionTypeData(int interventionTypeId)
         {
             InterventionType interventionType = interventionDao.GetInterventionType(interventionTypeId);
@@ -201,7 +210,12 @@ namespace Assignment2.Helpers
                 throw new FailedToCreateRecordException();
             }
         }
-
+        /// <summary>
+        /// This method is used to check if created intervention should be Approved or marked as Proposed based on User and Intervention's Data
+        /// </summary>
+        /// <param name="requiredHours">Hours required to complete intervention enterd by Site Engineer</param>
+        /// <param name="requiredCost">Cost required to complete intervention enterd by Site Engineer</param>
+        /// <returns>string</returns>
         public string ValidateInterventionStatus(decimal requiredHours, decimal requiredCost, User siteEngineer)
         {
             decimal userMaxCost = siteEngineer.MaximumCost;
@@ -247,6 +261,49 @@ namespace Assignment2.Helpers
             {
                 throw new FaliedToRetriveRecordException();
             }
+        }
+
+        public Dictionary<string, string> GetPossibleStatusUpdateForInterventionForSiteEngineer(string status)
+        {
+            Dictionary<string, string> list = new Dictionary<string, string>();
+            if (Status.PROPOSED.Equals(status))
+            {   /*list.Clear();*/
+                list.Add(Status.PROPOSED, Status.PROPOSED);
+                list.Add(Status.CANCELLED, Status.CANCELLED);
+            }
+            else if (Status.APPROVED.Equals(status))
+            {
+                //list.Clear();
+                list.Add(Status.APPROVED, Status.APPROVED);
+                list.Add(Status.COMPLETED, Status.COMPLETED);
+                list.Add(Status.CANCELLED, Status.CANCELLED);
+            }
+            else if (Status.COMPLETED.Equals(status))
+            {
+                //list.Clear();
+                list.Add(Status.COMPLETED, Status.COMPLETED);
+            }
+
+            return list;
+        }
+
+        public ListInterventionViewModel GetIntervention(int? userid)
+        {
+            Intervention Inter = new Intervention();
+            Inter = interventionDao.GetIntervention(userid);
+            ListInterventionViewModel InterventionView = new ListInterventionViewModel();
+            InterventionView.ClientDistrict = Inter.Client.ClientDistrict;
+            InterventionView.ClientName = Inter.Client.ClientName;
+            InterventionView.InterventionTypeName = Inter.InterTypeId.InterventionTypeName;
+            InterventionView.InterventionCost = Inter.InterventionCost;
+            InterventionView.InterventionHours = Inter.InterventionHours;
+            InterventionView.Status = Inter.Status;
+            InterventionView.CreateDate = Inter.CreateDate;
+            InterventionView.InterventionId = Inter.InterventionId;
+            InterventionView.ModifyDate = Inter.ModifyDate;
+            InterventionView.Condition = Inter.Condition;
+            InterventionView.comments = Inter.Comments;
+            return InterventionView;
         }
     }
 }

@@ -47,7 +47,7 @@ namespace Assignment2.Helpers
             return ProposedInterList;
         }
 
-        private IList<Intervention> ValidateProposedInterventions(User manager, IList<Intervention> InterList)
+        public IList<Intervention> ValidateProposedInterventions(User manager, IList<Intervention> InterList)
         {
             IList<Intervention> ProposedList = new List<Intervention>();
             for (int i = 0; i <= InterList.Count - 1; i++)

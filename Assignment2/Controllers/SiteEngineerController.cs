@@ -137,7 +137,7 @@ namespace Assignment2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var intervention = new InterventionHelper();
+            var intervention = new SiteEngineerHelper();
             var inter = intervention.GetIntervention(id);
             if (inter == null)
             {

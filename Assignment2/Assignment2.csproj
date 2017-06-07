@@ -238,7 +238,6 @@
     </Compile>
     <Compile Include="Helpers\ClientHelper.cs" />
     <Compile Include="Helpers\Helper_Interfaces\IClientHelper.cs" />
-    <Compile Include="Helpers\Helper_Interfaces\IInterventionHelper.cs" />
     <Compile Include="Helpers\Helper_Interfaces\IManagerHelper.cs" />
     <Compile Include="Helpers\Helper_Interfaces\IMailHelper.cs" />
     <Compile Include="Helpers\Helper_Interfaces\IReportHelper.cs" />
@@ -248,7 +247,6 @@
     <Compile Include="Helpers\ManagerHelper.cs" />
     <Compile Include="Helpers\ReportHelper.cs" />
     <Compile Include="Helpers\SiteEngineerHelper.cs" />
-    <Compile Include="Helpers\InterventionHelper.cs" />
     <Compile Include="Helpers\UsersHelper.cs" />
     <Compile Include="Migrations\ENET\201706070142135_InitialCreate.cs" />
     <Compile Include="Migrations\ENET\201706070142135_InitialCreate.Designer.cs">
