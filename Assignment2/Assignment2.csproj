@@ -227,17 +227,9 @@
     <Compile Include="Data_Access_Layer\ProjectDBContext.cs" />
     <Compile Include="Exceptions\CannotEditDistrictRecordException.cs" />
     <Compile Include="Exceptions\CannotEditStatusException.cs" />
-    <Compile Include="Exceptions\ClientAdditionConflictException.cs" />
-    <Compile Include="Exceptions\EditQMInfoPermissionException.cs" />
-    <Compile Include="Exceptions\EditStatusPermissionException.cs" />
-    <Compile Include="Exceptions\ExcedesAllowedCostException.cs" />
-    <Compile Include="Exceptions\ExcedesAllowedHoursException.cs" />
-    <Compile Include="Exceptions\FailedToCreateClientOrIntervention.cs" />
     <Compile Include="Exceptions\FailedToCreateRecordException.cs" />
-    <Compile Include="Exceptions\FailedToUpdateClientListOrInterventionList.cs" />
     <Compile Include="Exceptions\FailedToUpdateRecordException.cs" />
     <Compile Include="Exceptions\FaliedToRetriveRecordException.cs" />
-    <Compile Include="Exceptions\InterventionAdditionConflictExpection.cs" />
     <Compile Include="Exceptions\InvalidConditionLimitException.cs" />
     <Compile Include="Exceptions\InvalidConditionUpdateException.cs" />
     <Compile Include="Exceptions\InvalidEmailFormatException.cs" />
