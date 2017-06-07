@@ -11,6 +11,9 @@ namespace Assignment2.Helpers
     {
         private Dao dao = new Dao();
 
+        /// <summary>
+        /// This method is for getting list of proposed interventions
+        /// </summary>
         public IList<ListInterventionViewModel> GetListOfProposedInterventions()
         {
             try
@@ -40,6 +43,9 @@ namespace Assignment2.Helpers
             }
         }
 
+        /// <summary>
+        /// This method is for listing of proposed interventions
+        /// </summary>
         private IList<Intervention> ListofProposedIntervention()
         {
             IList<Intervention> ProposedInterList = new List<Intervention>();
@@ -47,6 +53,9 @@ namespace Assignment2.Helpers
             return ProposedInterList;
         }
 
+        /// <summary>
+        /// This method is for validate proposed interventions for manager with intervention list
+        /// </summary>
         public IList<Intervention> ValidateProposedInterventions(User manager, IList<Intervention> InterList)
         {
             IList<Intervention> ProposedList = new List<Intervention>();
@@ -62,6 +71,9 @@ namespace Assignment2.Helpers
             return ProposedList;
         }
 
+        /// <summary>
+        /// This method is for getting intervention with intervention id
+        /// </summary>
         public ListInterventionViewModel GetIntervention(int interventionId)
         {
             try
@@ -87,6 +99,9 @@ namespace Assignment2.Helpers
             }
         }
 
+        /// <summary>
+        /// This method is for getting possible status update for intervention with status
+        /// </summary>
         public IList<string> GetPossibleStatusUpdateForIntervention(string status)
         {
             IList<string> list = new List<string>();
@@ -114,6 +129,9 @@ namespace Assignment2.Helpers
             return list;
         }
 
+        /// <summary>
+        /// This method is for update intervention status with intervention id and new status
+        /// </summary>
         public Intervention UpdateInterventionStatus(int interventionId, string newStatus)
         {
             var intervention = dao.GetIntervention(interventionId);

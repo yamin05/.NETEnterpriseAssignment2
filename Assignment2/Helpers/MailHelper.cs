@@ -23,6 +23,9 @@ namespace Assignment2.Helpers
             };
         }
 
+        /// <summary>
+        /// This method is for sending mail with intervention and new status
+        /// </summary>
         public void SendMail(string from, string to, Intervention intervention, string newStatus)
         {
             var fromUser = Utils.getInstance.GetIdentityUser(from);

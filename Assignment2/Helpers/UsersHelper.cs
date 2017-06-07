@@ -42,6 +42,9 @@ namespace Assignment2.Helpers
             return districtList;
         }
 
+        /// <summary>
+        /// This method is for update district for user with user id and district
+        /// </summary>
         public void UpdateDistrictForUser(string userId, string district)
 
         {
