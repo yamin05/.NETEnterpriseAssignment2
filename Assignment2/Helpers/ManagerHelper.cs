@@ -127,5 +127,34 @@ namespace Assignment2.Helpers
             mailHelper.SendMail(manager.UserId, intervention.CreatedByUserId, intervention, inter.Status);
             return inter;
         }
+        public IList<ListInterventionViewModel> GetAssociatedIntervention_ForManager()
+        {
+            try
+            {
+                IList<ListInterventionViewModel> ViewList = new List<ListInterventionViewModel>();
+                var manager_userid = Utils.getInstance.GetCurrentUserId();
+                IList<Intervention> interlist = new List<Intervention>();
+                interlist = dao.GetAssociatedIntervention_ForManager(manager_userid);
+                
+                foreach (var inter in interlist)
+                {
+                    ListInterventionViewModel ViewIntervention = new ListInterventionViewModel();
+                    ViewIntervention.ClientDistrict = inter.Client.ClientDistrict;
+                    ViewIntervention.ClientName = inter.Client.ClientName;
+                    ViewIntervention.InterventionTypeName = inter.InterTypeId.InterventionTypeName;
+                    ViewIntervention.InterventionCost = inter.InterventionCost;
+                    ViewIntervention.InterventionHours = inter.InterventionHours;
+                    ViewIntervention.CreateDate = inter.CreateDate;
+                    ViewIntervention.InterventionId = inter.InterventionId;
+                    ViewIntervention.Status = inter.Status;
+                    ViewList.Add(ViewIntervention);
+                }
+                return ViewList;
+            }
+            catch
+            {
+                throw new FaliedToRetriveRecordException();
+            }
+        }
     }
 }

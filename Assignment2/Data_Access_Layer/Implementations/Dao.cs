@@ -53,7 +53,19 @@ namespace Assignment2.Data_Access_Layer
                 return intervention;
             }
         }
-
+        public IList<Intervention> GetAssociatedIntervention_ForManager(string user_Id)
+        {
+            using (context = new CustomDBContext())
+            {
+                IList<Intervention> intervention = (context.Interventions
+                                    .Where(i => i.ApprovedByUserId.Equals(user_Id) && i.Status== Status.APPROVED)
+                                    .Select(i => i))
+                                    .Include(i => i.Client)
+                                    .Include(i => i.InterTypeId)
+                                    .ToList();
+                return intervention;
+            }
+        }
         public Intervention UpdateIntervention(int interventionId, User user, string oldStatus, string newStatus)
         {
             using (context = new CustomDBContext())

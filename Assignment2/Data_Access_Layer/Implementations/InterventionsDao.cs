@@ -162,15 +162,23 @@ namespace Assignment2.Data_Access_Layer
                 select inter;
                 foreach (Intervention inter in intervention)
                 {
-                    if (!inter.Comments.Equals(comments))
+                    if (inter.Comments != null)
                     {
-                        inter.Comments = comments;
-                        inter.ModifyDate = DateTime.Now;
+                        if (!inter.Comments.Equals(comments))
+                        {
+                            inter.Comments = comments;
+                            inter.ModifyDate = DateTime.Now;
+                        }
+                        else
+                        {
+                            inter.Comments = comments;
+                        }
                     }
                     else
                     {
                         inter.Comments = comments;
                     }
+
                 }
                 try
                 {
@@ -272,5 +280,6 @@ namespace Assignment2.Data_Access_Layer
 
             }
         }
+
     }
 }

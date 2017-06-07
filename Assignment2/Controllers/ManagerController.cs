@@ -33,7 +33,10 @@ namespace Assignment2.Controllers
         {
             return RedirectToAction(Button);
         }
-
+        /// <summary>
+        /// This action method is used retruns a list of interventions manager needs to approve or cancel
+        /// </summary>
+        /// <returns>View</returns>
         public ActionResult ListOfInterventions()
         {
             IList<ListInterventionViewModel> viewModel = new List<ListInterventionViewModel>();
@@ -48,7 +51,10 @@ namespace Assignment2.Controllers
 
             return View(viewModel);
         }
-
+        /// <summary>
+        /// This action method is used retruns a views for editing intervention
+        /// </summary>
+        /// <returns>View</returns>
         public ActionResult EditIntervention(int interventionId)
         {
             ListInterventionViewModel viewModel = new ListInterventionViewModel();
@@ -66,7 +72,10 @@ namespace Assignment2.Controllers
             return View(viewModel);
         }
 
-
+        /// <summary>
+        /// This action method is used post edit to intervention and returns the changed intervention data.
+        /// </summary>
+        /// <returns>View</returns>
         [HttpPost]
         public ActionResult EditIntervention(ListInterventionViewModel viewModel)
         {
@@ -89,12 +98,16 @@ namespace Assignment2.Controllers
             return View(viewModel);
             
         }
+        /// <summary>
+        /// This action method is used retruns a list of interventions manager as approved at any time.
+        /// </summary>
+        /// <returns>View</returns>
         public ActionResult ListOfAssociatedInterventions()
         {
             IList<ListInterventionViewModel> viewModel = new List<ListInterventionViewModel>();
             try
             {
-                viewModel = managerHelper.GetListOfProposedInterventions();
+                viewModel = managerHelper.GetAssociatedIntervention_ForManager();
             }
             catch (Exception ex)
             {

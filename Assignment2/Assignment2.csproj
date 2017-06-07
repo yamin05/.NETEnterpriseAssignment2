@@ -355,6 +355,7 @@
     <Content Include="Views\Accountant\MonthlyCostsForDistrictReport.cshtml" />
     <Content Include="Views\SiteEngineer\ListInterventions.cshtml" />
     <Content Include="Views\SiteEngineer\ViewClientsInDistrict.cshtml" />
+    <Content Include="Views\Manager\ListOfAssociatedInterventions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\SiteEngineer\CreateClient.cshtml" />
