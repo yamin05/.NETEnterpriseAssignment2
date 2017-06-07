@@ -27,7 +27,6 @@ namespace Assignment2.Data_Access_Layer
         /// <returns>InterventionType</returns>
         public InterventionType GetInterventionType(int interventionTypeId)
         {
-
             using (context = new CustomDBContext())
             {
 
@@ -38,14 +37,13 @@ namespace Assignment2.Data_Access_Layer
 
                 return interventionType;
             }
-
         }
 
         /// <summary>
         /// This method is used for getting intervention with intervention id
         /// </summary>
         /// <returns>IList</returns>
-        public Intervention GetIntervention(int? InterventionId)
+        public Intervention GetIntervention(int InterventionId)
         {
             using (context = new CustomDBContext())
             {
@@ -111,14 +109,11 @@ namespace Assignment2.Data_Access_Layer
                                     .Include(i => i.Client)
                                     .Include(i => i.InterTypeId)
                                     .ToList();
-
-
                 return intervention;
-
             }
         }
 
-        public void UpdateIntervention(Intervention intervention)
+        public Intervention UpdateIntervention(Intervention intervention)
         {
             using (context = new CustomDBContext())
             {
@@ -134,6 +129,49 @@ namespace Assignment2.Data_Access_Layer
                 inter.InterventionCost = intervention.InterventionCost;
                 inter.InterventionHours = intervention.InterventionHours;
                 context.SaveChanges();
+                return inter;
+            }
+        }
+
+        public Intervention UpdateIntervention(int interventionId, User user, string oldStatus, string newStatus)
+        {
+            using (context = new CustomDBContext())
+            {
+                var intervention = context.Interventions
+                                   .Where(i => i.InterventionId == interventionId && i.Client.ClientDistrict.Equals(user.District)
+                                           && i.Status.Equals(oldStatus))     //Added &&
+                                   .Select(i => i)
+                                   .FirstOrDefault();
+                if (newStatus.Equals(Status.APPROVED))
+                {
+                    intervention.ApprovedByUserId = user.UserId;
+                }
+                intervention.LastUpdatedByUserId = user.UserId;
+                intervention.Status = newStatus;
+                intervention.ModifyDate = DateTime.Now;
+                try
+                {
+                    context.SaveChanges();
+                }
+                catch
+                {
+                    throw new FailedToUpdateRecordException();
+                }
+                return intervention;
+            }
+        }
+
+        public IList<Intervention> GetAssociatedIntervention_ForManager(string user_Id)
+        {
+            using (context = new CustomDBContext())
+            {
+                IList<Intervention> intervention = (context.Interventions
+                                    .Where(i => i.ApprovedByUserId.Equals(user_Id) && i.Status == Status.APPROVED)
+                                    .Select(i => i))
+                                    .Include(i => i.Client)
+                                    .Include(i => i.InterTypeId)
+                                    .ToList();
+                return intervention;
             }
         }
     }

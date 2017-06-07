@@ -11,10 +11,12 @@ namespace Assignment2.Data_Access_Layer
     {
         void AddIntervention(Intervention intervention);
         InterventionType GetInterventionType(int interventionTypeId);
-        Intervention GetIntervention(int? InterventionId);
+        Intervention GetIntervention(int InterventionId);
         IList<Intervention> GetInterventionsForUser(string userId);
         IList<Intervention> GetClientsInterventions(int clientId);
         IList<Intervention> GetInterventionsByStatus(string status);
-        void UpdateIntervention(Intervention intervention);
+        Intervention UpdateIntervention(Intervention intervention);
+        Intervention UpdateIntervention(int interventionId, User user, string oldStatus, string newStatus);
+        IList<Intervention> GetAssociatedIntervention_ForManager(string user_Id);
     }
 }

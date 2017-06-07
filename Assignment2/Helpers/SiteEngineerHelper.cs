@@ -9,13 +9,14 @@ namespace Assignment2.Helpers
 {
     public  class SiteEngineerHelper : ISiteEngineerHelper
     {
-        private Dao dao = new Dao();
-        private IUserDao uDao = new UserDao();
+        private IUserDao userDao = new UserDao();
         private IInterventionsDao interventionDao = new InterventionsDao();
+        private IClientDao clientDao = new ClientDao();
+        private IInterventionTypeDao interventionTypeDao = new InterventionTypeDao();
 
         public SiteEngineerHelper(IUserDao object1, IInterventionsDao object2)
         {
-            uDao = object1;
+            userDao = object1;
             interventionDao = object2;
         }
 
@@ -23,19 +24,20 @@ namespace Assignment2.Helpers
         {
         }
 
-        public void UpdateIntervention(int intId, string comments, int condition, decimal cost, decimal hours, string status)
+        public Intervention UpdateIntervention(int intId, string comments, int condition, decimal cost, decimal hours, string status)
         {
             Intervention inter = new Intervention();
             inter.InterventionId = intId;
             inter.Status = status;
             inter.LastUpdatedByUserId = Utils.getInstance.GetCurrentUserId();
             inter.Comments = comments;
-            inter.Condition = condition;
+            inter.Condition = (status.Equals(Status.COMPLETED)) ? 100 : condition;
             inter.InterventionCost = cost;
             inter.InterventionHours = hours;
             try
             {
-                dao.intervention.UpdateIntervention(inter);
+                var intervention = interventionDao.UpdateIntervention(inter);
+                return intervention;
             }
             catch
             {
@@ -50,7 +52,7 @@ namespace Assignment2.Helpers
         /// <returns>User</returns>
         public virtual User GetSiteEngineerData(string userId)
         {
-            User siteEngineer = uDao.GetUser(userId);
+            User siteEngineer = userDao.GetUser(userId);
             return siteEngineer;
         }
         /// <summary>
@@ -72,7 +74,7 @@ namespace Assignment2.Helpers
         {
             try
             {
-                string district = uDao.GetUserDistrict(Utils.getInstance.GetCurrentUserId());
+                string district = userDao.GetUserDistrict(Utils.getInstance.GetCurrentUserId());
                 return district;
             }
             catch (Exception)
@@ -94,7 +96,7 @@ namespace Assignment2.Helpers
             client.CreatedByUserId = Utils.getInstance.GetCurrentUserId();
             try
             {
-                dao.client.AddClient(client.CreatedBy, client);
+                clientDao.AddClient(client.CreatedBy, client);
 
             }
             catch (Exception)
@@ -111,7 +113,7 @@ namespace Assignment2.Helpers
             try
             {
                 IList<ListClientsViewModel> ViewList = new List<ListClientsViewModel>();
-                var clients = dao.client.GetClientsForUser(Utils.getInstance.GetCurrentUserId());
+                var clients = clientDao.GetClientsForUser(Utils.getInstance.GetCurrentUserId());
 
                 foreach (var inter in clients)
                 {
@@ -137,7 +139,7 @@ namespace Assignment2.Helpers
             {
                 IList<ListClientsViewModel> ViewList = new List<ListClientsViewModel>();
                 var district = this.GetDistrictForUser();
-                var clients = dao.client.GetClientsInDistrict(district);
+                var clients = clientDao.GetClientsInDistrict(district);
 
                 foreach (var inter in clients)
                 {
@@ -194,7 +196,7 @@ namespace Assignment2.Helpers
 
         public IList<Client> ListCurrentClients()
         {
-            var clients = dao.client.GetCurrentClients(Utils.getInstance.GetCurrentUserId(), this.GetDistrictForUser());
+            var clients = clientDao.GetCurrentClients(Utils.getInstance.GetCurrentUserId(), this.GetDistrictForUser());
             if (Utils.getInstance.isNullOrEmpty(clients))
             {
                 throw new NoClientCreatedException();
@@ -204,7 +206,7 @@ namespace Assignment2.Helpers
 
         public IList<InterventionType> ListInterventionTypes()
         {
-            var interventionTypes = dao.interventionType.GetAllInterventionTypes();
+            var interventionTypes = interventionTypeDao.GetAllInterventionTypes();
             return interventionTypes;
         }
 
@@ -227,6 +229,8 @@ namespace Assignment2.Helpers
             intervention.CreatedByUserId = Utils.getInstance.GetCurrentUserId();
             intervention.Comments = String.Empty;
             intervention.CreateDate = DateTime.Now;
+            intervention.Condition = 0;
+            intervention.ModifyDate = DateTime.Now;
             try
             {
                 interventionDao.AddIntervention(intervention);
@@ -322,10 +326,10 @@ namespace Assignment2.Helpers
         /// <summary>
         /// This method is for getting the intervention with user id
         /// </summary>
-        public ListInterventionViewModel GetIntervention(int? userid)
+        public ListInterventionViewModel GetIntervention(int intId)
         {
             Intervention Inter = new Intervention();
-            Inter = interventionDao.GetIntervention(userid);
+            Inter = interventionDao.GetIntervention(intId);
             ListInterventionViewModel InterventionView = new ListInterventionViewModel();
             InterventionView.ClientDistrict = Inter.Client.ClientDistrict;
             InterventionView.ClientName = Inter.Client.ClientName;

@@ -9,8 +9,10 @@ namespace Assignment2.Helpers
 {
     public class ManagerHelper : IManagerHelper
     {
-        private Dao dao = new Dao();
-
+        private IUserDao userDao = new UserDao();
+        private IInterventionsDao interventionDao = new InterventionsDao();
+        private IClientDao clientDao = new ClientDao();
+        private IInterventionTypeDao interventionTypeDao = new InterventionTypeDao();
         /// <summary>
         /// This method is for getting list of proposed interventions
         /// </summary>
@@ -19,7 +21,7 @@ namespace Assignment2.Helpers
             try
             {
                 IList<ListInterventionViewModel> ViewList = new List<ListInterventionViewModel>();
-                var manager = dao.user.GetUser(Utils.getInstance.GetCurrentUserId());
+                var manager = userDao.GetUser(Utils.getInstance.GetCurrentUserId());
                 var interlist = ListofProposedIntervention();
                 var proposedinterlist = ValidateProposedInterventions(manager, interlist);
                 foreach (var inter in proposedinterlist)
@@ -49,7 +51,7 @@ namespace Assignment2.Helpers
         private IList<Intervention> ListofProposedIntervention()
         {
             IList<Intervention> ProposedInterList = new List<Intervention>();
-            ProposedInterList = dao.GetInterventions(Status.PROPOSED);
+            ProposedInterList = interventionDao.GetInterventionsByStatus(Status.PROPOSED);
             return ProposedInterList;
         }
 
@@ -79,7 +81,7 @@ namespace Assignment2.Helpers
             try
             {
                 Intervention Inter = new Intervention();
-                Inter = dao.GetIntervention(interventionId);
+                Inter = interventionDao.GetIntervention(interventionId);
                 ListInterventionViewModel InterventionView = new ListInterventionViewModel();
                 InterventionView.ClientDistrict = Inter.Client.ClientDistrict;
                 InterventionView.ClientName = Inter.Client.ClientName;
@@ -134,13 +136,13 @@ namespace Assignment2.Helpers
         /// </summary>
         public Intervention UpdateInterventionStatus(int interventionId, string newStatus)
         {
-            var intervention = dao.GetIntervention(interventionId);
+            var intervention = interventionDao.GetIntervention(interventionId);
             if (intervention.Status.Equals(newStatus))
             {
                 throw new CannotEditStatusException();
             }
-            var manager = dao.user.GetUser(Utils.getInstance.GetCurrentUserId());
-            var inter = dao.UpdateIntervention(interventionId, manager, intervention.Status, newStatus);
+            var manager = userDao.GetUser(Utils.getInstance.GetCurrentUserId());
+            var inter = interventionDao.UpdateIntervention(interventionId, manager, intervention.Status, newStatus);
             var mailHelper = new MailHelper();
             mailHelper.SendMail(manager.UserId, intervention.CreatedByUserId, intervention, inter.Status);
             return inter;
@@ -152,7 +154,7 @@ namespace Assignment2.Helpers
                 IList<ListInterventionViewModel> ViewList = new List<ListInterventionViewModel>();
                 var manager_userid = Utils.getInstance.GetCurrentUserId();
                 IList<Intervention> interlist = new List<Intervention>();
-                interlist = dao.GetAssociatedIntervention_ForManager(manager_userid);
+                interlist = interventionDao.GetAssociatedIntervention_ForManager(manager_userid);
                 
                 foreach (var inter in interlist)
                 {

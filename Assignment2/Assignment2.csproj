@@ -209,7 +209,6 @@
     <Compile Include="Controllers\SiteEngineerController.cs" />
     <Compile Include="Data_Access_Layer\CustomDBInitializer.cs" />
     <Compile Include="Data_Access_Layer\Implementations\ClientDao.cs" />
-    <Compile Include="Data_Access_Layer\Implementations\Dao.cs" />
     <Compile Include="Data_Access_Layer\Implementations\InterventionTypeDao.cs" />
     <Compile Include="Data_Access_Layer\Implementations\ReportDao.cs" />
     <Compile Include="Data_Access_Layer\Implementations\UserDao.cs" />
@@ -217,7 +216,6 @@
     <Compile Include="Data_Access_Layer\Interfaces\IClientDao.cs" />
     <Compile Include="Data_Access_Layer\IdentityDBInitializer.cs" />
     <Compile Include="Data_Access_Layer\CustomDBContext.cs" />
-    <Compile Include="Data_Access_Layer\Interfaces\IDao.cs" />
     <Compile Include="Data_Access_Layer\Interfaces\IInterventionsDao.cs" />
     <Compile Include="Data_Access_Layer\Implementations\InterventionsDao.cs" />
     <Compile Include="Data_Access_Layer\Interfaces\IInterventionType.cs" />

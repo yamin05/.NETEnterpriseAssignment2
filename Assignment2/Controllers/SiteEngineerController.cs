@@ -18,10 +18,7 @@ namespace Assignment2.Controllers
     [Authorize(Roles = Roles.SITE_ENGINEER)]
     public class SiteEngineerController : Controller
     {
-        private CustomDBContext db = new CustomDBContext();
-
         private SiteEngineerHelper siteEngineerHelper = new SiteEngineerHelper();
-        private Dao d = new Dao();
 
         public ActionResult Index()
         {
@@ -133,12 +130,13 @@ namespace Assignment2.Controllers
         /// <returns>View</returns>
         public ActionResult EditIntervention(int? id)
         {
+            var intId = (id == null) ? 0 : (int)id;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var intervention = new SiteEngineerHelper();
-            var inter = intervention.GetIntervention(id);
+            var inter = intervention.GetIntervention(intId);
             if (inter == null)
             {
                 return HttpNotFound();
@@ -157,11 +155,11 @@ namespace Assignment2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditIntervention(ListInterventionViewModel InterList)
         {
+            var viewModel = new ListInterventionViewModel();
             if (ModelState.IsValid)
             {
                 InterList.comments = (Utils.getInstance.isNullOrEmpty(InterList.comments)) ? string.Empty : InterList.comments;
                 var condition = (Utils.getInstance.isNullOrEmpty(InterList.Condition)) ? 0 : (int)InterList.Condition;
-
                 siteEngineerHelper.UpdateIntervention(InterList.InterventionId, InterList.comments, condition, InterList.InterventionCost, InterList.InterventionHours, InterList.Status);
                 var statuslist = siteEngineerHelper.GetPossibleStatusUpdateForInterventionForSiteEngineer(InterList.Status);
                 ViewBag.Status = new SelectList(statuslist.Keys);
