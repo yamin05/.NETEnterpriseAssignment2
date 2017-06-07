@@ -41,35 +41,6 @@ namespace Assignment2.Controllers.Tests
             return users;
         }
 
-        [TestMethod()]
-        public void ChangeDistrictForUsersTest()
-        {
-
-        }
-
-        [TestMethod()]
-        public void TotalCostsByEngineerReportTest()
-        {
-
-        }
-
-        [TestMethod()]
-        public void AverageCostsByEngineerReportTest()
-        {
-
-        }
-
-        [TestMethod()]
-        public void CostsByDistrictReportTest()
-        {
-
-        }
-
-        [TestMethod()]
-        public void MonthlyCostsForDistrictReportTest()
-        {
-
-        }
 
     }
 }
