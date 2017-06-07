@@ -14,7 +14,17 @@ namespace Assignment2.Controllers
     [Authorize(Roles = Roles.ACCOUNTANT)]
     public class AccountantController : Controller
     {
-        
+        private readonly IUsersHelper userhelper = new UsersHelper();
+        private readonly IReportHelper reportHelper = new ReportHelper();
+        public AccountantController(IUsersHelper _userHelper)
+        {
+            userhelper = _userHelper;
+        }
+        public AccountantController()
+        {
+
+        }
+
         // GET: Accountant
         public ActionResult Index()
         {
@@ -51,10 +61,9 @@ namespace Assignment2.Controllers
         public ActionResult ListOfUsers()
         {
             IList<UserViewModel> viewModel = new List<UserViewModel>();
-            var usersList = new UsersHelper();
             try
             {
-                viewModel = usersList.ListOfUsers();
+                viewModel = userhelper.ListOfUsers();
 
             }
             catch (Exception ex)
@@ -70,13 +79,12 @@ namespace Assignment2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var Users = new UsersHelper();
-            UserViewModel userDetail = Users.GetUserData(userId);
+            UserViewModel userDetail = userhelper.GetUserData(userId);
             if (userDetail == null)
             {
                 return HttpNotFound();
             }
-            var districtList = Users.GetDistrictList();
+            var districtList = userhelper.GetDistrictList();
             ViewBag.District = new SelectList(districtList);
             return View(userDetail);
         }
@@ -84,8 +92,7 @@ namespace Assignment2.Controllers
         [HttpPost]
         public ActionResult ChangeDistrictForUsers(UserViewModel UserViewModel)
         {
-            var Users = new UsersHelper();
-            var districtList = Users.GetDistrictList();
+            var districtList = userhelper.GetDistrictList();
 
             try
             {
@@ -93,7 +100,7 @@ namespace Assignment2.Controllers
                 if (ModelState.IsValid)
                 {
                     ViewBag.District = new SelectList(districtList);
-                    Users.UpdateDistrictForUser(UserViewModel.UserId, UserViewModel.District);
+                    userhelper.UpdateDistrictForUser(UserViewModel.UserId, UserViewModel.District);
                     ModelState.AddModelError("success", "The District has been changed!!");
                 }
             }
@@ -111,10 +118,9 @@ namespace Assignment2.Controllers
         public ActionResult TotalCostsByEngineerReport()
         {
             IList<TotalCostsByEngineerModel> viewModel = new List<TotalCostsByEngineerModel>();
-            var Report = new ReportHelper();
             try
             {
-                viewModel = Report.TotalCostsByEngineerView();
+                viewModel = reportHelper.TotalCostsByEngineerView();
 
             }
             catch (Exception ex)
@@ -128,10 +134,9 @@ namespace Assignment2.Controllers
         public ActionResult AverageCostsByEngineerReport()
         {
             IList<AverageCostsByEngineerModel> viewModel = new List<AverageCostsByEngineerModel>();
-            var Report = new ReportHelper();
             try
             {
-                viewModel = Report.AverageCostsByEngineerView();
+                viewModel = reportHelper.AverageCostsByEngineerView();
 
             }
             catch (Exception ex)
@@ -144,10 +149,9 @@ namespace Assignment2.Controllers
         public ActionResult CostsByDistrictReport()
         {
             IList<CostsByDistrictModel> viewModel = new List<CostsByDistrictModel>();
-            var Report = new ReportHelper();
             try
             {
-                viewModel = Report.CostsByDistrictView();
+                viewModel = reportHelper.CostsByDistrictView();
 
             }
             catch (Exception ex)
@@ -163,7 +167,6 @@ namespace Assignment2.Controllers
             var districtList = Users.GetDistrictList();
             ViewBag.District = new SelectList(districtList);
             IList<MonthlyCostsForDistrictModel> viewModel = new List<MonthlyCostsForDistrictModel>();
-            var Report = new ReportHelper();
             return View(viewModel);
         }
 
@@ -175,10 +178,9 @@ namespace Assignment2.Controllers
             var districtList = Users.GetDistrictList();
             ViewBag.District = new SelectList(districtList);
             IList<MonthlyCostsForDistrictModel> viewModel = new List<MonthlyCostsForDistrictModel>();
-            var Report = new ReportHelper();
             try
             {
-                viewModel = Report.MonthlyCostsForDistrictView(district);
+                viewModel = reportHelper.MonthlyCostsForDistrictView(district);
 
             }
             catch (Exception ex)
