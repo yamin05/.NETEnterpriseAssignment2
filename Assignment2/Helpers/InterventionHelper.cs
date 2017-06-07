@@ -82,7 +82,7 @@ namespace Assignment2.Helpers
         /// <param name="interventionTypeId">Id of an Intervention type</param>
         /// <param name="interventionCost">Cost required to complete intervention</param>
         /// <param name="interventionHours">Hours required to complete intervention</param>
-        public void CreateIntervention(int clientId, int interventionTypeId, decimal interventionCost, decimal interventionHours)
+        public void CreateIntervention(int clientId, int interventionTypeId, decimal interventionCost, decimal interventionHours, string comments)
         {
             User siteEngineer = GetSiteEngineerData(Utils.getInstance.GetCurrentUserId());
             var intervention = new Intervention();
@@ -101,6 +101,7 @@ namespace Assignment2.Helpers
             intervention.InterventionHours = interventionHours;
             intervention.CreatedByUserId = Utils.getInstance.GetCurrentUserId();
             intervention.CreateDate = DateTime.Now;
+            intervention.Comments = comments;
 
 
             try
@@ -196,6 +197,7 @@ namespace Assignment2.Helpers
             InterventionView.InterventionId = Inter.InterventionId;
             InterventionView.ModifyDate = Inter.ModifyDate;
             InterventionView.Condition = Inter.Condition;
+            InterventionView.comments = Inter.Comments;
             return InterventionView;
         }
 

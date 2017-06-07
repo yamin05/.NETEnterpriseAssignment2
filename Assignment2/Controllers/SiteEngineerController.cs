@@ -99,7 +99,7 @@ namespace Assignment2.Controllers
             {
                 if (viewModel.clientId != 0)
                 {
-                    createInterventionHelper.CreateIntervention(viewModel.clientId, viewModel.interventionTypeId, viewModel.interventionCost, viewModel.interventionHours);
+                    createInterventionHelper.CreateIntervention(viewModel.clientId, viewModel.interventionTypeId, viewModel.interventionCost, viewModel.interventionHours, viewModel.comments);
                     ModelState.AddModelError("success", "Intervention Created Successfully!");
                 }
                 else
@@ -166,6 +166,7 @@ namespace Assignment2.Controllers
                 InterventionsDao interDao = new InterventionsDao();
 
                 interDao.UpdateLife(InterList.InterventionId, InterList.Condition);
+                interDao.UpdateComments(InterList.InterventionId, InterList.comments);
 
                 if (InterList.Status.Equals(Status.APPROVED))
                 {
