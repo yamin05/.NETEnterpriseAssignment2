@@ -160,10 +160,18 @@ namespace Assignment2.Controllers
             {
                 InterList.comments = (Utils.getInstance.isNullOrEmpty(InterList.comments)) ? string.Empty : InterList.comments;
                 var condition = (Utils.getInstance.isNullOrEmpty(InterList.Condition)) ? 0 : (int)InterList.Condition;
-                siteEngineerHelper.UpdateIntervention(InterList.InterventionId, InterList.comments, condition, InterList.InterventionCost, InterList.InterventionHours, InterList.Status);
+                if (!Utils.getInstance.isNullOrEmpty(InterList.Status))
+                {
+                    var inter = siteEngineerHelper.UpdateIntervention(InterList.InterventionId, InterList.comments, condition, InterList.InterventionCost, InterList.InterventionHours, InterList.Status);
+                    ModelState.AddModelError("success", "Intervention Updated Successfully!");
+                }
+                else
+                {
+                    ModelState.AddModelError("alert", "Cannot edit already Cancelled intervention");
+
+                }
                 var statuslist = siteEngineerHelper.GetPossibleStatusUpdateForInterventionForSiteEngineer(InterList.Status);
                 ViewBag.Status = new SelectList(statuslist.Keys);
-                ModelState.AddModelError("success", "Intervention Updated Successfully!");
             }
             return View(InterList);
         }

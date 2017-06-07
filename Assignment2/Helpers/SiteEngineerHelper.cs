@@ -320,6 +320,7 @@ namespace Assignment2.Helpers
                 list.Add(Status.COMPLETED, Status.COMPLETED);
             }
 
+
             return list;
         }
 
