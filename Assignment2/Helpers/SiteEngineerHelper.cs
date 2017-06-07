@@ -23,6 +23,26 @@ namespace Assignment2.Helpers
         {
         }
 
+        public void UpdateIntervention(int intId, string comments, int condition, decimal cost, decimal hours, string status)
+        {
+            Intervention inter = new Intervention();
+            inter.InterventionId = intId;
+            inter.Status = status;
+            inter.LastUpdatedByUserId = Utils.getInstance.GetCurrentUserId();
+            inter.Comments = comments;
+            inter.Condition = condition;
+            inter.InterventionCost = cost;
+            inter.InterventionHours = hours;
+            try
+            {
+                dao.intervention.UpdateIntervention(inter);
+            }
+            catch
+            {
+                throw new FailedToUpdateRecordException();
+            }
+        }
+
         /// <summary>
         /// This method use GetUser method to get Site Engineers Data
         /// </summary>

@@ -20,5 +20,6 @@ namespace Assignment2.Data_Access_Layer
         void UpdateInterventionStatus_ToAppoved(int interventionId);
         void UpdateInterventionStatus_ToCompleted(int interventionId);
         void UpdateInterventionStatus_ToCancelled(int interventionId);
+        void UpdateIntervention(Intervention intervention);
     }
 }

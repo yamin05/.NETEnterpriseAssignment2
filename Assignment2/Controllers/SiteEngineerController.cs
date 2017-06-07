@@ -159,30 +159,15 @@ namespace Assignment2.Controllers
         {
             if (ModelState.IsValid)
             {
-                InterventionsDao interDao = new InterventionsDao();
+                InterList.comments = (Utils.getInstance.isNullOrEmpty(InterList.comments)) ? string.Empty : InterList.comments;
+                var condition = (Utils.getInstance.isNullOrEmpty(InterList.Condition)) ? 0 : (int)InterList.Condition;
 
-                interDao.UpdateLife(InterList.InterventionId, InterList.Condition);
-                interDao.UpdateComments(InterList.InterventionId, InterList.comments);
-
-                if (InterList.Status.Equals(Status.APPROVED))
-                {
-                    interDao.UpdateInterventionStatus_ToAppoved(InterList.InterventionId);
-                    ModelState.AddModelError("success", "Intervention Updated Successfully!");
-                }
-                else if (InterList.Status.Equals(Status.COMPLETED))
-                {
-                    interDao.UpdateInterventionStatus_ToCompleted(InterList.InterventionId);
-                    ModelState.AddModelError("success", "Intervention Updated Successfully!");
-                }
-                else if (InterList.Status.Equals(Status.CANCELLED))
-                {
-                    interDao.UpdateInterventionStatus_ToCancelled(InterList.InterventionId);
-                    ModelState.AddModelError("success", "Intervention Updated Successfully!");
-                }
-
-
+                siteEngineerHelper.UpdateIntervention(InterList.InterventionId, InterList.comments, condition, InterList.InterventionCost, InterList.InterventionHours, InterList.Status);
+                var statuslist = siteEngineerHelper.GetPossibleStatusUpdateForInterventionForSiteEngineer(InterList.Status);
+                ViewBag.Status = new SelectList(statuslist.Keys);
+                ModelState.AddModelError("success", "Intervention Updated Successfully!");
             }
-            return Redirect(Request.QueryString["url"]);
+            return View(InterList);
         }
 
         /// <summary>

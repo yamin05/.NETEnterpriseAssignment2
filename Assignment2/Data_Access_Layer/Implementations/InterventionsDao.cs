@@ -281,5 +281,24 @@ namespace Assignment2.Data_Access_Layer
 
             }
         }
+
+        public void UpdateIntervention(Intervention intervention)
+        {
+            using (context = new CustomDBContext())
+            {
+                var inter = context.Interventions
+                            .Where(i => i.InterventionId == intervention.InterventionId)
+                            .Select(i => i)
+                            .FirstOrDefault();
+                inter.ModifyDate = DateTime.Now;
+                inter.Status = intervention.Status;
+                inter.LastUpdatedByUserId = intervention.LastUpdatedByUserId;
+                inter.Comments = intervention.Comments;
+                inter.Condition = intervention.Condition;
+                inter.InterventionCost = intervention.InterventionCost;
+                inter.InterventionHours = intervention.InterventionHours;
+                context.SaveChanges();
+            }
+        }
     }
 }
