@@ -13,7 +13,7 @@ namespace Assignment2.Data_Access_Layer
         InterventionType GetInterventionType(int interventionTypeId);
         Intervention GetIntervention(int? InterventionId);
         IList<Intervention> GetInterventionsForUser(string userId);
-        IList<Intervention> GetClientsInterventions(int? id);
+        IList<Intervention> GetClientsInterventions(int clientId);
         IList<Intervention> GetInterventionsByStatus(string status);
         void UpdateLife(int interventionId, int? life);
         void UpdateComments(int interventionId, string comments);

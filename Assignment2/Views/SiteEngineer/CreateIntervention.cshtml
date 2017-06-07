@@ -59,11 +59,11 @@
             </div>
         </div>
 
-        @if (!ViewData.ModelState.IsValid)
+        @if (!ViewData.ModelState.IsValid || ViewData.ContainsKey("alert"))
         {
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" readonly/>
+                    <input type="submit" value="Create" class="btn btn-default" readonly disabled/>
                 </div>
             </div>
         }
@@ -78,7 +78,7 @@
     </div>
 }
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("View All Interventions", "ListInterventions")
 </div>
 
 @section Scripts {
