@@ -17,8 +17,8 @@ namespace Assignment2.Data_Access_Layer
         /// </summary>
         public IList<TotalCostsByEngineerModel> TotalCostsByEngineerView()
         {
-            context = new CustomDBContext();
-            context1 = new ApplicationDbContext();
+            using (context = new CustomDBContext())
+            using (context1 = new ApplicationDbContext()) 
             {
                 var userList = (from tb1 in context1.Users
                                 from tb2 in tb1.Roles
@@ -59,8 +59,8 @@ namespace Assignment2.Data_Access_Layer
         /// </summary>
         public IList<AverageCostsByEngineerModel> AverageCostsByEngineerView()
         {
-            context = new CustomDBContext();
-            context1 = new ApplicationDbContext();
+            using (context = new CustomDBContext())
+            using (context1 = new ApplicationDbContext())
             {
                 var userList = (from tb1 in context1.Users
                                 from tb2 in tb1.Roles
@@ -101,7 +101,8 @@ namespace Assignment2.Data_Access_Layer
         /// </summary>
         public IList<CostsByDistrictModel> CostsByDistrictView()
         {
-            context = new CustomDBContext();
+            using (context = new CustomDBContext())
+            
             {
                 var districtList = new List<string>();
 
@@ -164,36 +165,39 @@ namespace Assignment2.Data_Access_Layer
             districtList.Add(Districts.SYDNEY);
             districtList.Add(Districts.RURAL_NEW_SOUTH_WALES);
 
-            context = new CustomDBContext();
+            using (context = new CustomDBContext())
+            {
 
-            var monthlyCosts = (from tb1 in context.Interventions.Include("Client")
-                                where tb1.Status == Status.COMPLETED
-                                group tb1 by new { tb1.Client.ClientDistrict, tb1.CreateDate.Year,tb1.CreateDate.Month } into tb2
-                                select new
-                                {
-                                    District = tb2.Key.ClientDistrict,
-                                    Year = tb2.Key.Year,
-                                    Month = tb2.Key.Month,
-                                    Hours = tb2.Sum(i => i.InterventionHours),
-                                    Costs = tb2.Sum(i => i.InterventionCost)
-                                }).ToList();
+                var monthlyCosts = (from tb1 in context.Interventions.Include("Client")
+                                    where tb1.Status == Status.COMPLETED
+                                    group tb1 by new { tb1.Client.ClientDistrict, tb1.CreateDate.Year, tb1.CreateDate.Month } into tb2
+                                    select new
+                                    {
+                                        District = tb2.Key.ClientDistrict,
+                                        Year = tb2.Key.Year,
+                                        Month = tb2.Key.Month,
+                                        Hours = tb2.Sum(i => i.InterventionHours),
+                                        Costs = tb2.Sum(i => i.InterventionCost)
+                                    }).ToList();
 
-            IList<MonthlyCostsForDistrictModel> monthlyCostsForDistrict = (from tb1 in districtList
-                                                                           from tb2 in monthList
-                                                                           from tb22 in yearList
-                                                                           join tb3 in monthlyCosts
-                                                                           on new { district = tb1, month = tb2, year=tb22 } equals new { district = tb3.District, month = tb3.Month, year = tb3.Year } into temp
-                                                                           from tb4 in temp.DefaultIfEmpty()
-                                                                           where tb1 == district
-                                                                           select new MonthlyCostsForDistrictModel()
-                                                                           {
-                                                                               District = tb1,
-                                                                               Year = Convert.ToString(tb22),
-                                                                               Month = new DateTime(2000, Convert.ToInt32(tb2), 1).ToString("MMMM", CultureInfo.GetCultureInfo("en-US")),
-                                                                               MonthlyHours = (tb4 == null) ? 0 : tb4.Hours,
-                                                                               MonthlyCosts = (tb4 == null) ? 0 : tb4.Costs
-                                                                           }).ToList();
-            return monthlyCostsForDistrict;
+                IList<MonthlyCostsForDistrictModel> monthlyCostsForDistrict = (from tb1 in districtList
+                                                                               from tb2 in monthList
+                                                                               from tb22 in yearList
+                                                                               join tb3 in monthlyCosts
+                                                                               on new { district = tb1, month = tb2, year = tb22 } equals new { district = tb3.District, month = tb3.Month, year = tb3.Year } into temp
+                                                                               from tb4 in temp.DefaultIfEmpty()
+                                                                               where tb1 == district
+                                                                               select new MonthlyCostsForDistrictModel()
+                                                                               {
+                                                                                   District = tb1,
+                                                                                   Year = Convert.ToString(tb22),
+                                                                                   Month = new DateTime(2000, Convert.ToInt32(tb2), 1).ToString("MMMM", CultureInfo.GetCultureInfo("en-US")),
+                                                                                   MonthlyHours = (tb4 == null) ? 0 : tb4.Hours,
+                                                                                   MonthlyCosts = (tb4 == null) ? 0 : tb4.Costs
+                                                                               }).ToList();
+                return monthlyCostsForDistrict;
+            }
+            
         }
     }
 }

@@ -4,10 +4,7 @@ using Assignment2.Models.Database_Models;
 using Assignment2.Models;
 using WebApplication2.Exceptions;
 using System.Collections.Generic;
-using System.Data.Entity;
-using Assignment2.Data_Access_Layer;
-using System.Collections;
-using Microsoft.AspNet.Identity;
+
 
 namespace Assignment2.Data_Access_Layer
 {
@@ -21,8 +18,8 @@ namespace Assignment2.Data_Access_Layer
         /// </summary>
         public IList<UserViewModel> GetUsersView()
         {
-            context = new CustomDBContext();
-            context1 = new ApplicationDbContext();
+            using (context = new CustomDBContext())
+            using (context1 = new ApplicationDbContext())
             {
                 var userList = (from tb1 in context1.Users
                                 from tb2 in tb1.Roles
@@ -77,7 +74,8 @@ namespace Assignment2.Data_Access_Layer
         /// </summary>
         public void UpdateDistrictForUser(string userId, string district)
         {
-            context = new CustomDBContext();
+            using (context = new CustomDBContext())
+            
             {
                 User user = context.Users.Single(u => u.UserId == userId);
                 user.District = district;
