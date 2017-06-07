@@ -115,7 +115,7 @@ namespace Assignment2.Data_Access_Layer
                                            Costs = tb2.Sum(i => i.InterventionCost)
                                        }).ToList();
 
-                IList<CostsByDistrictModel> AverageCostsByEngineerView =
+                IList<CostsByDistrictModel> CostsByDistrictView =
                                                 (from tb1 in districtList
                                                  join tb2 in costsByDistrict
                                                  on tb1 equals tb2.District into temp
@@ -125,17 +125,20 @@ namespace Assignment2.Data_Access_Layer
                                                      DistrictName = tb1,
                                                      Hours = (tb3 == null) ? 0 : tb3.Hours,
                                                      Costs = (tb3 == null) ? 0 : tb3.Costs
-                                                 }).ToList()
-                                                 .Union(from tb1 in context.Interventions
-                                                        where tb1.Status == Status.COMPLETED
-                                                        group tb1 by "" into tb2
-                                                        select new CostsByDistrictModel()
-                                                        {
-                                                            DistrictName = "Total",
-                                                            Hours = tb2.Sum(i => i.InterventionHours),
-                                                            Costs = tb2.Sum(i => i.InterventionCost)
-                                                        }).ToList();
-                return AverageCostsByEngineerView;
+                                                 }).ToList();
+
+                IList<CostsByDistrictModel> CostsByDistrictWithTotalView1 = (from tb1 in CostsByDistrictView
+                                                                    select tb1).ToList()
+                                                                   .Union
+                                                                    (from tb2 in CostsByDistrictView
+                                                                          group tb2 by "" into tb2
+                                                                          select new CostsByDistrictModel()
+                                                                          {
+                                                                              DistrictName = "Total",
+                                                                              Hours = tb2.Sum(i => i.Hours),
+                                                                              Costs = tb2.Sum(i => i.Costs)
+                                                                          }).ToList();
+                return CostsByDistrictWithTotalView1;
             }
         }
 
