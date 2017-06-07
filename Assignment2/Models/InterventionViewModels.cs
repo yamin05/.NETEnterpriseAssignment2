@@ -34,6 +34,10 @@ namespace Assignment2.Models
         [Display(Name = "Intervention Hours")]
         public decimal interventionHours { get; set; }
 
+        [Display(Name = "Comments")]
+        [DataType(DataType.MultilineText)]
+        public string comments { get; set; }
+
     }
 
     /// <summary>
@@ -61,5 +65,9 @@ namespace Assignment2.Models
         [Display(Name = "Life in %")]
         [Range(typeof(int), "0", "100",ErrorMessage ="Life can be only between 0 - 100 %")]
         public int? Condition { get; set; }
+
+        [Display(Name = "Comments")]
+        [DataType(DataType.MultilineText)]
+        public string comments { get; set; }
     }
 }

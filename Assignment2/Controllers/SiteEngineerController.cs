@@ -8,6 +8,7 @@ using Assignment2.Data_Access_Layer;
 using Assignment2.Models;
 using Assignment2.Helpers;
 using System.Web.UI.WebControls;
+using WebApplication2.Exceptions;
 
 namespace Assignment2.Controllers
 {
@@ -62,6 +63,11 @@ namespace Assignment2.Controllers
             try
             {
                 var clients = siteEngineerHelper.ListCurrentClients();
+                if (clients.Count == 0)
+                {
+                    Exception ex = new NoClientCreatedException();
+                    ModelState.AddModelError("alert", ex.Message);
+                }
                 var listItems = new List<ListItem>();
                 foreach (var client in clients)
                 {
@@ -99,7 +105,7 @@ namespace Assignment2.Controllers
             {
                 if (viewModel.clientId != 0)
                 {
-                    createInterventionHelper.CreateIntervention(viewModel.clientId, viewModel.interventionTypeId, viewModel.interventionCost, viewModel.interventionHours);
+                    createInterventionHelper.CreateIntervention(viewModel.clientId, viewModel.interventionTypeId, viewModel.interventionCost, viewModel.interventionHours, viewModel.comments);
                     ModelState.AddModelError("success", "Intervention Created Successfully!");
                 }
                 else
@@ -166,6 +172,7 @@ namespace Assignment2.Controllers
                 InterventionsDao interDao = new InterventionsDao();
 
                 interDao.UpdateLife(InterList.InterventionId, InterList.Condition);
+                interDao.UpdateComments(InterList.InterventionId, InterList.comments);
 
                 if (InterList.Status.Equals(Status.APPROVED))
                 {
