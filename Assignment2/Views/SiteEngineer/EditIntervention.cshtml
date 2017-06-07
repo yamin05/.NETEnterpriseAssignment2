@@ -13,8 +13,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Intervention</h4>
-        <hr />
+        
         @Html.ValidationMessage("success", new { @class = "text-success" })
         @Html.ValidationMessage("alert", new { @class = "text-danger" })
 
