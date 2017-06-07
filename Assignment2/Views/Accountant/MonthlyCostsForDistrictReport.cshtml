@@ -17,9 +17,6 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.District)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Month)
             </th>
             <th>
@@ -33,9 +30,6 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.District)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Month)
                 </td>

@@ -8,7 +8,7 @@ namespace Assignment2.Models
 {
     public class MonthlyCostsForDistrictModel
     {
-
+        public string Year { get; set; }
         public string Month { get; set; }
         public string District { get; set; }
         [Display(Name = "Monthly Hours")]

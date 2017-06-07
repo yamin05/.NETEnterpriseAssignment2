@@ -8,8 +8,8 @@ namespace Assignment2.Controllers
         {
             if (HttpContext.User != null && HttpContext.User.Identity.IsAuthenticated)
             {
-                return View();
-                //return Redirect(Utils.getInstance.getHomePageURL());
+                //return View();
+                return Redirect(Utils.getInstance.getHomePageURL());
                 
             }
             else
