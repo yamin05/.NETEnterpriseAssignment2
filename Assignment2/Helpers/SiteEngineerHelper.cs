@@ -180,6 +180,7 @@ namespace Assignment2.Helpers
                     ViewIntervention.Status = inter.Status;
                     ViewIntervention.Condition = inter.Condition;
                     ViewIntervention.ModifyDate = inter.ModifyDate;
+                    ViewIntervention.ClientName = inter.Client.ClientName;
                     ViewList.Add(ViewIntervention);
                 }
 

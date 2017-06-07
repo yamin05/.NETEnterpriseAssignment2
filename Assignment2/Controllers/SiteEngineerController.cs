@@ -165,8 +165,8 @@ namespace Assignment2.Controllers
                 siteEngineerHelper.UpdateIntervention(InterList.InterventionId, InterList.comments, condition, InterList.InterventionCost, InterList.InterventionHours, InterList.Status);
                 var statuslist = siteEngineerHelper.GetPossibleStatusUpdateForInterventionForSiteEngineer(InterList.Status);
                 ViewBag.Status = new SelectList(statuslist.Keys);
-                    ModelState.AddModelError("success", "Intervention Updated Successfully!");
-                }
+                ModelState.AddModelError("success", "Intervention Updated Successfully!");
+            }
             return View(InterList);
         }
 
