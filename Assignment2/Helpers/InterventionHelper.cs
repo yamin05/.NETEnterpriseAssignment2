@@ -151,7 +151,7 @@ namespace Assignment2.Helpers
         /// This method is to list all interventions assosiated with the Client
         /// </summary>
         /// <returns>IList</returns>
-        public IList<ListInterventionViewModel> ListOfClientsInterventions(int? id)
+        public IList<ListInterventionViewModel> ListOfClientsInterventions(int id)
         {
             try
             {
@@ -310,8 +310,10 @@ namespace Assignment2.Helpers
             return list;
         }
 
-
-
+        public IList<ListInterventionViewModel> ListOfClientsInterventions(int? id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }   
 

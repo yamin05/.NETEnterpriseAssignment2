@@ -99,23 +99,13 @@ namespace Assignment2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateIntervention(CreateNewInterventionViewModel viewModel)
         {
-            var createInterventionHelper = new InterventionHelper();
-
             try
             {
-                if (viewModel.clientId != 0)
-                {
-                    createInterventionHelper.CreateIntervention(viewModel.clientId, viewModel.interventionTypeId, viewModel.interventionCost, viewModel.interventionHours);
-                    ModelState.AddModelError("success", "Intervention Created Successfully!");
-                }
-                else
-                {
-                    ModelState.AddModelError("success", "Sorry, You don't have any client to assosiate intervention with!, Hint: Create a client first!");
-                }
+                siteEngineerHelper.CreateIntervention(viewModel.clientId, viewModel.interventionTypeId, viewModel.interventionCost, viewModel.interventionHours);
+                ModelState.AddModelError("success", "Intervention Created Successfully!");
             }
             catch (Exception ex)
             {
-
                 ModelState.AddModelError(string.Empty, ex);
             }
             var clients = siteEngineerHelper.ListCurrentClients();
@@ -233,16 +223,15 @@ namespace Assignment2.Controllers
         /// <returns>View</returns>
         public ActionResult ViewClientsInterventions(int? id)
         {
-            if (id == null)
+            int clientId = (id == null) ? 0 : (int)id;
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             IList<ListInterventionViewModel> viewModel = new List<ListInterventionViewModel>();
-            var usersIntervention = new InterventionHelper();
             try
             {
-                viewModel = usersIntervention.ListOfClientsInterventions(id);
-
+                viewModel = siteEngineerHelper.ListOfClientsInterventions(clientId);
             }
             catch (Exception ex)
             {
