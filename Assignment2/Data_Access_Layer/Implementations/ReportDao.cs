@@ -12,6 +12,9 @@ namespace Assignment2.Data_Access_Layer
         private CustomDBContext context;
         private ApplicationDbContext context1;
 
+        /// <summary>
+        /// This method is used for getting total costs by engineer view
+        /// </summary>
         public IList<TotalCostsByEngineerModel> TotalCostsByEngineerView()
         {
             context = new CustomDBContext();
@@ -51,7 +54,9 @@ namespace Assignment2.Data_Access_Layer
             }
         }
 
-
+        /// <summary>
+        /// This method is used for getting average Costs by engineer view
+        /// </summary>
         public IList<AverageCostsByEngineerModel> AverageCostsByEngineerView()
         {
             context = new CustomDBContext();
@@ -91,7 +96,9 @@ namespace Assignment2.Data_Access_Layer
             }
         }
 
-
+        /// <summary>
+        /// This method is used for getting costs by district view
+        /// </summary>
         public IList<CostsByDistrictModel> CostsByDistrictView()
         {
             context = new CustomDBContext();
@@ -142,6 +149,9 @@ namespace Assignment2.Data_Access_Layer
             }
         }
 
+        /// <summary>
+        /// This method is used for getting monthly costs for district view
+        /// </summary>
         public IList<MonthlyCostsForDistrictModel> MonthlyCostsForDistrictView(string district)
         {
             var yearList = new List<int> { 2017 };

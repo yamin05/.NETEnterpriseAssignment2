@@ -16,6 +16,9 @@ namespace Assignment2.Data_Access_Layer
         private CustomDBContext context;
         private ApplicationDbContext context1;
 
+        /// <summary>
+        /// This method is used for getting user view
+        /// </summary>
         public IList<UserViewModel> GetUsersView()
         {
             context = new CustomDBContext();
@@ -47,7 +50,9 @@ namespace Assignment2.Data_Access_Layer
             }
         }
 
-
+        /// <summary>
+        /// This method is used for getting current users data with user id
+        /// </summary>
         public UserViewModel GetUserData(string userID)
         {
             IList<UserViewModel> userList = GetUsersView();
@@ -67,6 +72,9 @@ namespace Assignment2.Data_Access_Layer
             }
         }
 
+        /// <summary>
+        /// This method is used for updata user district with id and district
+        /// </summary>
         public void UpdateDistrictForUser(string userId, string district)
         {
             context = new CustomDBContext();
