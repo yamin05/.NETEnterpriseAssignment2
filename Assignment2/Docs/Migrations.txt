@@ -1,7 +1,7 @@
 ﻿================================================================================   CustomeDBContext   ========================================================================
 
 Enable-Migrations -ContextTypeName CustomDBContext -MigrationsDirectory Migrations\ENET
-add-migration -ConfigurationTypeName Assignment2.Migrations.ENET.Configuration "Initial"
+add-migration -ConfigurationTypeName Assignment2.Migrations.ENET.Configuration "Comment_Intervention"
 update-database -ConfigurationTypeName Assignment2.Migrations.ENET.Configuration
 
 ==============================================================================================================================================================================

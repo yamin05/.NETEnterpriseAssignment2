@@ -18,6 +18,7 @@ namespace Assignment2.Models.Database_Models
         public decimal InterventionHours { get; set; }
         public DateTime CreateDate { get; set; }
         public string Status { get; set; }
+        public String Comments { get; set; }
         public int? Condition { get; set; }
         public DateTime? ModifyDate { get; set; }
         [ForeignKey("CreatedByUserId")]

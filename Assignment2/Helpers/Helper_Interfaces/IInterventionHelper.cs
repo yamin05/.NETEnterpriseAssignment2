@@ -6,7 +6,7 @@ namespace Assignment2.Helpers
 {
     public interface IInterventionHelper
     {
-        void CreateIntervention(int clientId, int interventionTypeId, decimal interventionCost, decimal interventionHours);
+        void CreateIntervention(int clientId, int interventionTypeId, decimal interventionCost, decimal interventionHours, string comments);
         ListInterventionViewModel GetIntervention(int? userid);
         InterventionType GetInterventionTypeData(int interventionTypeId);
         User GetManagerData(string userId);

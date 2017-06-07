@@ -148,6 +148,45 @@ namespace Assignment2.Data_Access_Layer
         }
 
         /// <summary>
+        /// This method is used to change comment of an Intervention
+        /// </summary>
+        /// <param name="interventionId">id of an intervention</param>
+        /// <param name="life">current comment of an intervention</param>
+        public void UpdateComments(int interventionId, string comments)
+        {
+            using (context = new CustomDBContext())
+            {
+                var intervention =
+                from inter in context.Interventions
+                where inter.InterventionId == interventionId
+                select inter;
+                foreach (Intervention inter in intervention)
+                {
+                    if (!inter.Comments.Equals(comments))
+                    {
+                        inter.Comments = comments;
+                        inter.ModifyDate = DateTime.Now;
+                    }
+                    else
+                    {
+                        inter.Comments = comments;
+                    }
+                }
+                try
+                {
+                    context.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    throw new FailedToUpdateRecordException();
+                }
+
+            }
+
+
+        }
+
+        /// <summary>
         /// This method is used for change intervention status to Approved
         /// </summary>
         /// <param name="interventionId">Id of an intervention</param>

@@ -16,7 +16,11 @@ namespace Assignment2.Controllers
         public ManagerController(IManagerHelper _managerHelper)
         {
             managerHelper = _managerHelper;
-        } 
+        }
+        public ManagerController()
+        {
+            
+        }
 
         // GET: Manager
         public ActionResult Index()
@@ -84,6 +88,20 @@ namespace Assignment2.Controllers
             }
             return View(viewModel);
             
+        }
+        public ActionResult ListOfAssociatedInterventions()
+        {
+            IList<ListInterventionViewModel> viewModel = new List<ListInterventionViewModel>();
+            try
+            {
+                viewModel = managerHelper.GetListOfProposedInterventions();
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex);
+            }
+
+            return View(viewModel);
         }
     }
 }

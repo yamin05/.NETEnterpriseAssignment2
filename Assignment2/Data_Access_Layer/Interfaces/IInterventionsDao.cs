@@ -16,6 +16,7 @@ namespace Assignment2.Data_Access_Layer
         IList<Intervention> GetClientsInterventions(int clientId);
         IList<Intervention> GetInterventionsByStatus(string status);
         void UpdateLife(int interventionId, int? life);
+        void UpdateComments(int interventionId, string comments);
         void UpdateInterventionStatus_ToAppoved(int interventionId);
         void UpdateInterventionStatus_ToCompleted(int interventionId);
         void UpdateInterventionStatus_ToCancelled(int interventionId);

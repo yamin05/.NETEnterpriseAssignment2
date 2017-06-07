@@ -102,8 +102,8 @@ namespace Assignment2.Controllers
             try
             {
                 siteEngineerHelper.CreateIntervention(viewModel.clientId, viewModel.interventionTypeId, viewModel.interventionCost, viewModel.interventionHours);
-                ModelState.AddModelError("success", "Intervention Created Successfully!");
-            }
+                    ModelState.AddModelError("success", "Intervention Created Successfully!");
+                }
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex);
@@ -162,6 +162,7 @@ namespace Assignment2.Controllers
                 InterventionsDao interDao = new InterventionsDao();
 
                 interDao.UpdateLife(InterList.InterventionId, InterList.Condition);
+                interDao.UpdateComments(InterList.InterventionId, InterList.comments);
 
                 if (InterList.Status.Equals(Status.APPROVED))
                 {

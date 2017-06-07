@@ -262,6 +262,15 @@
     <Compile Include="Helpers\SiteEngineerHelper.cs" />
     <Compile Include="Helpers\InterventionHelper.cs" />
     <Compile Include="Helpers\UsersHelper.cs" />
+    <Compile Include="Migrations\ENET\201706070142135_InitialCreate.cs" />
+    <Compile Include="Migrations\ENET\201706070142135_InitialCreate.Designer.cs">
+      <DependentUpon>201706070142135_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ENET\201706070159016_Comment_Intervention.cs" />
+    <Compile Include="Migrations\ENET\201706070159016_Comment_Intervention.Designer.cs">
+      <DependentUpon>201706070159016_Comment_Intervention.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ENET\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AverageCostsByEngineerModel.cs" />
     <Compile Include="Models\ClientViewModel.cs" />
@@ -375,6 +384,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\ENET\201706070142135_InitialCreate.resx">
+      <DependentUpon>201706070142135_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\ENET\201706070159016_Comment_Intervention.resx">
+      <DependentUpon>201706070159016_Comment_Intervention.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
