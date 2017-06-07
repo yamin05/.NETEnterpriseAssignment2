@@ -14,11 +14,11 @@ using System.Collections.ObjectModel;
 namespace Assignment2.Helpers.Tests
 {
     [TestClass()]
-    public class InterventionHelperTests
+    public class SiteEngineerHelperTests
     {
         Mock<IUserDao> mockUserDao;
         Mock<IInterventionsDao> mockInterDao;
-        InterventionHelper InterventionHelper_UnderTest;
+        SiteEngineerHelper InterventionHelper_UnderTest;
 
         [TestMethod()]
         public void GetSiteEngineerDataTest()
@@ -28,7 +28,7 @@ namespace Assignment2.Helpers.Tests
             mockUserDao = new Mock<IUserDao>();
             mockInterDao = new Mock<IInterventionsDao>();
             mockUserDao.Setup(p => p.GetUser(user.UserId)).Returns(user);
-            InterventionHelper_UnderTest = new InterventionHelper(mockUserDao.Object, mockInterDao.Object);
+            InterventionHelper_UnderTest = new SiteEngineerHelper(mockUserDao.Object, mockInterDao.Object);
             InterventionHelper_UnderTest.GetSiteEngineerData(user.UserId);
             mockUserDao.VerifyAll();
         }
@@ -42,7 +42,7 @@ namespace Assignment2.Helpers.Tests
             mockUserDao = new Mock<IUserDao>();
             mockInterDao = new Mock<IInterventionsDao>();
             mockInterDao.Setup(p => p.GetInterventionType(intertype.InterventionTypeId)).Returns(intertype);
-            InterventionHelper_UnderTest = new InterventionHelper(mockUserDao.Object, mockInterDao.Object);
+            InterventionHelper_UnderTest = new SiteEngineerHelper(mockUserDao.Object, mockInterDao.Object);
             var inter = InterventionHelper_UnderTest.GetInterventionTypeData(intertype.InterventionTypeId);
             Assert.AreEqual(intertype.InterventionTypeName, inter.InterventionTypeName);
         }
@@ -58,7 +58,6 @@ namespace Assignment2.Helpers.Tests
             var mockinterventionHelper = new InterventionHelper();
             var status = mockinterventionHelper.ValidateInterventionStatus(requiredhours, requiredcost, user);
             Assert.AreEqual(Status.APPROVED, status);
-
         }
 
         [TestMethod()]
@@ -70,10 +69,9 @@ namespace Assignment2.Helpers.Tests
             user.UserId = "1";
             user.MaximumHours = 25;
             user.MaximumCost = 500;
-            var mockinterventionHelper = new InterventionHelper();
+            var mockinterventionHelper = new SiteEngineerHelper();
             var status = mockinterventionHelper.ValidateInterventionStatus(requiredhours, requiredcost, user);
             Assert.AreEqual(Status.PROPOSED, status);
-
         }
 
         [TestMethod]
@@ -98,6 +96,7 @@ namespace Assignment2.Helpers.Tests
             Collection<Intervention> collection = new Collection<Intervention>(list1);
             CollectionAssert.AreEqual(collection, list2);
         }
+
         [TestMethod]
         public void ValidateProposedInterventions_Test_Fail()
         {
@@ -143,9 +142,6 @@ namespace Assignment2.Helpers.Tests
             CollectionAssert.AreEqual(list_forProposed, Status_IsProposed);
             CollectionAssert.AreEqual(list_forAppoved, Status_IsApproved);
             CollectionAssert.AreEqual(list_forCompletd, Status_IsCompleted);
-
-
         }
-
     }
 }
