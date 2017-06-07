@@ -10,5 +10,6 @@ namespace Assignment2.Helpers
         IList<ListInterventionViewModel> GetListOfProposedInterventions();
         IList<string> GetPossibleStatusUpdateForIntervention(string status);
         Intervention UpdateInterventionStatus(int interventionId, string newStatus);
+        IList<ListInterventionViewModel> GetAssociatedIntervention_ForManager();
     }
 }

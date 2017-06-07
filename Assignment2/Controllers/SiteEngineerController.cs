@@ -179,8 +179,6 @@ namespace Assignment2.Controllers
                     interDao.UpdateInterventionStatus_ToCancelled(InterList.InterventionId);
                     ModelState.AddModelError("success", "Intervention Updated Successfully!");
                 }
-
-
             }
             return Redirect(Request.QueryString["url"]);
         }
