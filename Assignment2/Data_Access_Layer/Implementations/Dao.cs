@@ -25,6 +25,10 @@ namespace Assignment2.Data_Access_Layer
 
         private CustomDBContext context;
 
+        /// <summary>
+        /// This method is used for getting interventions for manager
+        /// </summary>
+        /// <returns>IList</returns>
         public IList<Intervention> GetInterventionsForManager(User manager)
         {
             using (context = new CustomDBContext())
@@ -40,6 +44,10 @@ namespace Assignment2.Data_Access_Layer
             }
         }
 
+        /// <summary>
+        /// This method is used for getting intervention with intervention id
+        /// </summary>
+        /// <returns>IList</returns>
         public Intervention GetIntervention(int InterventionId)
         {
             using (context = new CustomDBContext())
@@ -54,6 +62,11 @@ namespace Assignment2.Data_Access_Layer
             }
         }
 
+
+        /// <summary>
+        /// This method is used for updating interventions with new status
+        /// </summary>
+        /// <returns>IList</returns>
         public Intervention UpdateIntervention(int interventionId, User user, string oldStatus, string newStatus)
         {
             using (context = new CustomDBContext())
@@ -82,6 +95,11 @@ namespace Assignment2.Data_Access_Layer
             }
         }
 
+
+        /// <summary>
+        /// This method is used for getting interventions with status
+        /// </summary>
+        /// <returns>IList</returns>
         public IList<Intervention> GetInterventions(string status)
         {
             using (context = new CustomDBContext())

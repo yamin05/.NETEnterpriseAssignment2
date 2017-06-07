@@ -9,6 +9,10 @@ namespace Assignment2.Data_Access_Layer
     public class InterventionTypeDao : IInterventionTypeDao
     {
         private CustomDBContext context;
+
+        /// <summary>
+        /// This method is used for getting all intervention types
+        /// </summary>
         public IList<InterventionType> GetAllInterventionTypes()
         {
             using (context = new CustomDBContext())
@@ -18,6 +22,9 @@ namespace Assignment2.Data_Access_Layer
             }
         }
 
+        /// <summary>
+        /// This method is used for getting intervention with intervention id
+        /// </summary>
         public InterventionType GetIntervention(int interventionTypeId)
         {
             using (context = new CustomDBContext())

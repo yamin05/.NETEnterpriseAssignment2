@@ -41,6 +41,10 @@ namespace Assignment2.Data_Access_Layer
 
         }
 
+        /// <summary>
+        /// This method is used for getting intervention with intervention id
+        /// </summary>
+        /// <returns>IList</returns>
         public Intervention GetIntervention(int? InterventionId)
         {
             using (context = new CustomDBContext())
@@ -91,6 +95,11 @@ namespace Assignment2.Data_Access_Layer
             }
         }
 
+
+        /// <summary>
+        /// This method is used for getting interventions with status
+        /// </summary>
+        /// <returns>IList</returns>
         public IList<Intervention> GetInterventionsByStatus(string status)
         {
             using (context = new CustomDBContext())
