@@ -7,7 +7,7 @@ using WebApplication2.Exceptions;
 
 namespace Assignment2.Helpers
 {
-    public class SiteEngineerHelper
+    public  class SiteEngineerHelper : ISiteEngineerHelper
     {
         private Dao dao = new Dao();
 
