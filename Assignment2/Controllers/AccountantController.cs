@@ -31,6 +31,11 @@ namespace Assignment2.Controllers
             return View();
         }
 
+
+        /// <summary>
+        /// This method is used to navigation for accountant user
+        /// </summary>
+        /// <returns>view</returns>
         [HttpPost]
         public ActionResult Index(string Button)
         {
@@ -57,7 +62,10 @@ namespace Assignment2.Controllers
             return View();
         }
 
-
+        /// <summary>
+        /// This method is used to view all users list 
+        /// </summary>
+        /// <returns>view</returns>
         public ActionResult ListOfUsers()
         {
             IList<UserViewModel> viewModel = new List<UserViewModel>();
@@ -73,6 +81,11 @@ namespace Assignment2.Controllers
             return View(viewModel);
         }
 
+
+        /// <summary>
+        /// This method is used to view user detail for change district
+        /// </summary>
+        /// <returns>view</returns>
         public ActionResult ChangeDistrictForUsers(string userId)
         {
             if (userId == null)
@@ -89,6 +102,10 @@ namespace Assignment2.Controllers
             return View(userDetail);
         }
 
+        /// <summary>
+        /// This method is used to update user detail for change district
+        /// </summary>
+        /// <returns>view</returns>
         [HttpPost]
         public ActionResult ChangeDistrictForUsers(UserViewModel UserViewModel)
         {
@@ -113,8 +130,11 @@ namespace Assignment2.Controllers
             return View(UserViewModel);
         }
 
-        //Report
 
+        /// <summary>
+        /// This method is used to view total costs by engineer report
+        /// </summary>
+        /// <returns>view</returns>
         public ActionResult TotalCostsByEngineerReport()
         {
             IList<TotalCostsByEngineerModel> viewModel = new List<TotalCostsByEngineerModel>();
@@ -130,7 +150,10 @@ namespace Assignment2.Controllers
             return View(viewModel);
         }
 
-
+        /// <summary>
+        /// This method is used to view average costs by engineer report
+        /// </summary>
+        /// <returns>view</returns>
         public ActionResult AverageCostsByEngineerReport()
         {
             IList<AverageCostsByEngineerModel> viewModel = new List<AverageCostsByEngineerModel>();
@@ -146,6 +169,10 @@ namespace Assignment2.Controllers
             return View(viewModel);
         }
 
+        /// <summary>
+        /// This method is used to view costs by district report
+        /// </summary>
+        /// <returns>view</returns>
         public ActionResult CostsByDistrictReport()
         {
             IList<CostsByDistrictModel> viewModel = new List<CostsByDistrictModel>();
@@ -161,6 +188,10 @@ namespace Assignment2.Controllers
             return View(viewModel);
         }
 
+        /// <summary>
+        /// This method is used to view monthly costs for district report
+        /// </summary>
+        /// <returns>view</returns>
         public ActionResult MonthlyCostsForDistrictReport()
         {
             var Users = new UsersHelper();
@@ -170,7 +201,10 @@ namespace Assignment2.Controllers
             return View(viewModel);
         }
 
-
+        /// <summary>
+        /// This method is used to view monthly costs for district report based on search
+        /// </summary>
+        /// <returns>view</returns>
         [HttpPost]
         public ActionResult MonthlyCostsForDistrictReport(FormCollection fc, string district)
         {

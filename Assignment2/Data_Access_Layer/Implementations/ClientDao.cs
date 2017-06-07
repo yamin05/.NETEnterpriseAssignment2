@@ -33,6 +33,11 @@ namespace Assignment2.Data_Access_Layer
             }
         }
 
+
+        /// <summary>
+        /// This method is used for getting all clients associated with the district
+        /// </summary>
+        /// <returns>IList</returns>
         public IList<Client> GetClientsInDistrict(string district)
         {
             using (context = new CustomDBContext())
@@ -44,6 +49,11 @@ namespace Assignment2.Data_Access_Layer
             }
         }
 
+
+        /// <summary>
+        /// This method is used for getting a client detail based on the clientID
+        /// </summary>
+        /// <returns>IList</returns>
         public Client GetClient(int clientId)
         {
             using (context = new CustomDBContext())
@@ -56,6 +66,10 @@ namespace Assignment2.Data_Access_Layer
             }
         }
 
+        /// <summary>
+        /// This method is used for getting a client detail in the same district based on the userid and district
+        /// </summary>
+        /// <returns>IList</returns>
         public IList<Client> GetCurrentClients(string userId, string district)
         {
             using (context = new CustomDBContext())

@@ -34,6 +34,10 @@ namespace Assignment2.Controllers
             return RedirectToAction(Button);
         }
 
+        /// <summary>
+        /// This method is used to view all intervention 
+        /// </summary>
+        /// <returns>view</returns>
         public ActionResult ListOfInterventions()
         {
             IList<ListInterventionViewModel> viewModel = new List<ListInterventionViewModel>();
@@ -49,6 +53,11 @@ namespace Assignment2.Controllers
             return View(viewModel);
         }
 
+
+        /// <summary>
+        /// This method is used to view intervention detail and can edit for that based on interventionId
+        /// </summary>
+        /// <returns>view</returns>
         public ActionResult EditIntervention(int interventionId)
         {
             ListInterventionViewModel viewModel = new ListInterventionViewModel();
@@ -66,7 +75,10 @@ namespace Assignment2.Controllers
             return View(viewModel);
         }
 
-
+        /// <summary>
+        /// This method is used to view intervention detail and can edit for that 
+        /// </summary>
+        /// <returns>view</returns>
         [HttpPost]
         public ActionResult EditIntervention(ListInterventionViewModel viewModel)
         {
@@ -89,6 +101,12 @@ namespace Assignment2.Controllers
             return View(viewModel);
             
         }
+
+
+        /// <summary>
+        /// This method is used to view associated interventions 
+        /// </summary>
+        /// <returns>view</returns>
         public ActionResult ListOfAssociatedInterventions()
         {
             IList<ListInterventionViewModel> viewModel = new List<ListInterventionViewModel>();

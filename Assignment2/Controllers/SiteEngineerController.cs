@@ -28,17 +28,17 @@ namespace Assignment2.Controllers
             return View();
         }
 
-        /// <summary>
-        /// This method is used to view all associated interventions to user
-        /// </summary>
-        /// <returns>List</returns>
-        
+
         [HttpPost]
         public ActionResult Index(string Button)
         {
             return RedirectToAction(Button);
         }
 
+        /// <summary>
+        /// This method is used to list all intervention
+        /// </summary>
+        /// <returns>view</returns>
         public ActionResult ListInterventions()
         {
             IList<ListInterventionViewModel> viewModel = new List<ListInterventionViewModel>();
@@ -203,6 +203,13 @@ namespace Assignment2.Controllers
             return View(viewModel);
         }
 
+
+
+
+        /// <summary>
+        /// This method is used for list all clients in the same district
+        /// </summary>
+        /// <returns>View</returns>
         public ActionResult ViewClientsInDistrict()
         {
             IList<ListClientsViewModel> viewModel = new List<ListClientsViewModel>();

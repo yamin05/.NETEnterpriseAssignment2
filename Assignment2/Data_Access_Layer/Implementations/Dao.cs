@@ -25,6 +25,10 @@ namespace Assignment2.Data_Access_Layer
 
         private CustomDBContext context;
 
+        /// <summary>
+        /// This method is used for getting all intervention for manager based on manger
+        /// </summary>
+        /// <returns>IList</returns>
         public IList<Intervention> GetInterventionsForManager(User manager)
         {
             using (context = new CustomDBContext())
