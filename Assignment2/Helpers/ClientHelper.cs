@@ -1,4 +1,5 @@
 ﻿using Assignment2.Data_Access_Layer;
+using Assignment2.Helpers.Helper_Interfaces;
 using Assignment2.Models;
 using Assignment2.Models.Database_Models;
 using System;
@@ -12,7 +13,7 @@ namespace Assignment2.Helpers
     /// <summary>
     /// This class act as a helper for listing clients
     /// </summary>
-    public class ClientHelper
+    public class ClientHelper : IClientHelper
     {
         private IClientDao clientDao;
 
