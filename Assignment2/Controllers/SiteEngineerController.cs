@@ -8,6 +8,7 @@ using Assignment2.Data_Access_Layer;
 using Assignment2.Models;
 using Assignment2.Helpers;
 using System.Web.UI.WebControls;
+using WebApplication2.Exceptions;
 
 namespace Assignment2.Controllers
 {
@@ -62,6 +63,11 @@ namespace Assignment2.Controllers
             try
             {
                 var clients = siteEngineerHelper.ListCurrentClients();
+                if (clients.Count == 0)
+                {
+                    Exception ex = new NoClientCreatedException();
+                    ModelState.AddModelError("alert", ex.Message);
+                }
                 var listItems = new List<ListItem>();
                 foreach (var client in clients)
                 {
