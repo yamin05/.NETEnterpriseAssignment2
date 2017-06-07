@@ -228,7 +228,6 @@
     <Compile Include="Exceptions\CannotEditDistrictRecordException.cs" />
     <Compile Include="Exceptions\CannotEditStatusException.cs" />
     <Compile Include="Exceptions\ClientAdditionConflictException.cs" />
-    <Compile Include="Exceptions\EditQMInfoPermissionException.cs" />
     <Compile Include="Exceptions\EditStatusPermissionException.cs" />
     <Compile Include="Exceptions\ExcedesAllowedCostException.cs" />
     <Compile Include="Exceptions\ExcedesAllowedHoursException.cs" />
@@ -238,18 +237,9 @@
     <Compile Include="Exceptions\FailedToUpdateRecordException.cs" />
     <Compile Include="Exceptions\FaliedToRetriveRecordException.cs" />
     <Compile Include="Exceptions\InterventionAdditionConflictExpection.cs" />
-    <Compile Include="Exceptions\InvalidConditionLimitException.cs" />
-    <Compile Include="Exceptions\InvalidConditionUpdateException.cs" />
-    <Compile Include="Exceptions\InvalidEmailFormatException.cs" />
-    <Compile Include="Exceptions\InvalidPasswordFormatException.cs" />
     <Compile Include="Exceptions\MailSendException.cs" />
-    <Compile Include="Exceptions\QualityManagementAdditionConflict.cs" />
     <Compile Include="Exceptions\ValueIsNullException.cs" />
     <Compile Include="Exceptions\NoClientCreatedException.cs" />
-    <Compile Include="Exceptions\WrongCurrentPassword.cs" />
-    <Compile Include="Exceptions\WrongInputEmailException.cs" />
-    <Compile Include="Exceptions\WrongInputPasswordException.cs" />
-    <Compile Include="Exceptions\WrongUserInputException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
