@@ -22,34 +22,6 @@ namespace Assignment2
             }
         }
 
-        public void validateEmail(string inputEmail)
-        {
-            if (isNullOrEmpty(inputEmail))
-            {
-                throw new ValueIsNullException();
-            }
-            Regex regex = new Regex(@"\w + ([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*");
-            Match match = regex.Match(inputEmail);
-            if (!match.Success)
-            {
-                throw new InvalidEmailFormatException();
-            }
-        }
-
-        public void validatePassword(string inputPassword)
-        {
-            if (isNullOrEmpty(inputPassword))
-            {
-                throw new ValueIsNullException();
-            }
-            Regex regex = new Regex(@"\w{4,8}");
-            Match match = regex.Match(inputPassword);
-            if (!match.Success)
-            {
-                throw new InvalidEmailFormatException();
-            }
-        }
-
         public bool isNullOrEmpty<T>(T value)
         {
             if (typeof(T) == typeof(string))

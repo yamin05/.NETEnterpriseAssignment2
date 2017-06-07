@@ -215,9 +215,9 @@
     <Compile Include="Data_Access_Layer\Implementations\UserDao.cs" />
     <Compile Include="Data_Access_Layer\Implementations\UsersDao.cs" />
     <Compile Include="Data_Access_Layer\Interfaces\IClientDao.cs" />
-    <Compile Include="Data_Access_Layer\Interfaces\IDao.cs" />
     <Compile Include="Data_Access_Layer\IdentityDBInitializer.cs" />
     <Compile Include="Data_Access_Layer\CustomDBContext.cs" />
+    <Compile Include="Data_Access_Layer\Interfaces\IDao.cs" />
     <Compile Include="Data_Access_Layer\Interfaces\IInterventionsDao.cs" />
     <Compile Include="Data_Access_Layer\Implementations\InterventionsDao.cs" />
     <Compile Include="Data_Access_Layer\Interfaces\IInterventionType.cs" />
@@ -230,7 +230,6 @@
     <Compile Include="Exceptions\FailedToCreateRecordException.cs" />
     <Compile Include="Exceptions\FailedToUpdateRecordException.cs" />
     <Compile Include="Exceptions\FaliedToRetriveRecordException.cs" />
-    <Compile Include="Exceptions\InterventionAdditionConflictExpection.cs" />
     <Compile Include="Exceptions\MailSendException.cs" />
     <Compile Include="Exceptions\ValueIsNullException.cs" />
     <Compile Include="Exceptions\NoClientCreatedException.cs" />
