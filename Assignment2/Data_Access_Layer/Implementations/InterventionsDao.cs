@@ -171,6 +171,8 @@ namespace Assignment2.Data_Access_Layer
                 select inter;
                 foreach (Intervention inter in intervention)
                 {
+                    if (inter.Comments != null)
+                    {
                     if (!inter.Comments.Equals(comments))
                     {
                         inter.Comments = comments;
@@ -180,6 +182,12 @@ namespace Assignment2.Data_Access_Layer
                     {
                         inter.Comments = comments;
                     }
+                }
+                    else
+                    {
+                        inter.Comments = comments;
+                    }
+
                 }
                 try
                 {

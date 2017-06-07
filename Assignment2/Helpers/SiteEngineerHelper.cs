@@ -81,7 +81,9 @@ namespace Assignment2.Helpers
             }
         }
 
-        //This Function here creates a client
+        /// <summary>
+        /// This method is for creating client with client name, location and district
+        /// </summary>
         public void CreateClient (string clientName, string clientLocation, string clientDistrict)
         {
             var client = new Client();
@@ -101,6 +103,9 @@ namespace Assignment2.Helpers
             }
         }
 
+        /// <summary>
+        /// This method is for listing the clients list
+        /// </summary>
         public IList<ListClientsViewModel> ListOfClients()
         {
             try
@@ -253,6 +258,9 @@ namespace Assignment2.Helpers
 
         }
 
+        /// <summary>
+        /// This method is for list the clients and intervention with client id
+        /// </summary>
         public IList<ListInterventionViewModel> ListOfClientsInterventions(int clientId)
         {
             try
@@ -283,6 +291,9 @@ namespace Assignment2.Helpers
             }
         }
 
+        /// <summary>
+        /// This method is for getting possible status update for intervention for siteEngineer with status
+        /// </summary>
         public Dictionary<string, string> GetPossibleStatusUpdateForInterventionForSiteEngineer(string status)
         {
             Dictionary<string, string> list = new Dictionary<string, string>();
@@ -307,6 +318,9 @@ namespace Assignment2.Helpers
             return list;
         }
 
+        /// <summary>
+        /// This method is for getting the intervention with user id
+        /// </summary>
         public ListInterventionViewModel GetIntervention(int? userid)
         {
             Intervention Inter = new Intervention();

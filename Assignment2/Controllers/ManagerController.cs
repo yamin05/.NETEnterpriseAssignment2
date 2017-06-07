@@ -33,11 +33,10 @@ namespace Assignment2.Controllers
         {
             return RedirectToAction(Button);
         }
-
         /// <summary>
-        /// This method is used to view all intervention 
+        /// This action method is used retruns a list of interventions manager needs to approve or cancel
         /// </summary>
-        /// <returns>view</returns>
+        /// <returns>View</returns>
         public ActionResult ListOfInterventions()
         {
             IList<ListInterventionViewModel> viewModel = new List<ListInterventionViewModel>();
@@ -52,12 +51,10 @@ namespace Assignment2.Controllers
 
             return View(viewModel);
         }
-
-
         /// <summary>
-        /// This method is used to view intervention detail and can edit for that based on interventionId
+        /// This action method is used retruns a views for editing intervention
         /// </summary>
-        /// <returns>view</returns>
+        /// <returns>View</returns>
         public ActionResult EditIntervention(int interventionId)
         {
             ListInterventionViewModel viewModel = new ListInterventionViewModel();
@@ -76,9 +73,9 @@ namespace Assignment2.Controllers
         }
 
         /// <summary>
-        /// This method is used to view intervention detail and can edit for that 
+        /// This action method is used post edit to intervention and returns the changed intervention data.
         /// </summary>
-        /// <returns>view</returns>
+        /// <returns>View</returns>
         [HttpPost]
         public ActionResult EditIntervention(ListInterventionViewModel viewModel)
         {
@@ -101,18 +98,16 @@ namespace Assignment2.Controllers
             return View(viewModel);
             
         }
-
-
         /// <summary>
-        /// This method is used to view associated interventions 
+        /// This action method is used retruns a list of interventions manager as approved at any time.
         /// </summary>
-        /// <returns>view</returns>
+        /// <returns>View</returns>
         public ActionResult ListOfAssociatedInterventions()
         {
             IList<ListInterventionViewModel> viewModel = new List<ListInterventionViewModel>();
             try
             {
-                viewModel = managerHelper.GetListOfProposedInterventions();
+                viewModel = managerHelper.GetAssociatedIntervention_ForManager();
             }
             catch (Exception ex)
             {

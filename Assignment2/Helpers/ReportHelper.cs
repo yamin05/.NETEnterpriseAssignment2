@@ -15,6 +15,9 @@ namespace Assignment2.Helpers
             reportDao = new ReportDao();
         }
 
+        /// <summary>
+        /// This method is for view the total costs by engineer view
+        /// </summary>
         public IList<TotalCostsByEngineerModel> TotalCostsByEngineerView()
         {
             IList<TotalCostsByEngineerModel> viewList = new List<TotalCostsByEngineerModel>();
@@ -22,6 +25,9 @@ namespace Assignment2.Helpers
             return viewList;
         }
 
+        /// <summary>
+        /// This method is for view the average costs by engineer view
+        /// </summary>
         public IList<AverageCostsByEngineerModel> AverageCostsByEngineerView()
         {
             IList<AverageCostsByEngineerModel> viewList = new List<AverageCostsByEngineerModel>();
@@ -29,6 +35,9 @@ namespace Assignment2.Helpers
             return viewList;
         }
 
+        /// <summary>
+        /// This method is for view the costs by district view
+        /// </summary>
         public IList<CostsByDistrictModel> CostsByDistrictView()
         {
             IList<CostsByDistrictModel> viewList = new List<CostsByDistrictModel>();        
@@ -36,6 +45,9 @@ namespace Assignment2.Helpers
             return viewList;
         }
 
+        /// <summary>
+        /// This method is for view the monthly costs for district view with district
+        /// </summary>
         public IList<MonthlyCostsForDistrictModel> MonthlyCostsForDistrictView(string district)
         {
             IList<MonthlyCostsForDistrictModel> viewList = new List<MonthlyCostsForDistrictModel>();
