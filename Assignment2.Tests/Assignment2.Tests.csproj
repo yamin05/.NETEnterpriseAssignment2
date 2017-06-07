@@ -119,7 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ManagerControllerTests.cs" />
-    <Compile Include="Helpers\InterventionHelperTests.cs" />
+    <Compile Include="Helpers\SiteEngineerHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

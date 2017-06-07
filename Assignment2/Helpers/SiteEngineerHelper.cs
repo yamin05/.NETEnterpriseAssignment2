@@ -10,6 +10,30 @@ namespace Assignment2.Helpers
     public  class SiteEngineerHelper : ISiteEngineerHelper
     {
         private Dao dao = new Dao();
+        private IUserDao uDao = new UserDao();
+        private IInterventionsDao interventionDao = new InterventionsDao();
+
+        public SiteEngineerHelper(IUserDao object1, IInterventionsDao object2)
+        {
+            uDao = object1;
+            interventionDao = object2;
+        }
+
+        public SiteEngineerHelper()
+        {
+        }
+
+        public virtual User GetSiteEngineerData(string userId)
+        {
+            User siteEngineer = uDao.GetUser(userId);
+            return siteEngineer;
+        }
+
+        public InterventionType GetInterventionTypeData(int interventionTypeId)
+        {
+            InterventionType interventionType = interventionDao.GetInterventionType(interventionTypeId);
+            return interventionType;
+        }
 
         /// <summary>
         /// This method is for getting district of the current User
@@ -19,7 +43,7 @@ namespace Assignment2.Helpers
         {
             try
             {
-                string district = dao.user.GetUserDistrict(Utils.getInstance.GetCurrentUserId());
+                string district = uDao.GetUserDistrict(Utils.getInstance.GetCurrentUserId());
                 return district;
             }
             catch (Exception)
@@ -107,7 +131,7 @@ namespace Assignment2.Helpers
             try
             { 
                 IList<ListInterventionViewModel> ViewList = new List<ListInterventionViewModel>();
-                var interventions = dao.intervention.GetInterventionsForUser(Utils.getInstance.GetCurrentUserId());
+                var interventions = interventionDao.GetInterventionsForUser(Utils.getInstance.GetCurrentUserId());
 
                 foreach (var inter in interventions)
                 {
@@ -157,16 +181,18 @@ namespace Assignment2.Helpers
         public void CreateIntervention(int clientId, int interventionTypeId, decimal interventionCost, decimal interventionHours)
         {
             var intervention = new Intervention();
-            intervention.Status = ValidateInterventionStatus(interventionTypeId, interventionHours, interventionCost);
+            var siteEngineer = GetSiteEngineerData(Utils.getInstance.GetCurrentUserId());
+            intervention.Status = ValidateInterventionStatus(interventionHours, interventionCost, siteEngineer);
             intervention.ClientId = clientId;
             intervention.InterventionTypeId = interventionTypeId;
             intervention.InterventionCost = interventionCost;
             intervention.InterventionHours = interventionHours;
             intervention.CreatedByUserId = Utils.getInstance.GetCurrentUserId();
+            intervention.Comments = String.Empty;
             intervention.CreateDate = DateTime.Now;
             try
             {
-                dao.intervention.AddIntervention(intervention);
+                interventionDao.AddIntervention(intervention);
             }
             catch (Exception)
             {
@@ -174,20 +200,21 @@ namespace Assignment2.Helpers
             }
         }
 
-        public string ValidateInterventionStatus(int interventionTypeId, decimal requiredHours, decimal requiredCost)
+        public string ValidateInterventionStatus(decimal requiredHours, decimal requiredCost, User siteEngineer)
         {
-            User siteEngineer = dao.user.GetUser(Utils.getInstance.GetCurrentUserId());
             decimal userMaxCost = siteEngineer.MaximumCost;
             decimal userMaxHours = siteEngineer.MaximumHours;
 
             if (userMaxCost >= requiredCost && userMaxHours >= requiredHours)
             {
+
                 return Status.APPROVED;
             }
             else
             {
                 return Status.PROPOSED;
             }
+
         }
 
         public IList<ListInterventionViewModel> ListOfClientsInterventions(int clientId)
@@ -195,7 +222,7 @@ namespace Assignment2.Helpers
             try
             {
                 IList<ListInterventionViewModel> ViewList = new List<ListInterventionViewModel>();
-                var interventions = dao.intervention.GetClientsInterventions(clientId);
+                var interventions = interventionDao.GetClientsInterventions(clientId);
 
                 foreach (var inter in interventions)
                 {

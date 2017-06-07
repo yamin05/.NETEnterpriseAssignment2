@@ -14,6 +14,6 @@ namespace Assignment2.Helpers
         IList<InterventionType> ListInterventionTypes();
         IList<ListClientsViewModel> ListOfClients();
         IList<ListClientsViewModel> ListOfClientsInDistrict();
-        string ValidateInterventionStatus(int interventionTypeId, decimal requiredHours, decimal requiredCost);
+        string ValidateInterventionStatus(decimal requiredHours, decimal requiredCost, User siteEngineer);
     }
 }
